@@ -696,6 +696,13 @@ document.addEventListener('DOMContentLoaded', () => {
         decrementCount(type);
       }
 
+      if (row.classList.contains('sub-row')) {
+        const block = row.closest('.domain-block') || row.parentElement.parentElement;
+        if (block && typeof window.updateConfirmAllButtonState === 'function') {
+          window.updateConfirmAllButtonState(block);
+        }
+      }
+
       // 4. Create and append the Undo button
       const undoBtn = document.createElement('button');
       undoBtn.className = 'action-undo-btn';
@@ -739,6 +746,13 @@ document.addEventListener('DOMContentLoaded', () => {
           incrementCount(type);
         }
         showToast(`Action undone for: ${rowName}`);
+
+        if (row.classList.contains('sub-row')) {
+          const block = row.closest('.domain-block') || row.parentElement.parentElement;
+          if (block && typeof window.updateConfirmAllButtonState === 'function') {
+            window.updateConfirmAllButtonState(block);
+          }
+        }
       });
 
       rowActions.appendChild(undoBtn);
@@ -792,6 +806,41 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('#panel-domains .infra-row').forEach(row => bindActionButtons(row, 'domains'));
   document.querySelectorAll('#panel-databases .infra-row').forEach(row => bindActionButtons(row, 'databases'));
 
+  const updateConfirmAllButtonState = (block) => {
+    const btn = block.querySelector('.confirm-all-subs-btn');
+    if (!btn) return;
+
+    const subrows = block.querySelectorAll('.nested-subdomains .infra-row.sub-row');
+    let allConfirmed = true;
+
+    subrows.forEach(subRow => {
+      const undoBtn = subRow.querySelector('.action-undo-btn');
+      if (!undoBtn) {
+        allConfirmed = false;
+      }
+    });
+
+    if (allConfirmed && subrows.length > 0) {
+      btn.innerHTML = `
+        <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="3" fill="none" style="display:inline; vertical-align:middle; margin-right:3px;">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+          <polyline points="3 3 3 8 8 8" />
+        </svg> Undo All Subdomains
+      `;
+      btn.classList.add('undo-state');
+      btn.style.background = 'rgba(239, 68, 68, 0.08)';
+      btn.style.borderColor = 'rgba(239, 68, 68, 0.2)';
+      btn.style.color = '#ef4444';
+    } else {
+      btn.innerHTML = `✓ Confirm All Subdomains`;
+      btn.classList.remove('undo-state');
+      btn.style.background = 'rgba(0, 242, 254, 0.06)';
+      btn.style.borderColor = 'rgba(0, 242, 254, 0.15)';
+      btn.style.color = 'var(--cyber-cyan)';
+    }
+  };
+  window.updateConfirmAllButtonState = updateConfirmAllButtonState;
+
   // Bind Confirm All Subdomains buttons
   const bindConfirmAllSubsButtons = () => {
     document.querySelectorAll('.confirm-all-subs-btn').forEach(btn => {
@@ -801,19 +850,26 @@ document.addEventListener('DOMContentLoaded', () => {
           e.stopPropagation();
           const block = btn.closest('.domain-block') || btn.parentElement.parentElement;
           if (block) {
-            let confirmedAny = false;
-            block.querySelectorAll('.nested-subdomains .infra-row.sub-row').forEach(subRow => {
-              const confirmBtn = subRow.querySelector('.action-confirm-btn');
-              if (confirmBtn && confirmBtn.style.display !== 'none' && !confirmBtn.classList.contains('hidden')) {
-                confirmBtn.click();
-                confirmedAny = true;
-              }
-            });
-            if (confirmedAny) {
-              showToast("Confirmed all subdomains for this domain.");
+            if (btn.classList.contains('undo-state')) {
+              // Undo all
+              block.querySelectorAll('.nested-subdomains .infra-row.sub-row').forEach(subRow => {
+                const undoBtn = subRow.querySelector('.action-undo-btn');
+                if (undoBtn) {
+                  undoBtn.click();
+                }
+              });
             } else {
-              showToast("All subdomains are already confirmed.");
+              // Confirm all
+              let confirmedAny = false;
+              block.querySelectorAll('.nested-subdomains .infra-row.sub-row').forEach(subRow => {
+                const confirmBtn = subRow.querySelector('.action-confirm-btn');
+                if (confirmBtn && confirmBtn.style.display !== 'none' && !confirmBtn.classList.contains('hidden')) {
+                  confirmBtn.click();
+                  confirmedAny = true;
+                }
+              });
             }
+            updateConfirmAllButtonState(block);
           }
         });
       }
@@ -3177,13 +3233,28 @@ document.addEventListener('DOMContentLoaded', () => {
       if (alertObj.status === 'resolved') {
         status = 'healthy';
         statusLabel = 'Resolved';
+        remediations = ["No remediation required. System resolved and running healthy."];
       } else {
         status = alertObj.severity || 'critical';
         statusLabel = status === 'critical' ? 'Critical' : 'Warning';
+        
+        if (status === 'warning') {
+          remediations = [
+            `Identify resource-consuming processes: SSH into <strong>${serverName}</strong> and inspect CPU load using <code>top -b -n 1 -o +%CPU | head -15</code>.`,
+            `Analyze container statistics and system daemon resources using <code>systemctl status node-exporter</code> or <code>docker stats --no-stream</code>.`,
+            `Verify traffic routing balance at the load balancer and check system socket limits in <code>/etc/security/limits.conf</code>.`
+          ];
+        } else {
+          remediations = [
+            `Terminate runaway processes immediately: SSH into <strong>${serverName}</strong> and run <code>kill -9 &lt;PID&gt;</code> to release resources.`,
+            `Restart the offending application service node or container daemon: <code>systemctl restart docker.service</code>.`,
+            `Examine system log files for out-of-memory (OOM) killer events: <code>journalctl -xe --since "5m ago"</code> or <code>dmesg | tail -30</code>.`,
+            `Scale active application worker nodes in the cluster load balancer pool: <code>kubectl scale deployment/app-worker --replicas=5</code>.`
+          ];
+        }
       }
       timestamp = alertObj.timestamp;
       reason = alertObj.reason;
-      remediations = alertObj.remediations;
     } else {
       // It's a server node from State page
       const node = data;
@@ -3198,7 +3269,21 @@ document.addEventListener('DOMContentLoaded', () => {
         status = activeAlert.severity || 'critical';
         statusLabel = status === 'critical' ? 'Critical' : 'Warning';
         reason = activeAlert.reason;
-        remediations = activeAlert.remediations;
+        
+        if (status === 'warning') {
+          remediations = [
+            `Identify resource-consuming processes: SSH into <strong>${serverName}</strong> and inspect CPU load using <code>top -b -n 1 -o +%CPU | head -15</code>.`,
+            `Analyze container statistics and system daemon resources using <code>systemctl status node-exporter</code> or <code>docker stats --no-stream</code>.`,
+            `Verify traffic routing balance at the load balancer and check system socket limits in <code>/etc/security/limits.conf</code>.`
+          ];
+        } else {
+          remediations = [
+            `Terminate runaway processes immediately: SSH into <strong>${serverName}</strong> and run <code>kill -9 &lt;PID&gt;</code> to release resources.`,
+            `Restart the offending application service node or container daemon: <code>systemctl restart docker.service</code>.`,
+            `Examine system log files for out-of-memory (OOM) killer events: <code>journalctl -xe --since "5m ago"</code> or <code>dmesg | tail -30</code>.`,
+            `Scale active application worker nodes in the cluster load balancer pool: <code>kubectl scale deployment/app-worker --replicas=5</code>.`
+          ];
+        }
       } else {
         status = node.cpu >= 90 ? 'critical' : (node.cpu >= 80 ? 'warning' : 'healthy');
         statusLabel = node.cpu >= 90 ? 'Critical' : (node.cpu >= 80 ? 'Warning' : 'Healthy');
@@ -3206,10 +3291,25 @@ document.addEventListener('DOMContentLoaded', () => {
           ? `CPU utilization on ${serverName} exceeded the 90% critical threshold.` 
           : (node.cpu >= 80 ? `CPU utilization on ${serverName} exceeded the 80% warning threshold.` : `CPU utilization on ${serverName} is running within normal limits.`);
         
-        remediations = [
-          `Monitor system resources and check logs via SSH if CPU load increases.`,
-          `Ensure load balancer is distributing traffic evenly across all application boxes.`
-        ];
+        if (status === 'warning') {
+          remediations = [
+            `Identify resource-consuming processes: SSH into <strong>${serverName}</strong> and inspect CPU load using <code>top -b -n 1 -o +%CPU | head -15</code>.`,
+            `Analyze container statistics and system daemon resources using <code>systemctl status node-exporter</code> or <code>docker stats --no-stream</code>.`,
+            `Verify traffic routing balance at the load balancer and check system socket limits in <code>/etc/security/limits.conf</code>.`
+          ];
+        } else if (status === 'critical') {
+          remediations = [
+            `Terminate runaway processes immediately: SSH into <strong>${serverName}</strong> and run <code>kill -9 &lt;PID&gt;</code> to release resources.`,
+            `Restart the offending application service node or container daemon: <code>systemctl restart docker.service</code>.`,
+            `Examine system log files for out-of-memory (OOM) killer events: <code>journalctl -xe --since "5m ago"</code> or <code>dmesg | tail -30</code>.`,
+            `Scale active application worker nodes in the cluster load balancer pool: <code>kubectl scale deployment/app-worker --replicas=5</code>.`
+          ];
+        } else {
+          remediations = [
+            `Monitor system resources and check logs via SSH if CPU load increases.`,
+            `Ensure load balancer is distributing traffic evenly across all application boxes.`
+          ];
+        }
       }
     }
 
@@ -4378,6 +4478,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (typeof initWazuhReportGenerator === 'function') {
       initWazuhReportGenerator();
+    }
+
+    // 11. Wazuh Analytics Severity Donut Hover details
+    const segments = document.querySelectorAll('.severity-segment');
+    const infoTitle = document.getElementById('chart-info-title');
+    const infoVal = document.getElementById('chart-info-val');
+
+    if (segments.length > 0 && infoTitle && infoVal) {
+      const details = {
+        '3': { title: 'Rule level >= 3', val: '70% (Low)', color: 'var(--cyber-green)' },
+        '7': { title: 'Rule level >= 7', val: '20% (Medium)', color: '#3b82f6' },
+        '12': { title: 'Rule level >= 12', val: '8% (High)', color: '#fb923c' },
+        '15': { title: 'Rule level >= 15', val: '2% (Critical)', color: '#ef4444' }
+      };
+
+      segments.forEach(seg => {
+        const lvl = seg.getAttribute('data-level');
+        const data = details[lvl];
+        if (!data) return;
+
+        seg.addEventListener('mouseenter', () => {
+          seg.setAttribute('stroke-width', '4.2');
+          seg.style.filter = `drop-shadow(0 0 6px ${data.color})`;
+          
+          infoTitle.textContent = data.title;
+          infoTitle.style.color = data.color;
+          infoVal.textContent = data.val;
+          infoVal.style.color = 'var(--text-primary)';
+        });
+
+        seg.addEventListener('mouseleave', () => {
+          seg.setAttribute('stroke-width', '3');
+          seg.style.filter = '';
+          
+          infoTitle.textContent = 'Wazuh Level';
+          infoTitle.style.color = 'var(--text-muted)';
+          infoVal.textContent = 'Select Segment';
+          infoVal.style.color = 'var(--text-primary)';
+        });
+      });
     }
   }
 

@@ -2130,6 +2130,43 @@ body.light-theme .drawer-playbook-card {
   border-color: #e2e8f0;
 }
 
+/* Premium Download Button */
+.download-report-btn {
+  background: rgba(0, 242, 254, 0.05);
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  color: var(--cyber-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.3rem 0.65rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.download-report-btn:hover {
+  background: rgba(0, 242, 254, 0.15);
+  border-color: var(--cyber-cyan);
+  box-shadow: 0 0 8px rgba(0, 242, 254, 0.35);
+  color: var(--text-primary);
+}
+
+body.light-theme .download-report-btn {
+  background: rgba(2, 132, 199, 0.05);
+  border-color: rgba(2, 132, 199, 0.25);
+  color: #0284c7;
+}
+
+body.light-theme .download-report-btn:hover {
+  background: rgba(2, 132, 199, 0.12);
+  border-color: #0284c7;
+  box-shadow: 0 0 8px rgba(2, 132, 199, 0.3);
+  color: #0284c7;
+}
+
 /* Audit log card in Settings */
 .audit-log-card {
   display: flex;
@@ -7617,7 +7654,7 @@ body.light-theme .integ-name {
 .security-dashboard-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0.5rem 2rem 2rem 2rem;
 }
 
 .security-summary-card {
