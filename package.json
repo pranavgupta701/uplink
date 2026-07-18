@@ -1,0 +1,13 @@
+{
+  "name": "uplink-demo",
+  "version": "1.0.0",
+  "description": "Uplink Onboarding Discovery Wizard Demo",
+  "main": "app.js",
+  "scripts": {
+    "dev": "live-server --port=3000"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
