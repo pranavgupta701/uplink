@@ -4131,6 +4131,11 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
   let settingsAuditLogs = JSON.parse(localStorage.getItem('uplink_settings_audit_logs')) || [];
+  let wazuhReports = JSON.parse(localStorage.getItem('uplink_wazuh_reports')) || [
+    { name: "PCI-DSS_Compliance_Report_July_2026.pdf", date: "7/18/2026", size: "1.4 MB", type: "PCI-DSS" },
+    { name: "FIM_Verification_Audit_July_2026.pdf", date: "7/17/2026", size: "820 KB", type: "FIM" },
+    { name: "Vulnerability_Summary_Audit_June_2026.pdf", date: "6/30/2026", size: "2.1 MB", type: "Vulnerability" }
+  ];
 
   function initSocDashboard() {
     if (socInitialized) return;
@@ -4365,6 +4370,14 @@ document.addEventListener('DOMContentLoaded', () => {
           wazuhFimLog.removeChild(wazuhFimLog.lastChild);
         }
       }, 11000);
+    }
+
+    // Initialize Wazuh Reports list & interactive generator
+    if (typeof renderWazuhReports === 'function') {
+      renderWazuhReports();
+    }
+    if (typeof initWazuhReportGenerator === 'function') {
+      initWazuhReportGenerator();
     }
   }
 
@@ -4613,6 +4626,99 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   window.renderSettingsAuditLogs = renderSettingsAuditLogs;
+
+  function renderWazuhReports() {
+    const listContainer = document.getElementById('wazuh-reports-list');
+    if (!listContainer) return;
+
+    listContainer.innerHTML = '';
+    wazuhReports.forEach((rpt, idx) => {
+      const row = document.createElement('div');
+      row.style.cssText = 'display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.015); border: 1px solid rgba(255,255,255,0.05); border-radius: 6px; padding: 0.65rem 0.8rem; transition: all 0.2s; margin-bottom: 0.5rem;';
+      
+      row.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 0.65rem; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; flex: 1; padding-right: 1rem;">
+          <svg viewBox="0 0 24 24" width="15" height="15" stroke="#f43f5e" fill="none" stroke-width="2" style="flex-shrink: 0;">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+          </svg>
+          <div style="overflow: hidden; text-overflow: ellipsis;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-primary); overflow: hidden; text-overflow: ellipsis;">${rpt.name}</div>
+            <div style="font-size: 0.68rem; color: var(--text-muted); margin-top: 0.1rem;">Generated on ${rpt.date} · Size: ${rpt.size}</div>
+          </div>
+        </div>
+        <button class="secondary-btn-sm download-report-btn" style="font-size: 0.68rem; padding: 0.2rem 0.5rem; flex-shrink: 0; display: flex; align-items: center; gap: 0.3rem;">
+          <svg viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" fill="none" stroke-width="2.5">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Download
+        </button>
+      `;
+
+      row.querySelector('.download-report-btn').addEventListener('click', () => {
+        showToast(`Downloading file: ${rpt.name}`, true);
+      });
+
+      listContainer.appendChild(row);
+    });
+  }
+
+  function initWazuhReportGenerator() {
+    const generateBtn = document.getElementById('generate-wazuh-report-btn');
+    const progressContainer = document.getElementById('wazuh-report-progress-container');
+    const progressBar = document.getElementById('wazuh-report-progress-bar');
+    const progressStatus = document.getElementById('wazuh-report-progress-status');
+    const progressPct = document.getElementById('wazuh-report-progress-pct');
+
+    if (!generateBtn || !progressContainer) return;
+
+    generateBtn.addEventListener('click', () => {
+      generateBtn.disabled = true;
+      progressContainer.style.display = 'block';
+      progressBar.style.width = '0%';
+      progressPct.textContent = '0%';
+      progressStatus.textContent = 'Analyzing cluster logs...';
+
+      let pct = 0;
+      const interval = setInterval(() => {
+        pct += 5;
+        progressBar.style.width = `${pct}%`;
+        progressPct.textContent = `${pct}%`;
+
+        if (pct === 30) {
+          progressStatus.textContent = 'Extracting File Integrity metadata...';
+        } else if (pct === 60) {
+          progressStatus.textContent = 'Verifying compliance score benchmarks...';
+        } else if (pct === 85) {
+          progressStatus.textContent = 'Compiling PDF document layout...';
+        } else if (pct >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            progressContainer.style.display = 'none';
+            generateBtn.disabled = false;
+
+            const now = new Date();
+            const dateStr = now.toLocaleDateString();
+            const timeCode = now.getTime().toString().slice(-4);
+            const newReport = {
+              name: `Wazuh_Security_Audit_Report_${dateStr.replace(/\//g, '_')}_${timeCode}.pdf`,
+              date: dateStr,
+              size: "1.2 MB",
+              type: "Audit"
+            };
+
+            wazuhReports.unshift(newReport);
+            localStorage.setItem('uplink_wazuh_reports', JSON.stringify(wazuhReports));
+            renderWazuhReports();
+
+            showToast("Wazuh Security Audit Report generated successfully!", true);
+          }, 400);
+        }
+      }, 100);
+    });
+  }
 
   // ==========================================================================
   // SECURITY SIEM FINDINGS & NOTIFICATIONS LOGIC

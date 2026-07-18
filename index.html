@@ -2432,6 +2432,94 @@
             </div>
           </div>
         </div>
+
+        <!-- New Section: Wazuh Server Health & Report Storage -->
+        <div class="heatmap-split-row" style="margin-top: 1.5rem;">
+          <!-- Card 1: Wazuh Cluster Server Health -->
+          <div class="heatmap-map-card">
+            <h3 style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-primary);">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="var(--cyber-cyan)" fill="none" stroke-width="2.5" style="filter: drop-shadow(0 0 4px var(--border-cyber));">
+                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                <line x1="6" y1="18" x2="6.01" y2="18"></line>
+              </svg>
+              Wazuh Server Infrastructure Health
+            </h3>
+            <p class="card-desc">Active cluster nodes status and daemon telemetry tracking.</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); border-radius: 6px; padding: 0.75rem 1rem;">
+                <div>
+                  <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary);">wazuh-master-node-01</div>
+                  <div style="font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono); margin-top: 0.1rem;">IP: 10.100.1.15 · Leader</div>
+                </div>
+                <div style="text-align: right;">
+                  <span style="font-size: 0.65rem; font-weight: 800; padding: 0.15rem 0.45rem; border-radius: 4px; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.25); color: var(--cyber-green); text-transform: uppercase;">Active</span>
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); border-radius: 6px; padding: 0.75rem 1rem;">
+                <div>
+                  <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary);">wazuh-worker-node-02</div>
+                  <div style="font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono); margin-top: 0.1rem;">IP: 10.100.1.16 · Worker</div>
+                </div>
+                <div style="text-align: right;">
+                  <span style="font-size: 0.65rem; font-weight: 800; padding: 0.15rem 0.45rem; border-radius: 4px; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.25); color: var(--cyber-green); text-transform: uppercase;">Active</span>
+                </div>
+              </div>
+
+              <!-- Cluster System Resources Grid -->
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-top: 0.5rem;">
+                <div style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); border-radius: 6px; padding: 0.75rem; text-align: center;">
+                  <span style="font-size: 0.65rem; text-transform: uppercase; color: var(--text-muted); font-family: var(--font-mono);">Cluster CPU</span>
+                  <div style="font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin-top: 0.25rem;">12.4%</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); border-radius: 6px; padding: 0.75rem; text-align: center;">
+                  <span style="font-size: 0.65rem; text-transform: uppercase; color: var(--text-muted); font-family: var(--font-mono);">Cluster RAM</span>
+                  <div style="font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin-top: 0.25rem;">42.8%</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); border-radius: 6px; padding: 0.75rem; text-align: center;">
+                  <span style="font-size: 0.65rem; text-transform: uppercase; color: var(--text-muted); font-family: var(--font-mono);">Indices Disk</span>
+                  <div style="font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin-top: 0.25rem;">2.1 TB free</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Wazuh PDF & Compliance Reports Storage -->
+          <div class="heatmap-grid-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+              <h3 style="margin-bottom: 0; display: flex; align-items: center; gap: 0.5rem; color: var(--text-primary);">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="var(--cyber-cyan)" fill="none" stroke-width="2.5" style="filter: drop-shadow(0 0 4px var(--border-cyber));">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Wazuh Compliance Reports Storage
+              </h3>
+              <button class="primary-btn" id="generate-wazuh-report-btn" style="font-size: 0.72rem; padding: 0.3rem 0.65rem;">Generate Report</button>
+            </div>
+            <p class="card-desc">Download or generate PCI-DSS, GDPR, FIM, and system audit logs reports.</p>
+
+            <!-- Report Generator Progress bar (hidden by default) -->
+            <div id="wazuh-report-progress-container" style="display: none; background: rgba(0, 242, 254, 0.05); border: 1px solid rgba(0, 242, 254, 0.2); border-radius: 6px; padding: 0.75rem 1rem; margin-bottom: 1rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                <span id="wazuh-report-progress-status" style="font-size: 0.72rem; font-weight: 700; color: var(--text-primary);">Compiling compliance datasets...</span>
+                <span id="wazuh-report-progress-pct" style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--cyber-cyan);">0%</span>
+              </div>
+              <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; width: 100%;">
+                <div id="wazuh-report-progress-bar" style="width: 0%; height: 100%; background: var(--cyber-cyan); box-shadow: 0 0 8px var(--cyber-cyan); transition: width 0.1s;"></div>
+              </div>
+            </div>
+            
+            <div id="wazuh-reports-list" style="display: flex; flex-direction: column; gap: 0.6rem; max-height: 190px; overflow-y: auto; padding-right: 0.25rem;">
+              <!-- Dynamic reports row entries -->
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- PANEL 4: Wazuh Analytics Dashboard -->
