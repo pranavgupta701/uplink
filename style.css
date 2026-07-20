@@ -517,6 +517,62 @@ body::after {
   line-height: 1.4;
 }
 
+/* Recent Commits Log Section styling */
+.recent-commit-card {
+  background: rgba(13, 20, 38, 0.45);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 242, 254, 0.12);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all var(--transition-speed) ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.recent-commit-card:hover {
+  border-color: rgba(0, 242, 254, 0.35);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 242, 254, 0.1);
+  transform: translateX(2px);
+}
+
+.commit-card-info-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.commit-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.commit-scope-badge {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.1rem 0.45rem;
+  border-radius: 3px;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.commit-status-success {
+  color: var(--cyber-green);
+  background: rgba(5, 255, 196, 0.06);
+  border: 1px solid rgba(5, 255, 196, 0.15);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
 /* Dotted warning notice */
 .seeded-notice {
   background: rgba(11, 27, 49, 0.4);

@@ -965,6 +965,18 @@
     </div>
 
 
+    <!-- New Commit Session Top Container -->
+    <div id="new-commit-session-top-container" class="hidden" style="margin-top: 1.5rem; margin-bottom: 0.5rem; display: flex; justify-content: flex-end; width: 100%;">
+      <button id="start-new-commit-btn-top" style="background: rgba(0, 242, 254, 0.1); border: 1px solid var(--cyber-cyan); color: var(--cyber-cyan); font-size: 0.82rem; font-weight: 700; padding: 0.45rem 1.1rem; border-radius: 30px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 0.45rem; box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);" onmouseover="this.style.background='rgba(0, 242, 254, 0.2)'; this.style.boxShadow='0 0 25px rgba(0, 242, 254, 0.35)';" onmouseout="this.style.background='rgba(0, 242, 254, 0.1)'; this.style.boxShadow='0 0 15px rgba(0, 242, 254, 0.15)';">
+        Start New Commit Session
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none">
+          <polyline points="23 4 23 10 17 10"></polyline>
+          <polyline points="1 20 1 14 7 14"></polyline>
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+        </svg>
+      </button>
+    </div>
+
   <!-- Ingested From Section -->
   <section class="ingested-section hidden">
       <h2 class="section-subtitle">INGESTED FROM</h2>
@@ -999,6 +1011,14 @@
           <div class="card-label">Ansible</div>
           <div class="card-sub">#Service / #Environment roles (no count source)</div>
         </div>
+      </div>
+    </section>
+
+    <!-- Recent Commits Accountability Log -->
+    <section class="recent-commits-section hidden" style="margin-top: 2rem; margin-bottom: 2.5rem;">
+      <h2 class="section-subtitle">RECENT COMMITS</h2>
+      <div id="recent-commits-container" style="display: flex; flex-direction: column; gap: 0.6rem; margin-top: 0.8rem;">
+        <!-- Dynamic commit logs will be injected here -->
       </div>
     </section>
 
