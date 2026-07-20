@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.appendChild(toast);
       
       toast.style.position = 'fixed';
-      toast.style.bottom = '2rem';
+      toast.style.top = '84px';
       toast.style.right = '2rem';
       toast.style.backdropFilter = 'blur(8px)';
       toast.style.padding = '0.85rem 1.4rem';
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
       toast.style.fontSize = '0.9rem';
       toast.style.zIndex = '1100';
       toast.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-      toast.style.transform = 'translateY(100px)';
+      toast.style.transform = 'translateX(calc(100% + 2rem))';
       toast.style.opacity = '0';
     }
     
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toast.textContent = message;
     
     setTimeout(() => {
-      toast.style.transform = 'translateY(0)';
+      toast.style.transform = 'translateX(0)';
       toast.style.opacity = '1';
     }, 50);
     
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     window.toastTimeout = setTimeout(() => {
-      toast.style.transform = 'translateY(100px)';
+      toast.style.transform = 'translateX(calc(100% + 2rem))';
       toast.style.opacity = '0';
     }, 3500);
   };
@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="nested-subdomains">
             <!-- Select All Subdomains Option -->
             <div class="confirm-all-row" style="padding: 0.5rem 1.5rem; display: flex; justify-content: flex-end; border-bottom: 1px solid rgba(255, 255, 255, 0.03);">
-              <button class="confirm-all-subs-btn" style="background: rgba(0, 242, 254, 0.06); border: 1px solid rgba(0, 242, 254, 0.15); color: var(--cyber-cyan); font-size: 0.72rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 4px; cursor: pointer; transition: all 0.2s; font-family: var(--font-sans);">
+              <button class="confirm-all-subs-btn">
                 ✓ Confirm All Subdomains
               </button>
             </div>
@@ -444,18 +444,20 @@ document.addEventListener('DOMContentLoaded', () => {
         actionBtn.style.opacity = '1';
       }
     } else {
-      // Onboarding complete
+      // Onboarding complete: show option to start a new commit flow
       actionBtn.innerHTML = `
-        Onboarding Completed
+        Start New Commit Session
         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none">
-          <polyline points="20 6 9 17 4 12"></polyline>
+          <polyline points="23 4 23 10 17 10"></polyline>
+          <polyline points="1 20 1 14 7 14"></polyline>
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
         </svg>
       `;
-      actionBtn.style.background = 'rgba(5, 255, 196, 0.1)';
-      actionBtn.style.border = '1px solid var(--cyber-green)';
-      actionBtn.style.color = 'var(--cyber-green)';
-      actionBtn.style.boxShadow = '0 0 15px rgba(5, 255, 196, 0.15)';
-      actionBtn.style.cursor = 'default';
+      actionBtn.style.background = 'rgba(0, 242, 254, 0.1)';
+      actionBtn.style.border = '1px solid var(--cyber-cyan)';
+      actionBtn.style.color = 'var(--cyber-cyan)';
+      actionBtn.style.boxShadow = '0 0 15px rgba(0, 242, 254, 0.15)';
+      actionBtn.style.cursor = 'pointer';
     }
 
     // 5. Update left-side help descriptions in footer
@@ -484,6 +486,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // Handle click on Proceed Button
   actionBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    if (currentStep === 7) {
+      // Start a fresh commit session flow!
+      currentStep = 1;
+      const statusBadge = document.getElementById('report-status-badge');
+      if (statusBadge) {
+        statusBadge.textContent = "STATUS: PENDING COMMIT";
+        statusBadge.classList.remove('committed');
+      }
+      updateStepUI();
+      showToast("Started a new commit session. You can now adjust your onboarding steps and commit again!", true);
+      return;
+    }
     if (currentStep === 1 && addedSources.length === 0) {
       showToast("Please connect at least one data source first.");
       return;
@@ -576,6 +590,13 @@ document.addEventListener('DOMContentLoaded', () => {
     isCommitted = true;
     currentStep = 7;
     updateStepUI();
+    
+    // Enable pointer cursor on logo button
+    const logoContainer = document.querySelector('.logo-container');
+    if (logoContainer) {
+      logoContainer.style.cursor = 'pointer';
+      logoContainer.setAttribute('title', 'Navigate to State Dashboard');
+    }
     
     // Reveal Ingested From section at the bottom
     ingestedSection.classList.remove('hidden');
@@ -828,15 +849,9 @@ document.addEventListener('DOMContentLoaded', () => {
         </svg> Undo All Subdomains
       `;
       btn.classList.add('undo-state');
-      btn.style.background = 'rgba(239, 68, 68, 0.08)';
-      btn.style.borderColor = 'rgba(239, 68, 68, 0.2)';
-      btn.style.color = '#ef4444';
     } else {
       btn.innerHTML = `✓ Confirm All Subdomains`;
       btn.classList.remove('undo-state');
-      btn.style.background = 'rgba(0, 242, 254, 0.06)';
-      btn.style.borderColor = 'rgba(0, 242, 254, 0.15)';
-      btn.style.color = 'var(--cyber-cyan)';
     }
   };
   window.updateConfirmAllButtonState = updateConfirmAllButtonState;
@@ -2305,7 +2320,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const settingsWrapper = document.getElementById('settings-view-wrapper');
         const socWrapper = document.getElementById('soc-view-wrapper');
         const securityWrapper = document.getElementById('security-view-wrapper');
-        
+        const clientWrapper = document.getElementById('client-view-wrapper');
+        const projectWrapper = document.getElementById('project-view-wrapper');
+        const runsWrapper = document.getElementById('runs-view-wrapper');
+
         // Hide all wrappers first
         if (discoveryWrapper) discoveryWrapper.classList.add('hidden');
         if (stateWrapper) stateWrapper.classList.add('hidden');
@@ -2314,6 +2332,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (settingsWrapper) settingsWrapper.classList.add('hidden');
         if (socWrapper) socWrapper.classList.add('hidden');
         if (securityWrapper) securityWrapper.classList.add('hidden');
+        if (clientWrapper) clientWrapper.classList.add('hidden');
+        if (projectWrapper) projectWrapper.classList.add('hidden');
+        if (runsWrapper) runsWrapper.classList.add('hidden');
         
         if (href === '#state') {
           if (stateWrapper) stateWrapper.classList.remove('hidden');
@@ -2332,10 +2353,29 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (href === '#security') {
           if (securityWrapper) securityWrapper.classList.remove('hidden');
           initSecurityDashboard();
+        } else if (href === '#client') {
+          if (clientWrapper) clientWrapper.classList.remove('hidden');
+          renderClientPage();
+        } else if (href === '#project') {
+          if (projectWrapper) projectWrapper.classList.remove('hidden');
+          renderProjectPage();
+        } else if (href === '#runs') {
+          if (runsWrapper) runsWrapper.classList.remove('hidden');
+          renderRunsPage();
         }
       }
     });
   });
+
+  // Logo container click listener (redirects to State dashboard when committed)
+  const logoContainer = document.querySelector('.logo-container');
+  if (logoContainer) {
+    logoContainer.addEventListener('click', () => {
+      if (isCommitted) {
+        navigateToState();
+      }
+    });
+  }
 
   // Profile Dropdown Toggle & Items Click Handling
   const profileTrigger = document.getElementById('profile-trigger');
@@ -3017,7 +3057,90 @@ document.addEventListener('DOMContentLoaded', () => {
     if (confirmedDomains.length === 0) {
       domainsList.innerHTML = '<div style="padding: 1.5rem; color: var(--text-muted); font-style: italic;">No confirmed domains found.</div>';
     } else {
-      confirmedDomains.forEach(domain => {
+      const parentDomains = [];
+      const subdomains = [];
+      
+      confirmedDomains.forEach(d => {
+        if (!d.isSub) {
+          parentDomains.push(d);
+        } else {
+          subdomains.push(d);
+        }
+      });
+      
+      const topLevelDomains = [...parentDomains];
+      const nestedMap = new Map();
+      
+      parentDomains.forEach(p => nestedMap.set(p.name, []));
+      
+      subdomains.forEach(sub => {
+        const parent = parentDomains.find(p => sub.name.endsWith('.' + p.name));
+        if (parent) {
+          nestedMap.get(parent.name).push(sub);
+        } else {
+          topLevelDomains.push(sub);
+          nestedMap.set(sub.name, []);
+        }
+      });
+
+      topLevelDomains.forEach(domain => {
+        const subdomainsForParent = nestedMap.get(domain.name) || [];
+        
+        let subdomainsHtml = '';
+        if (subdomainsForParent.length > 0) {
+          let rowsHtml = '';
+          subdomainsForParent.forEach(sub => {
+            let subProject = "None";
+            let subClient = "None";
+            
+            const cleanSubPrefix = sub.name.toLowerCase().replace(/_new$/, '').split(/[_-]/)[0];
+            const matchedInsts = instancesData.filter(inst => {
+              const nameMatch = inst.name.toLowerCase().includes(cleanSubPrefix);
+              const hostMatch = inst.host.toLowerCase().includes(cleanSubPrefix);
+              return nameMatch || hostMatch;
+            });
+
+            if (matchedInsts.length > 0) {
+              const firstInst = matchedInsts[0];
+              const proj = projectsData.find(p => p.instances.includes(firstInst.name));
+              if (proj) {
+                subProject = proj.name;
+                if (proj.clientId) {
+                  const cli = clientsData.find(c => c.id === proj.clientId);
+                  if (cli) {
+                    subClient = cli.name;
+                  }
+                }
+              }
+            }
+
+            rowsHtml += `
+              <div class="subdomain-nested-row" style="background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 6px; padding: 0.6rem 0.75rem; display: flex; justify-content: space-between; align-items: center; margin-top: 0.4rem;">
+                <div>
+                  <div style="font-weight: 600; font-size: 0.82rem; color: var(--text-primary);">${sub.name}</div>
+                  <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.15rem;">
+                    Project: <strong style="color: var(--cyber-cyan);">${subProject}</strong> · Client: <strong style="color: var(--cyber-blue);">${subClient}</strong>
+                  </div>
+                </div>
+                <div style="text-align: right; font-size: 0.7rem;">
+                  <span style="color: var(--cyber-green); background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.15); padding: 0.15rem 0.4rem; border-radius: 4px; font-weight: 600;">Verified Valid SSL</span>
+                </div>
+              </div>
+            `;
+          });
+
+          subdomainsHtml = `
+            <div class="inventory-subdomains-section" style="grid-column: span 2; margin-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 0.75rem;">
+              <div style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--cyber-cyan); text-transform: uppercase; margin-bottom: 0.4rem; font-weight: 700; letter-spacing: 0.5px;">
+                Nested Subdomains (${subdomainsForParent.length})
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                ${rowsHtml}
+              </div>
+            </div>
+          `;
+        }
+
         const extra = `
           <div class="inventory-details-block">
             <span class="inventory-details-label">Category</span>
@@ -3027,6 +3150,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="inventory-details-label">SSL Certificate</span>
             <span class="inventory-details-value" style="color: var(--cyber-green);">Verified Valid</span>
           </div>
+          ${subdomainsHtml}
         `;
         domainsList.appendChild(buildAccordionItem(domain.name, 'domain', extra));
       });
@@ -3165,7 +3289,10 @@ document.addEventListener('DOMContentLoaded', () => {
       card.style.borderLeft = `3px solid ${borderAccent}`;
       card.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center;">
-          <span class="alert-pallet-status-tag ${statusClass}">${statusLabel}</span>
+          <div style="display: flex; gap: 0.4rem; align-items: center;">
+            <span class="alert-pallet-status-tag ${statusClass}">${statusLabel}</span>
+            <span class="alert-pallet-status-tag severity-${alert.severity || 'critical'}">${(alert.severity || 'critical').toUpperCase()}</span>
+          </div>
           <span style="font-size: 0.68rem; color: var(--text-muted); font-family: var(--font-mono);">${alert.timeShort}</span>
         </div>
         <div>
@@ -5648,5 +5775,1490 @@ document.addEventListener('DOMContentLoaded', () => {
     renderSecurityAlerts();
   }
 
+  // -------------------------------------------------------------
+  // CLIENT & PROJECT VIEWS DYNAMIC RENDERING
+  // -------------------------------------------------------------
+  let activeClientId = null;
+  let activeProjectId = null;
+  let projectSearchQuery = "";
+
+  function renderClientPage() {
+    const wrapper = document.getElementById('client-view-wrapper');
+    if (!wrapper) return;
+
+    // Get committed clients
+    const committedClients = clientsData.filter(client => {
+      return projectsData.some(proj => proj.accepted && proj.clientId === client.id);
+    });
+
+    if (committedClients.length === 0) {
+      wrapper.innerHTML = `
+        <div style="background: var(--bg-card); border: 1px dashed var(--border-cyber); border-radius: 12px; padding: 4rem 2rem; text-align: center; color: var(--text-muted); font-family: var(--font-sans); backdrop-filter: blur(12px); max-width: 600px; margin: 2rem auto;">
+          <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" fill="none" stroke-width="1.5" style="margin: 0 auto 1.5rem; opacity: 0.5; display: block; color: var(--cyber-cyan);">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+          </svg>
+          <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem;">No Committed Client Data</h2>
+          <p style="font-size: 0.88rem; max-width: 420px; margin: 0 auto; line-height: 1.5;">Complete the onboarding discovery wizard steps and assign accepted projects to clients to see client profiles here.</p>
+        </div>
+      `;
+      return;
+    }
+
+    if (!activeClientId || !committedClients.some(c => c.id === activeClientId)) {
+      activeClientId = committedClients[0].id;
+    }
+
+    const client = committedClients.find(c => c.id === activeClientId);
+
+    // Filter projects for active client
+    const clientProjects = projectsData.filter(p => p.accepted && p.clientId === client.id);
+
+    // Get instances for client projects
+    const clientInstances = [];
+    clientProjects.forEach(proj => {
+      proj.instances.forEach(instName => {
+        const inst = instancesData.find(i => i.name === instName);
+        if (inst) {
+          clientInstances.push(inst);
+        }
+      });
+    });
+
+    // Get apps (components) for client instances
+    const clientApps = [];
+    clientInstances.forEach(inst => {
+      inst.components.forEach(comp => {
+        if (!clientApps.some(a => a.name === comp.name)) {
+          clientApps.push({
+            name: comp.name,
+            instanceName: inst.name,
+            isAPI: comp.isAPI
+          });
+        }
+      });
+    });
+
+    // Get domains for client projects
+    const confirmedDomains = Array.from(document.querySelectorAll('#panel-domains .infra-row')).filter(row => {
+      const pill = row.querySelector('.status-pill');
+      return pill && pill.textContent.trim().toLowerCase() === 'confirmed';
+    }).map(row => {
+      return {
+        name: row.querySelector('.row-name').textContent.trim(),
+        isSub: row.classList.contains('sub-row')
+      };
+    });
+
+    const clientDomains = [];
+    clientProjects.forEach(proj => {
+      confirmedDomains.forEach(dom => {
+        const domainLower = dom.name.toLowerCase();
+        const projNameLower = proj.name.toLowerCase();
+        const projDomainLower = (proj.domain || "").toLowerCase();
+        
+        const suffixMatch = projDomainLower && (domainLower === projDomainLower || domainLower.endsWith('.' + projDomainLower));
+        const subMatch = domainLower.includes(projNameLower);
+        
+        if (suffixMatch || subMatch) {
+          if (!clientDomains.some(d => d.name === dom.name)) {
+            clientDomains.push(dom);
+          }
+        }
+      });
+    });
+
+    // Calculate health of active client based on alerts
+    let clientHealth = 'healthy';
+    let healthLabel = 'Healthy';
+    let healthColor = 'var(--cyber-green)';
+    let openIncidentsCount = 0;
+    let healthyInstancesCount = 0;
+
+    clientInstances.forEach(inst => {
+      const activeAlerts = alertsLog.filter(a => a.serverName === inst.name && a.status !== 'resolved');
+      openIncidentsCount += activeAlerts.length;
+      if (activeAlerts.length === 0) {
+        healthyInstancesCount++;
+      }
+      activeAlerts.forEach(a => {
+        if (a.severity === 'critical') {
+          clientHealth = 'critical';
+          healthLabel = 'Critical';
+          healthColor = '#ef4444';
+        } else if (a.severity === 'warning' && clientHealth !== 'critical') {
+          clientHealth = 'warning';
+          healthLabel = 'Warning';
+          healthColor = '#f97316';
+        }
+      });
+    });
+
+    if (clientInstances.length === 0) {
+      healthyInstancesCount = 0;
+    }
+
+    // Determine SLA Attainment display values based on client health
+    let slaPercent = '100.00%';
+    let errorBudget = '100%';
+    let slaStatus = 'ATTAINED';
+    let slaColor = 'var(--cyber-green)';
+
+    if (clientHealth === 'critical') {
+      slaPercent = '0.00%';
+      errorBudget = '0%';
+      slaStatus = 'BREACHED';
+      slaColor = '#ef4444';
+    } else if (clientHealth === 'warning') {
+      slaPercent = '99.12%';
+      errorBudget = '42%';
+      slaStatus = 'BREACHED';
+      slaColor = '#f97316';
+    }
+
+    const reachabilityPercent = clientHealth === 'critical' ? '0%' : (clientHealth === 'warning' ? '66%' : '100%');
+    const reachabilityLabel = clientHealth === 'critical' ? '0/3 ok' : (clientHealth === 'warning' ? '2/3 ok' : '3/3 ok');
+
+    // Build pills HTML
+    const pillsHtml = committedClients.map(cli => {
+      const activeClass = cli.id === activeClientId ? 'active' : '';
+      return `<button class="client-tab-btn ${activeClass}" data-client-id="${cli.id}">
+        <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2" style="opacity: 0.8;">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+        </svg>
+        ${cli.name}
+      </button>`;
+    }).join('');
+
+    wrapper.innerHTML = `
+      <div style="padding: 1.5rem 0;">
+        <div style="margin-bottom: 1.5rem;">
+          <h1 style="font-size: 2rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.65rem;">
+            <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--cyber-cyan); filter: drop-shadow(0 0 6px rgba(0, 242, 254, 0.45));">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+            Client
+          </h1>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">A client's SLA attainment + error budget (E7), live health (E2), incidents, and their estate.</p>
+        </div>
+
+        <div class="client-tabs-list">
+          ${pillsHtml}
+        </div>
+
+        <!-- Client Banner Card -->
+        <div class="client-banner-card ${clientHealth}">
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <div style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); width: 44px; height: 44px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #a78bfa;">
+              <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </div>
+            <div>
+              <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--text-primary); margin: 0;">${client.name}</h2>
+              <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">
+                ${client.type.toLowerCase()} · <strong>${clientProjects.length}</strong> project${clientProjects.length === 1 ? '' : 's'} · <strong>${clientInstances.length}</strong> instance${clientInstances.length === 1 ? '' : 's'} · is_up=${clientHealth === 'healthy' ? 1 : 0}
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.4rem;">
+            <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: ${healthColor};"></span>
+            <span style="font-size: 0.85rem; font-weight: 700; color: ${healthColor};">${healthLabel}</span>
+          </div>
+        </div>
+
+        <!-- Section 01: SLA Attainment -->
+        <div class="client-section-title">
+          <span>01 SLA attainment + error budget</span>
+        </div>
+        
+        <div class="client-stats-grid">
+          <div class="client-stat-card">
+            <span class="client-stat-label">24H SLA</span>
+            <span class="client-stat-value" style="color: ${slaColor};">${slaPercent}</span>
+            <span class="client-stat-status" style="color: ${slaColor};">budget ${errorBudget} · target 99.5%</span>
+          </div>
+          <div class="client-stat-card">
+            <span class="client-stat-label">7D SLA</span>
+            <span class="client-stat-value" style="color: ${slaColor};">${slaPercent}</span>
+            <span class="client-stat-status" style="color: ${slaColor};">budget ${errorBudget} · target 99.5%</span>
+          </div>
+          <div class="client-stat-card">
+            <span class="client-stat-label">30D SLA</span>
+            <span class="client-stat-value" style="color: ${slaColor};">${slaPercent}</span>
+            <span class="client-stat-status" style="color: ${slaColor};">budget ${errorBudget} · target 99.5%</span>
+          </div>
+          <div class="client-stat-card">
+            <span class="client-stat-label">90D SLA</span>
+            <span class="client-stat-value" style="color: ${slaColor};">${slaPercent}</span>
+            <span class="client-stat-status" style="color: ${slaColor};">budget ${errorBudget} · target 99.5%</span>
+          </div>
+        </div>
+
+        <div class="client-stats-grid">
+          <div class="client-stat-card">
+            <span class="client-stat-label">App Reachability</span>
+            <span class="client-stat-value" style="color: ${clientHealth === 'critical' ? '#ef4444' : (clientHealth === 'warning' ? '#f97316' : 'var(--cyber-green)')};">${reachabilityPercent}</span>
+            <span class="client-stat-status" style="color: var(--text-muted);">${reachabilityLabel}</span>
+          </div>
+          <div class="client-stat-card">
+            <span class="client-stat-label">Instances Healthy</span>
+            <span class="client-stat-value">${healthyInstancesCount}/${clientInstances.length}</span>
+            <span class="client-stat-status" style="color: var(--text-muted);">reporting normal</span>
+          </div>
+          <div class="client-stat-card">
+            <span class="client-stat-label">Projects</span>
+            <span class="client-stat-value">${clientProjects.length}</span>
+            <span class="client-stat-status" style="color: var(--text-muted);">active scope</span>
+          </div>
+          <div class="client-stat-card">
+            <span class="client-stat-label">Open Incidents</span>
+            <span class="client-stat-value" style="color: ${openIncidentsCount > 0 ? '#ef4444' : 'var(--text-muted)'};">${openIncidentsCount}</span>
+            <span class="client-stat-status" style="color: var(--text-muted);">${openIncidentsCount} total</span>
+          </div>
+        </div>
+
+        <!-- Section 02: Projects -->
+        <div class="client-section-title" style="margin-top: 2rem;">
+          <span>02 Projects</span>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          ${clientProjects.map(proj => {
+            let projHealth = 'var(--cyber-green)';
+            proj.instances.forEach(name => {
+              if (alertsLog.some(a => a.serverName === name && a.status !== 'resolved' && a.severity === 'critical')) {
+                projHealth = '#ef4444';
+              } else if (alertsLog.some(a => a.serverName === name && a.status !== 'resolved' && a.severity === 'warning' && projHealth !== '#ef4444')) {
+                projHealth = '#f97316';
+              }
+            });
+
+            return `
+              <div class="client-nested-row navigate-project-btn" data-project-id="${proj.id}">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" style="color: var(--text-muted);">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                  </svg>
+                  <span style="font-weight: 700; font-size: 0.88rem; color: var(--text-primary);">${proj.name}</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.6rem;">
+                  <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: ${projHealth};"></span>
+                  <span style="color: var(--text-muted); font-size: 0.8rem;">➔</span>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <!-- Section 03: Instances -->
+        <div class="client-section-title">
+          <span>03 Instances</span>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          ${clientInstances.map(inst => {
+            let instHealth = 'var(--cyber-green)';
+            const hasCrit = alertsLog.some(a => a.serverName === inst.name && a.status !== 'resolved' && a.severity === 'critical');
+            const hasWarn = alertsLog.some(a => a.serverName === inst.name && a.status !== 'resolved' && a.severity === 'warning');
+            if (hasCrit) instHealth = '#ef4444';
+            else if (hasWarn) instHealth = '#f97316';
+
+            return `
+              <div class="client-nested-row client-instance-row" data-instance-name="${inst.name}">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" style="color: var(--text-muted);">
+                    <rect x="2" y="2" width="20" height="8" rx="2" />
+                    <rect x="2" y="14" width="20" height="8" rx="2" />
+                  </svg>
+                  <span style="font-weight: 700; font-size: 0.88rem; color: var(--text-primary);">${inst.name}</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.6rem;">
+                  <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: ${instHealth};"></span>
+                  <span style="color: var(--text-muted); font-size: 0.8rem;">➔</span>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <!-- Section 04: Apps -->
+        <div class="client-section-title">
+          <span>04 Apps</span>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          ${clientApps.map(app => {
+            let appHealth = 'var(--cyber-green)';
+            const hasCrit = alertsLog.some(a => a.serverName === app.instanceName && a.status !== 'resolved' && a.severity === 'critical');
+            const hasWarn = alertsLog.some(a => a.serverName === app.instanceName && a.status !== 'resolved' && a.severity === 'warning');
+            if (hasCrit) appHealth = '#ef4444';
+            else if (hasWarn) appHealth = '#f97316';
+
+            return `
+              <div class="client-nested-row" style="cursor: default;">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" style="color: var(--text-muted);">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <line x1="3" y1="9" x2="21" y2="9" />
+                    <line x1="9" y1="21" x2="9" y2="9" />
+                  </svg>
+                  <span style="font-weight: 700; font-size: 0.88rem; color: var(--text-primary);">${app.name}</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.6rem;">
+                  <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: ${appHealth};"></span>
+                </div>
+              </div>
+            `;
+          }).join('')}
+          ${clientDomains.map(dom => {
+            return `
+              <div class="client-nested-row" style="cursor: default;">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" style="color: var(--text-muted);">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                  </svg>
+                  <span style="font-weight: 700; font-size: 0.88rem; color: var(--text-primary);">${dom.name}</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.6rem;">
+                  <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--cyber-green);"></span>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <!-- Section 05: Incidents -->
+        <div class="client-section-title">
+          <span>05 Incidents (incl. history)</span>
+        </div>
+        <div>
+          ${openIncidentsCount === 0 ? `
+            <div style="background: rgba(255,255,255,0.01); border: 1px dashed var(--border-cyber); border-radius: 8px; padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.82rem;">
+              <span style="font-size: 1.5rem; display: block; margin-bottom: 0.5rem;">🎉</span>
+              No incidents in window
+            </div>
+          ` : `
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              ${clientInstances.map(inst => {
+                const activeAlerts = alertsLog.filter(a => a.serverName === inst.name && a.status !== 'resolved');
+                return activeAlerts.map(a => `
+                  <div class="client-nested-row client-incident-row" data-alert-id="${a.id}">
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                      <span style="font-weight: 800; font-size: 0.7rem; color: ${a.severity === 'critical' ? '#ef4444' : '#f97316'}; background: ${a.severity === 'critical' ? 'rgba(239,68,68,0.1)' : 'rgba(249,115,22,0.1)'}; padding: 0.15rem 0.4rem; border-radius: 3px;">
+                        ${a.severity.toUpperCase()}
+                      </span>
+                      <div>
+                        <div style="font-weight: 700; font-size: 0.85rem; color: var(--text-primary);">${a.serverName}</div>
+                        <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem;">CPU exceeded ${a.cpuValue}% threshold</div>
+                      </div>
+                    </div>
+                    <span style="font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono);">${a.timeShort}</span>
+                  </div>
+                `).join('');
+              }).join('')}
+            </div>
+          `}
+        </div>
+      </div>
+    `;
+
+    // Wire up events
+    wrapper.querySelectorAll('.client-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeClientId = btn.getAttribute('data-client-id');
+        renderClientPage();
+      });
+    });
+
+    wrapper.querySelectorAll('.navigate-project-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeProjectId = btn.getAttribute('data-project-id');
+        const projLink = Array.from(document.querySelectorAll('.nav-menu .nav-item')).find(l => l.getAttribute('href') === '#project');
+        if (projLink) projLink.click();
+      });
+    });
+
+    wrapper.querySelectorAll('.client-instance-row').forEach(row => {
+      row.addEventListener('click', () => {
+        const instName = row.getAttribute('data-instance-name');
+        const node = telemetryData.find(n => n.name === instName) || { name: instName, cpu: 50 };
+        openDetailsSidebar(node, false);
+      });
+    });
+
+    wrapper.querySelectorAll('.client-incident-row').forEach(row => {
+      row.addEventListener('click', () => {
+        const alertId = row.getAttribute('data-alert-id');
+        const alert = alertsLog.find(a => a.id === alertId);
+        if (alert) openDetailsSidebar(alert, true);
+      });
+    });
+  }
+
+  function renderProjectPage() {
+    const wrapper = document.getElementById('project-view-wrapper');
+    if (!wrapper) return;
+
+    // Get committed/accepted projects
+    const committedProjects = projectsData.filter(proj => proj.accepted);
+
+    if (committedProjects.length === 0) {
+      wrapper.innerHTML = `
+        <div style="background: var(--bg-card); border: 1px dashed var(--border-cyber); border-radius: 12px; padding: 4rem 2rem; text-align: center; color: var(--text-muted); font-family: var(--font-sans); backdrop-filter: blur(12px); max-width: 600px; margin: 2rem auto;">
+          <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" fill="none" stroke-width="1.5" style="margin: 0 auto 1.5rem; opacity: 0.5; display: block; color: var(--cyber-cyan);">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+          </svg>
+          <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem;">No Committed Project Data</h2>
+          <p style="font-size: 0.88rem; max-width: 420px; margin: 0 auto; line-height: 1.5;">Complete the onboarding discovery wizard steps and accept projects to see project profiles here.</p>
+        </div>
+      `;
+      return;
+    }
+
+    if (!activeProjectId || !committedProjects.some(p => p.id === activeProjectId)) {
+      activeProjectId = committedProjects[0].id;
+    }
+
+    // Filter projects by search query
+    const filteredProjects = committedProjects.filter(p => {
+      return p.name.toLowerCase().includes(projectSearchQuery.toLowerCase());
+    });
+
+    const project = committedProjects.find(p => p.id === activeProjectId);
+
+    // Get client for active project
+    const client = clientsData.find(c => c.id === project.clientId);
+
+    // Get instances for active project
+    const projectInstances = [];
+    project.instances.forEach(name => {
+      const inst = instancesData.find(i => i.name === name);
+      if (inst) {
+        projectInstances.push(inst);
+      }
+    });
+
+    // Group instances by environment
+    const envGroups = {};
+    projectInstances.forEach(inst => {
+      const env = (inst.env || 'UNKNOWN').toUpperCase();
+      if (!envGroups[env]) envGroups[env] = [];
+      envGroups[env].push(inst);
+    });
+
+    // Get apps (components) for project instances
+    const projectApps = [];
+    projectInstances.forEach(inst => {
+      inst.components.forEach(comp => {
+        if (!projectApps.some(a => a.name === comp.name)) {
+          projectApps.push({
+            name: comp.name,
+            instanceName: inst.name,
+            isAPI: comp.isAPI,
+            sub: comp.sub
+          });
+        }
+      });
+    });
+
+    // Find databases for project. We search databases whose names contain the project name or its instances
+    const confirmedDatabases = Array.from(document.querySelectorAll('#panel-databases .infra-row')).filter(row => {
+      const pill = row.querySelector('.status-pill');
+      return pill && pill.textContent.trim().toLowerCase() === 'confirmed';
+    }).map(row => row.querySelector('.row-name').textContent.trim());
+
+    const projectDatabases = confirmedDatabases.filter(dbName => {
+      const dbLower = dbName.toLowerCase();
+      const projLower = project.name.toLowerCase();
+      return dbLower.includes(projLower) || projectInstances.some(inst => dbLower.includes(inst.name.toLowerCase().replace(/_new$/, '').split(/[_-]/)[0]));
+    });
+
+    // Find domains/subdomains for project
+    const confirmedDomains = Array.from(document.querySelectorAll('#panel-domains .infra-row')).filter(row => {
+      const pill = row.querySelector('.status-pill');
+      return pill && pill.textContent.trim().toLowerCase() === 'confirmed';
+    }).map(row => {
+      return {
+        name: row.querySelector('.row-name').textContent.trim(),
+        isSub: row.classList.contains('sub-row')
+      };
+    });
+
+    const projectDomains = confirmedDomains.filter(dom => {
+      const domainLower = dom.name.toLowerCase();
+      const projNameLower = project.name.toLowerCase();
+      const projDomainLower = (project.domain || "").toLowerCase();
+      
+      const suffixMatch = projDomainLower && (domainLower === projDomainLower || domainLower.endsWith('.' + projDomainLower));
+      const subMatch = domainLower.includes(projNameLower);
+      return suffixMatch || subMatch;
+    });
+
+    // Calculate health of project based on alerts
+    let projectHealth = 'healthy';
+    let healthLabel = 'Healthy';
+    let healthColor = 'var(--cyber-green)';
+    let openIncidentsCount = 0;
+    let healthyInstancesCount = 0;
+    let unhealthyTopologyItems = [];
+
+    projectInstances.forEach(inst => {
+      const activeAlerts = alertsLog.filter(a => a.serverName === inst.name && a.status !== 'resolved');
+      openIncidentsCount += activeAlerts.length;
+      if (activeAlerts.length === 0) {
+        healthyInstancesCount++;
+      } else {
+        activeAlerts.forEach(a => {
+          let severityLabel = a.severity === 'critical' ? 'Critical' : 'Warning';
+          let severityColor = a.severity === 'critical' ? '#ef4444' : '#f97316';
+          
+          if (a.severity === 'critical') {
+            projectHealth = 'critical';
+            healthLabel = 'Critical';
+            healthColor = '#ef4444';
+          } else if (a.severity === 'warning' && projectHealth !== 'critical') {
+            projectHealth = 'warning';
+            healthLabel = 'Warning';
+            healthColor = '#f97316';
+          }
+          
+          unhealthyTopologyItems.push({
+            name: inst.name,
+            type: 'Instance',
+            status: severityLabel,
+            color: severityColor
+          });
+        });
+      }
+      
+      if (activeAlerts.length > 0) {
+        inst.components.forEach(comp => {
+          const mainAlert = activeAlerts[0];
+          unhealthyTopologyItems.push({
+            name: comp.name,
+            type: 'App / Component',
+            status: mainAlert.severity === 'critical' ? 'Critical' : 'Warning',
+            color: mainAlert.severity === 'critical' ? '#ef4444' : '#f97316'
+          });
+        });
+      }
+    });
+
+    if (projectInstances.length === 0) {
+      healthyInstancesCount = 0;
+    }
+
+    const reachabilityPercent = projectHealth === 'critical' ? '0%' : (projectHealth === 'warning' ? '66%' : '100%');
+    const reachabilityLabel = projectHealth === 'critical' ? `0/${projectApps.length} reachable` : (projectHealth === 'warning' ? `some need attention` : `${projectApps.length}/${projectApps.length} reachable`);
+
+    // Build pills HTML based on filtered projects
+    const pillsHtml = filteredProjects.map(p => {
+      const activeClass = p.id === activeProjectId ? 'active' : '';
+      return `<button class="project-tab-btn ${activeClass}" data-project-id="${p.id}">
+        <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2" style="opacity: 0.8;">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+        </svg>
+        ${p.name}
+      </button>`;
+    }).join('');
+
+    // Environments list HTML
+    let envsHtml = '';
+    Object.keys(envGroups).forEach(envName => {
+      envsHtml += `
+        <div style="margin-bottom: 1rem;">
+          <div style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-muted); font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase;">
+            ${envName}
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+            ${envGroups[envName].map(inst => {
+              let instHealthColor = 'var(--cyber-green)';
+              let instHealthLabel = 'Healthy';
+              const activeAlerts = alertsLog.filter(a => a.serverName === inst.name && a.status !== 'resolved');
+              if (activeAlerts.some(a => a.severity === 'critical')) {
+                instHealthColor = '#ef4444';
+                instHealthLabel = 'Critical';
+              } else if (activeAlerts.some(a => a.severity === 'warning')) {
+                instHealthColor = '#f97316';
+                instHealthLabel = 'Warning';
+              }
+
+              return `
+                <div class="project-nested-row project-instance-row" data-instance-name="${inst.name}">
+                  <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" style="color: var(--text-muted);">
+                      <rect x="2" y="2" width="20" height="8" rx="2" />
+                      <rect x="2" y="14" width="20" height="8" rx="2" />
+                    </svg>
+                    <div>
+                      <div style="font-weight: 700; font-size: 0.85rem; color: var(--text-primary);">${inst.name}</div>
+                      <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.15rem;">
+                        ${inst.components.length} app${inst.components.length === 1 ? '' : 's'} · ${inst.type}
+                      </div>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 0.72rem; color: ${instHealthColor}; font-family: var(--font-mono); font-weight: bold; background: ${instHealthColor}15; border: 1px solid ${instHealthColor}25; padding: 0.15rem 0.4rem; border-radius: 4px;">
+                      ${instHealthLabel}
+                    </span>
+                    <span style="color: var(--text-muted); font-size: 0.8rem;">➔</span>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    });
+
+    wrapper.innerHTML = `
+      <div style="padding: 1.5rem 0;">
+        <div style="margin-bottom: 1.5rem;">
+          <h1 style="font-size: 2rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.65rem;">
+            <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--cyber-cyan); filter: drop-shadow(0 0 6px rgba(0, 242, 254, 0.45));">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+              <polygon points="12 11 16 15 12 19 8 15" />
+            </svg>
+            Project Lens
+          </h1>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">A project — the client it serves, its instances grouped by environment + apps, plus the data only a project has.</p>
+        </div>
+
+        <div style="margin-bottom: 1.25rem; display: flex; gap: 0.5rem;">
+          <div style="position: relative; flex-grow: 1;">
+            <input type="text" id="project-search-input" class="cyber-search-input" placeholder="Search projects..." value="${projectSearchQuery}" style="width: 100%; box-sizing: border-box; padding: 0.55rem 1rem 0.55rem 2.25rem; border-radius: 20px; font-size: 0.85rem;">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" style="position: absolute; left: 0.88rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+        </div>
+
+        <div class="project-tabs-list">
+          ${pillsHtml}
+        </div>
+
+        <!-- Project Banner Card -->
+        <div class="project-banner-card ${projectHealth}">
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <div style="background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.2); width: 44px; height: 44px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--cyber-cyan);">
+              <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+              </svg>
+            </div>
+            <div>
+              <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--text-primary); margin: 0;">${project.name}</h2>
+              <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">
+                <strong>${projectInstances.length}</strong> instance${projectInstances.length === 1 ? '' : 's'} · ${projectInstances.map(i => i.name).join(', ')}
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.4rem;">
+            <span style="font-size: 0.72rem; color: ${healthColor}; font-family: var(--font-mono); font-weight: bold; background: ${healthColor}15; border: 1px solid ${healthColor}25; padding: 0.25rem 0.55rem; border-radius: 4px; text-transform: uppercase;">
+              ${healthLabel === 'Degraded' || healthLabel === 'Warning' ? 'degraded' : healthLabel.toLowerCase()}
+            </span>
+          </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="project-stats-grid">
+          <div class="project-stat-card">
+            <span class="project-stat-label">App Reachability</span>
+            <span class="project-stat-value" style="color: ${projectHealth === 'critical' ? '#ef4444' : (projectHealth === 'warning' ? '#f97316' : 'var(--cyber-green)')};">${reachabilityPercent}</span>
+            <span class="project-stat-status" style="color: var(--text-muted);">${reachabilityLabel}</span>
+          </div>
+          <div class="project-stat-card">
+            <span class="project-stat-label">Instances Healthy</span>
+            <span class="project-stat-value" style="color: ${healthyInstancesCount < projectInstances.length ? '#f97316' : 'var(--text-primary)'};">${healthyInstancesCount}/${projectInstances.length}</span>
+            <span class="project-stat-status" style="color: var(--text-muted);">${healthyInstancesCount < projectInstances.length ? 'some need attention' : 'all operating normal'}</span>
+          </div>
+          <div class="project-stat-card">
+            <span class="project-stat-label">CI · Last Build</span>
+            <span class="project-stat-value" style="color: var(--text-muted); font-size: 1.1rem; font-weight: 500; font-family: var(--font-mono); margin-top: 0.8rem;">not yet wired</span>
+            <span class="project-stat-status" style="color: var(--text-muted);">Jenkins not on platform API</span>
+          </div>
+          <div class="project-stat-card">
+            <span class="project-stat-label">Quality Gate</span>
+            <span class="project-stat-value" style="color: var(--text-muted); font-size: 1.1rem; font-weight: 500; font-family: var(--font-mono); margin-top: 0.8rem;">not yet wired</span>
+            <span class="project-stat-status" style="color: var(--text-muted);">SonarQube not on platform API</span>
+          </div>
+        </div>
+
+        <div class="project-stats-grid" style="grid-template-columns: 1fr;">
+          <div class="project-stat-card" style="min-height: auto; padding: 1rem 1.2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="project-stat-label">Open Issues</span>
+              <span class="project-stat-value" style="margin: 0; font-size: 1.5rem; color: ${openIncidentsCount > 0 ? '#ef4444' : 'var(--cyber-green)'};">${openIncidentsCount}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 01: Serves client -->
+        <div class="project-section-title" style="margin-top: 2rem;">
+          <span>01 Serves client</span>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          ${client ? `
+            <div class="project-nested-row navigate-client-btn" data-client-id="${client.id}">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" style="color: var(--text-muted);">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+                <div>
+                  <span style="font-weight: 700; font-size: 0.88rem; color: var(--text-primary);">${client.name}</span>
+                  <span style="font-size: 0.72rem; color: var(--text-muted); margin-left: 0.5rem;">(${client.email})</span>
+                </div>
+              </div>
+              <span style="color: var(--text-muted); font-size: 0.8rem;">➔</span>
+            </div>
+          ` : `
+            <div style="background: rgba(255,255,255,0.01); border: 1px dashed var(--border-cyber); border-radius: 8px; padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.82rem;">
+              No client linked
+            </div>
+          `}
+        </div>
+
+        <!-- Section 02: Its instances (by environment) -->
+        <div class="project-section-title">
+          <span>02 Its instances (by environment)</span>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          ${envsHtml || `
+            <div style="background: rgba(255,255,255,0.01); border: 1px dashed var(--border-cyber); border-radius: 8px; padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.82rem;">
+              No instances linked to this project
+            </div>
+          `}
+        </div>
+
+        <!-- Section 03: Its apps -->
+        <div class="project-section-title">
+          <span>03 Its apps</span>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          ${projectApps.map(app => {
+            let appHealthColor = 'var(--cyber-green)';
+            let appHealthLabel = 'Healthy';
+            const activeAlerts = alertsLog.filter(a => a.serverName === app.instanceName && a.status !== 'resolved');
+            if (activeAlerts.some(a => a.severity === 'critical')) {
+              appHealthColor = '#ef4444';
+              appHealthLabel = 'Warning';
+            } else if (activeAlerts.some(a => a.severity === 'warning')) {
+              appHealthColor = '#f97316';
+              appHealthLabel = 'Warning';
+            }
+
+            return `
+              <div class="project-nested-row" style="cursor: default;">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" style="color: var(--text-muted);">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <line x1="3" y1="9" x2="21" y2="9" />
+                    <line x1="9" y1="21" x2="9" y2="9" />
+                  </svg>
+                  <div>
+                    <div style="font-weight: 700; font-size: 0.88rem; color: var(--text-primary);">${app.name}</div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.15rem;">
+                      1 instance · 1 server
+                    </div>
+                  </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.4rem;">
+                  <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: ${appHealthColor};"></span>
+                  <span style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono);">${appHealthLabel}</span>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <!-- Section 04: Databases -->
+        <div class="project-section-title">
+          <span>04 Databases <span style="font-size:0.65rem; color:var(--text-muted); font-weight:normal; margin-left:0.25rem;">NAME-MATCHED · ADMIN-CURATED</span></span>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          ${projectDatabases.length === 0 ? `
+            <div style="background: rgba(255,255,255,0.01); border: 1px dashed var(--border-cyber); border-radius: 8px; padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.82rem;">
+              No databases name-matched to this scope.
+            </div>
+          ` : `
+            <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+              ${projectDatabases.map(dbName => `
+                <div class="project-nested-row" style="cursor: default;">
+                  <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" style="color: var(--text-muted);">
+                      <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                      <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                      <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"></path>
+                    </svg>
+                    <span style="font-weight: 700; font-size: 0.88rem; color: var(--text-primary);">${dbName}</span>
+                  </div>
+                  <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--cyber-green);"></span>
+                </div>
+              `).join('')}
+            </div>
+          `}
+        </div>
+
+        <!-- Section 05: Domains -->
+        <div class="project-section-title">
+          <span>05 Domains <span style="font-size:0.65rem; color:var(--text-muted); font-weight:normal; margin-left:0.25rem;">APEX-MATCHED</span></span>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          ${projectDomains.length === 0 ? `
+            <div style="background: rgba(255,255,255,0.01); border: 1px dashed var(--border-cyber); border-radius: 8px; padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.82rem;">
+              No domains apex-matched to this scope.
+            </div>
+          ` : `
+            <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+              ${projectDomains.map(dom => `
+                <div class="project-nested-row" style="cursor: default;">
+                  <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" style="color: var(--text-muted);">
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                    </svg>
+                    <span style="font-weight: 700; font-size: 0.88rem; color: var(--text-primary);">${dom.name}</span>
+                  </div>
+                  <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--cyber-green);"></span>
+                </div>
+              `).join('')}
+            </div>
+          `}
+        </div>
+
+        <!-- Section 06: Issues / Cases -->
+        <div class="project-section-title">
+          <span>06 Issues / Cases</span>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          ${openIncidentsCount === 0 ? `
+            <div style="background: rgba(255,255,255,0.01); border: 1px dashed var(--border-cyber); border-radius: 8px; padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.82rem;">
+              🎉 No open cases for this project.
+            </div>
+          ` : `
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              ${projectInstances.map(inst => {
+                const activeAlerts = alertsLog.filter(a => a.serverName === inst.name && a.status !== 'resolved');
+                return activeAlerts.map(a => `
+                  <div class="project-nested-row project-incident-row" data-alert-id="${a.id}">
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                      <span style="font-weight: 800; font-size: 0.7rem; color: ${a.severity === 'critical' ? '#ef4444' : '#f97316'}; background: ${a.severity === 'critical' ? 'rgba(239,68,68,0.1)' : 'rgba(249,115,22,0.1)'}; padding: 0.15rem 0.4rem; border-radius: 3px;">
+                        ${a.severity.toUpperCase()}
+                      </span>
+                      <div>
+                        <div style="font-weight: 700; font-size: 0.85rem; color: var(--text-primary);">${a.serverName}</div>
+                        <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem;">CPU exceeded ${a.cpuValue}% threshold</div>
+                      </div>
+                    </div>
+                    <span style="font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono);">${a.timeShort}</span>
+                  </div>
+                `).join('');
+              }).join('')}
+            </div>
+          `}
+        </div>
+
+        <!-- Section 07: Unhealthy now -->
+        <div class="project-section-title">
+          <span>07 Unhealthy now <span style="font-size:0.65rem; color:var(--text-muted); font-weight:normal; margin-left:0.25rem;">TOPOLOGY-STATUS-DERIVED</span></span>
+        </div>
+        <div>
+          ${unhealthyTopologyItems.length === 0 ? `
+            <div style="background: rgba(255,255,255,0.01); border: 1px dashed var(--border-cyber); border-radius: 8px; padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.82rem;">
+              All items healthy.
+            </div>
+          ` : `
+            <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+              ${unhealthyTopologyItems.map(item => `
+                <div class="project-nested-row" style="cursor: default;">
+                  <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" style="color: var(--text-muted);">
+                      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                      <line x1="12" y1="9" x2="12" y2="13" />
+                      <line x1="12" y1="17" x2="12.01" y2="17" />
+                    </svg>
+                    <div>
+                      <div style="font-weight: 700; font-size: 0.85rem; color: var(--text-primary);">${item.name}</div>
+                      <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem;">${item.type}</div>
+                    </div>
+                  </div>
+                  <span style="font-size: 0.72rem; color: ${item.color}; font-family: var(--font-mono); font-weight: bold; background: ${item.color}15; border: 1px solid ${item.color}25; padding: 0.15rem 0.4rem; border-radius: 4px;">
+                    ${item.status}
+                  </span>
+                </div>
+              `).join('')}
+            </div>
+          `}
+        </div>
+      </div>
+    `;
+
+    // Wire up events
+    wrapper.querySelectorAll('.project-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeProjectId = btn.getAttribute('data-project-id');
+        renderProjectPage();
+      });
+    });
+
+    const searchInput = wrapper.querySelector('#project-search-input');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        projectSearchQuery = e.target.value;
+        renderProjectPage();
+        const updatedSearch = wrapper.querySelector('#project-search-input');
+        if (updatedSearch) {
+          updatedSearch.focus();
+          updatedSearch.setSelectionRange(e.target.value.length, e.target.value.length);
+        }
+      });
+    }
+
+    wrapper.querySelectorAll('.navigate-client-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeClientId = btn.getAttribute('data-client-id');
+        const cliLink = Array.from(document.querySelectorAll('.nav-menu .nav-item')).find(l => l.getAttribute('href') === '#client');
+        if (cliLink) cliLink.click();
+      });
+    });
+
+    wrapper.querySelectorAll('.project-instance-row').forEach(row => {
+      row.addEventListener('click', () => {
+        const instName = row.getAttribute('data-instance-name');
+        const node = telemetryData.find(n => n.name === instName) || { name: instName, cpu: 50 };
+        openDetailsSidebar(node, false);
+      });
+    });
+
+    wrapper.querySelectorAll('.project-incident-row').forEach(row => {
+      row.addEventListener('click', () => {
+        const alertId = row.getAttribute('data-alert-id');
+        const alert = alertsLog.find(a => a.id === alertId);
+        if (alert) openDetailsSidebar(alert, true);
+      });
+    });
+  }
+
+  // -------------------------------------------------------------
+  // RUNS PAGE (REMEDIATION ENGINE) DYNAMIC WORKSPACE
+  // -------------------------------------------------------------
+  let runsHistory = [
+    { id: "RUN-9824", time: "2026-07-20 10:15:30", target: "afms-prod", script: "# Restart service\nsudo systemctl restart afms-main", status: "completed", operator: "secops-bot" },
+    { id: "RUN-9823", time: "2026-07-20 09:44:12", target: "linux-bastion-ssh", script: "# Firewall block\nsudo iptables -A INPUT -s 185.220.101.42 -j DROP", status: "completed", operator: "secops-bot" },
+    { id: "RUN-9822", time: "2026-07-20 08:30:05", target: "db-mysql-primary", script: "# DB log cleanup\nmysql -e 'PURGE BINARY LOGS BEFORE NOW();'", status: "completed", operator: "pranav-admin" }
+  ];
+
+  let activeRemediationAlertId = null;
+  let isExecutingRun = false;
+
+  const runTemplates = {
+    restart: `# Restart Systemd Service
+echo "[INFO] Connecting to systemd manager..."
+sudo systemctl restart nginx
+echo "[INFO] Verification: checking service status..."
+sudo systemctl status nginx --no-pager
+echo "[SUCCESS] Service successfully restarted."`,
+
+    cleanup: `# Clean logs on high disk usage
+echo "[INFO] Scanning directory /var/log/nginx..."
+sudo find /var/log/nginx/ -type f -name "*.log.*" -mtime +3 -delete
+echo "[INFO] Releasing disk descriptors..."
+sudo systemctl reload nginx
+echo "[SUCCESS] Free disk capacity reclaimed."`,
+
+    firewall: `# Apply temporary firewall block
+BAD_IP="185.220.101.42"
+echo "[INFO] Blocking inbound TCP requests from $BAD_IP..."
+sudo iptables -I INPUT -s $BAD_IP -j DROP
+echo "[SUCCESS] Firewall rules successfully synchronized."`,
+
+    custom: `# Type custom shell script commands here...
+echo "Running custom operations on node..."
+hostname
+uname -a
+echo "[SUCCESS] Task completed."`
+  };
+
+  function renderRunsPage() {
+    const wrapper = document.getElementById('runs-view-wrapper');
+    if (!wrapper) return;
+
+    // Get active alerts for remediation context
+    const activeRemediationAlerts = alertsLog.filter(a => a.status !== 'resolved');
+
+    // Get list of targets for dropdown (confirmed instances)
+    const confirmedInstances = instancesData.filter(inst => inst.accepted);
+
+    // Build Target select options
+    let targetOptions = '<option value="">-- select target node --</option>';
+    confirmedInstances.forEach(inst => {
+      targetOptions += `<option value="${inst.name}">${inst.name} (${inst.env})</option>`;
+    });
+    if (confirmedInstances.length === 0) {
+      // Fallback to active alerts servers if onboarding isn't committed yet
+      const alertServers = Array.from(new Set(alertsLog.map(a => a.serverName)));
+      alertServers.forEach(srv => {
+        targetOptions += `<option value="${srv}">${srv} (alerting)</option>`;
+      });
+    }
+
+    // Build Active Alerts Remediation List HTML
+    let alertsHtml = '';
+    if (activeRemediationAlerts.length === 0) {
+      alertsHtml = `
+        <div style="background: rgba(255,255,255,0.01); border: 1px dashed var(--border-cyber); border-radius: 8px; padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.8rem;">
+          <span style="font-size: 1.25rem; display: block; margin-bottom: 0.4rem;">🎉</span>
+          No active alerts requiring remediation.
+        </div>
+      `;
+    } else {
+      alertsHtml = activeRemediationAlerts.map(a => {
+        const severityClass = a.severity === 'critical' ? 'critical' : 'warning';
+        const recommendedScript = a.severity === 'critical' ? 'firewall' : 'restart';
+        return `
+          <div class="remediation-card ${severityClass}" data-alert-id="${a.id}" data-recommended="${recommendedScript}" data-target-node="${a.serverName}">
+            <div>
+              <span style="font-weight: 800; font-size: 0.65rem; color: ${a.severity === 'critical' ? '#ef4444' : '#f97316'}; background: ${a.severity === 'critical' ? 'rgba(239,68,68,0.1)' : 'rgba(249,115,22,0.1)'}; padding: 0.1rem 0.35rem; border-radius: 2px; margin-right: 0.5rem; text-transform: uppercase;">
+                ${a.severity}
+              </span>
+              <strong style="color: var(--text-primary); font-size: 0.82rem;">${a.serverName}</strong>
+              <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem;">${a.text}</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.4rem; position: relative;">
+              <button class="runs-load-btn" style="background: none; border: 1px solid rgba(0, 242, 254, 0.2); color: var(--cyber-cyan); font-size: 0.7rem; font-weight: bold; padding: 0.3rem 0.6rem; border-radius: 4px; cursor: pointer; transition: all 0.2s;">
+                Load Remediation
+              </button>
+              <div class="runs-dots-wrapper" style="position: relative;">
+                <button class="runs-dots-btn" style="background: none; border: 1px solid rgba(255,255,255,0.08); color: var(--text-secondary); width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 4px; cursor: pointer; font-size: 0.85rem; padding: 0; line-height: 1;">
+                  &#8942;
+                </button>
+                <div class="runs-dropdown hidden" style="position: absolute; right: 0; top: 28px; background: #0a0f1d; border: 1px solid var(--border-cyber); border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.6); z-index: 99; width: 110px; padding: 0.2rem 0;">
+                  <div class="runs-view-details-btn" style="padding: 0.4rem 0.75rem; font-size: 0.72rem; color: var(--text-secondary); cursor: pointer; text-align: left; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'; this.style.color='var(--text-primary)';" onmouseout="this.style.background='none'; this.style.color='var(--text-secondary)';">
+                    View Details
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Build Runs History Table rows
+    const historyRows = runsHistory.map(run => {
+      const statusColor = run.status === 'completed' ? 'var(--cyber-green)' : '#ef4444';
+      return `
+        <tr>
+          <td style="font-family: var(--font-mono); color: var(--cyber-cyan);">${run.id}</td>
+          <td style="color: var(--text-muted); font-size: 0.75rem;">${run.time}</td>
+          <td style="font-weight: bold;">${run.target}</td>
+          <td>
+            <code style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary); background: rgba(255,255,255,0.03); padding: 0.15rem 0.35rem; border-radius: 3px;">
+              ${run.script.split('\n')[0].replace('#', '').trim()}
+            </code>
+          </td>
+          <td>
+            <span style="font-size: 0.72rem; color: ${statusColor}; font-family: var(--font-mono); font-weight: bold; background: ${statusColor}10; border: 1px solid ${statusColor}20; padding: 0.15rem 0.4rem; border-radius: 4px; text-transform: uppercase;">
+              ${run.status}
+            </span>
+          </td>
+          <td style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">${run.operator}</td>
+        </tr>
+      `;
+    }).join('');
+
+    wrapper.innerHTML = `
+      <div style="padding: 1.5rem 0;">
+        <!-- Banner Title -->
+        <div style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+            <h1 style="font-size: 2rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.65rem;">
+              <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #fb8500; filter: drop-shadow(0 0 6px rgba(251, 133, 0, 0.45));">
+                <polyline points="4 17 10 11 4 5" />
+                <line x1="12" y1="19" x2="20" y2="19" />
+              </svg>
+              Remediation & Runs
+            </h1>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Execute shell scripts and deploy automation scripts directly to target nodes to resolve active telemetry and security alerts.</p>
+          </div>
+          <div style="background: rgba(0, 242, 254, 0.05); border: 1px solid rgba(0, 242, 254, 0.15); border-radius: 6px; padding: 0.4rem 0.8rem; font-family: var(--font-mono); font-size: 0.72rem; color: var(--cyber-cyan);">
+            UPLINK RUN ENGINE v1.2.0 · STATUS: ONLINE
+          </div>
+        </div>
+
+        <div class="runs-grid">
+          <!-- Left Column: Quick Remediation + Editor -->
+          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <!-- Suggested Actions -->
+            <div class="runs-card">
+              <h2 style="font-size: 0.9rem; font-family: var(--font-mono); color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" style="color: #f97316;">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                </svg>
+                Suggested Remediations (${activeRemediationAlerts.length})
+              </h2>
+              <div class="runs-quick-remediations">
+                ${alertsHtml}
+              </div>
+            </div>
+
+            <!-- Workspace Console -->
+            <div class="runs-card">
+              <h2 style="font-size: 0.9rem; font-family: var(--font-mono); color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" style="color: var(--cyber-cyan);">
+                  <polyline points="4 17 10 11 4 5" />
+                  <line x1="12" y1="19" x2="20" y2="19" />
+                </svg>
+                Execution Console
+              </h2>
+
+              <!-- Select template + target node -->
+              <div style="display: flex; gap: 0.75rem; margin-bottom: 0.75rem;">
+                <div style="flex: 1;">
+                  <label style="font-size: 0.65rem; color: var(--text-muted); font-family: var(--font-mono); display: block; margin-bottom: 0.25rem; text-transform: uppercase;">Script Template</label>
+                  <select id="runs-template-select" class="cyber-modal-select" style="width: 100%; box-sizing: border-box; background: rgba(0,0,0,0.2); border: 1px solid var(--border-cyber); border-radius: 4px; padding: 0.4rem; color: var(--text-primary); font-size: 0.78rem;">
+                    <option value="custom">Custom Script Command</option>
+                    <option value="restart">Systemd: Restart Service</option>
+                    <option value="cleanup">Disk: Purge old log files</option>
+                    <option value="firewall">Network: Block Host IP Address</option>
+                  </select>
+                </div>
+                <div style="flex: 1;">
+                  <label style="font-size: 0.65rem; color: var(--text-muted); font-family: var(--font-mono); display: block; margin-bottom: 0.25rem; text-transform: uppercase;">Target Node</label>
+                  <select id="runs-target-select" class="cyber-modal-select" style="width: 100%; box-sizing: border-box; background: rgba(0,0,0,0.2); border: 1px solid var(--border-cyber); border-radius: 4px; padding: 0.4rem; color: var(--text-primary); font-size: 0.78rem;">
+                    ${targetOptions}
+                  </select>
+                </div>
+              </div>
+
+              <!-- Editor container -->
+              <div class="runs-editor-container">
+                <div class="runs-editor-header">
+                  <span>bash_remediation.sh</span>
+                  <span id="runs-active-context" style="color: #fbbf24; font-weight: bold;"></span>
+                </div>
+                <textarea id="runs-script-editor" class="runs-textarea" placeholder="# Write shell script commands here..."></textarea>
+              </div>
+
+              <!-- Execution controls -->
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <button id="runs-upload-btn" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); color: var(--text-secondary); font-size: 0.72rem; font-weight: 700; padding: 0.45rem 0.8rem; border-radius: 4px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 0.35rem;">
+                    <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="17 8 12 3 7 8"></polyline>
+                      <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    Upload Script File
+                  </button>
+                  <input type="file" id="runs-file-input" style="display: none;">
+                </div>
+                <button id="runs-execute-btn" style="background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.3); color: var(--cyber-cyan); font-size: 0.75rem; font-weight: 800; padding: 0.5rem 1.25rem; border-radius: 4px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 0.4rem; box-shadow: 0 0 10px rgba(0, 242, 254, 0.15);">
+                  <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="currentColor" style="opacity: 0.8;">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                  </svg>
+                  <span>Execute Remediation</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Terminal -->
+          <div class="runs-terminal">
+            <div class="runs-terminal-header">
+              <div class="runs-terminal-dots">
+                <span class="runs-terminal-dot" style="background: #ef4444;"></span>
+                <span class="runs-terminal-dot" style="background: #eab308;"></span>
+                <span class="runs-terminal-dot" style="background: #22c55e;"></span>
+              </div>
+              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">stdout / stderr logs</span>
+            </div>
+            <div class="runs-terminal-screen" id="runs-terminal-log">
+              <div class="terminal-line info">[SYSTEM] Uplink remediation shell framework initialized.</div>
+              <div class="terminal-line info">[SYSTEM] Awaiting target node designation and commands.</div>
+              <div class="terminal-line"><span class="terminal-cursor"></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- History Log Section -->
+        <div class="runs-card" style="margin-top: 1.5rem;">
+          <h2 style="font-size: 0.9rem; font-family: var(--font-mono); color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem;">
+            Execution Logs & Runs History
+          </h2>
+          <div style="overflow-x: auto;">
+            <table class="runs-history-table">
+              <thead>
+                <tr>
+                  <th>Run ID</th>
+                  <th>Timestamp</th>
+                  <th>Target Node</th>
+                  <th>Command / Script</th>
+                  <th>Status</th>
+                  <th>Operator</th>
+                </tr>
+              </thead>
+              <tbody id="runs-history-tbody">
+                ${historyRows}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Initialize custom script value in editor
+    const editor = wrapper.querySelector('#runs-script-editor');
+    const templateSelect = wrapper.querySelector('#runs-template-select');
+    const targetSelect = wrapper.querySelector('#runs-target-select');
+    const contextLabel = wrapper.querySelector('#runs-active-context');
+
+    if (editor) {
+      editor.value = runTemplates[templateSelect.value];
+    }
+
+    // Template change handler
+    if (templateSelect && editor) {
+      templateSelect.addEventListener('change', () => {
+        editor.value = runTemplates[templateSelect.value];
+        activeRemediationAlertId = null;
+        if (contextLabel) contextLabel.textContent = '';
+      });
+    }
+
+    // Quick remediation click handlers
+    wrapper.querySelectorAll('.remediation-card').forEach(card => {
+      const alertId = card.getAttribute('data-alert-id');
+      const recommended = card.getAttribute('data-recommended');
+      const targetNode = card.getAttribute('data-target-node');
+      const alert = alertsLog.find(a => a.id === alertId);
+
+      const loadRemediationContext = () => {
+        activeRemediationAlertId = alertId;
+        if (templateSelect) templateSelect.value = recommended;
+        if (targetSelect) targetSelect.value = targetNode;
+        if (editor) editor.value = runTemplates[recommended];
+        if (contextLabel) contextLabel.textContent = `[TARGET ALERT ID: ${alertId}]`;
+        showToast(`Remediation template loaded for ${targetNode}.`);
+      };
+
+      // Card click
+      card.addEventListener('click', () => {
+        loadRemediationContext();
+      });
+
+      // Load Button click
+      const loadBtn = card.querySelector('.runs-load-btn');
+      if (loadBtn) {
+        loadBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          loadRemediationContext();
+        });
+      }
+
+      // Three dots toggle dropdown
+      const dotsBtn = card.querySelector('.runs-dots-btn');
+      const dropdown = card.querySelector('.runs-dropdown');
+      if (dotsBtn && dropdown) {
+        dotsBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          // Close other open runs dropdowns first
+          wrapper.querySelectorAll('.runs-dropdown').forEach(d => {
+            if (d !== dropdown) d.classList.add('hidden');
+          });
+          dropdown.classList.toggle('hidden');
+        });
+      }
+
+      // View details option
+      const viewDetailsBtn = card.querySelector('.runs-view-details-btn');
+      if (viewDetailsBtn && alert) {
+        viewDetailsBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          dropdown.classList.add('hidden');
+          openDetailsSidebar(alert, true);
+        });
+      }
+    });
+
+    // Close runs dropdowns on document click
+    document.addEventListener('click', () => {
+      wrapper.querySelectorAll('.runs-dropdown').forEach(d => d.classList.add('hidden'));
+    });
+
+    // Upload script file trigger
+    const uploadBtn = wrapper.querySelector('#runs-upload-btn');
+    const fileInput = wrapper.querySelector('#runs-file-input');
+    if (uploadBtn && fileInput) {
+      uploadBtn.addEventListener('click', () => fileInput.click());
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            if (editor) {
+              editor.value = event.target.result;
+              if (templateSelect) templateSelect.value = 'custom';
+              if (contextLabel) contextLabel.textContent = '';
+              activeRemediationAlertId = null;
+              showToast(`Uploaded script: ${file.name}`);
+            }
+          };
+          reader.readAsText(file);
+        }
+      });
+    }
+
+    // Execute run script
+    const executeBtn = wrapper.querySelector('#runs-execute-btn');
+    const terminalScreen = wrapper.querySelector('#runs-terminal-log');
+    if (executeBtn && terminalScreen) {
+      executeBtn.addEventListener('click', () => {
+        if (isExecutingRun) return;
+
+        const targetNode = targetSelect.value;
+        if (!targetNode) {
+          showToast("Execution aborted: Select a target node first.", false);
+          return;
+        }
+
+        const scriptContent = editor.value.trim();
+        if (!scriptContent) {
+          showToast("Execution aborted: Script commands cannot be empty.", false);
+          return;
+        }
+
+        isExecutingRun = true;
+        executeBtn.disabled = true;
+        executeBtn.style.opacity = '0.5';
+        executeBtn.querySelector('span').textContent = 'Running...';
+
+        // Clear terminal screen and start execution logs
+        terminalScreen.innerHTML = `
+          <div class="terminal-line input">[secops-bot@uplink-host ~]$ bash /tmp/remediation_run.sh</div>
+          <div class="terminal-line info">[INFO] Establishing SSH connection to target node: [${targetNode}]...</div>
+        `;
+        terminalScreen.scrollTop = terminalScreen.scrollHeight;
+
+        setTimeout(() => {
+          appendTerminalLine(terminalScreen, `[INFO] Exchanging cryptographic certificates...`, 'info');
+        }, 400);
+
+        setTimeout(() => {
+          appendTerminalLine(terminalScreen, `[INFO] Authenticated operator (pranav-admin) via private key.`, 'info');
+          appendTerminalLine(terminalScreen, `[INFO] Execution environment: bash shell version 5.1.16`, 'info');
+        }, 800);
+
+        // Scan script lines and print executing lines
+        const lines = scriptContent.split('\n').filter(l => l.trim().length > 0 && !l.startsWith('#'));
+        let lineDelay = 1200;
+        lines.forEach(line => {
+          setTimeout(() => {
+            appendTerminalLine(terminalScreen, `> ${line}`, 'input');
+          }, lineDelay);
+          lineDelay += 350;
+        });
+
+        // Append final results based on script template
+        setTimeout(() => {
+          const selectedTemplate = templateSelect.value;
+          if (selectedTemplate === 'restart') {
+            appendTerminalLine(terminalScreen, `Stopping service daemon nginx...`, 'normal');
+            appendTerminalLine(terminalScreen, `Starting service daemon nginx...`, 'normal');
+            appendTerminalLine(terminalScreen, `nginx.service - A high performance web server`, 'normal');
+            appendTerminalLine(terminalScreen, `   Active: active (running) since Mon 2026-07-20 12:08:42 UTC; 0s ago`, 'success');
+          } else if (selectedTemplate === 'cleanup') {
+            appendTerminalLine(terminalScreen, `Scanning /var/log/nginx/ directory...`, 'normal');
+            appendTerminalLine(terminalScreen, `Deleted rotated log access.log.3.gz (8.4 MB)`, 'success');
+            appendTerminalLine(terminalScreen, `Deleted rotated log access.log.4.gz (12.1 MB)`, 'success');
+            appendTerminalLine(terminalScreen, `Reloaded nginx configurations. Descriptors refreshed.`, 'success');
+          } else if (selectedTemplate === 'firewall') {
+            appendTerminalLine(terminalScreen, `Synchronizing network firewall access table...`, 'normal');
+            appendTerminalLine(terminalScreen, `Added rule: DROP all inbound packets from source IP 185.220.101.42`, 'success');
+            appendTerminalLine(terminalScreen, `Firewall sync complete. 1 active drop rule applied.`, 'success');
+          } else {
+            appendTerminalLine(terminalScreen, `Running custom operations on node...`, 'normal');
+            appendTerminalLine(terminalScreen, `Host identifier: ${targetNode}`, 'normal');
+            appendTerminalLine(terminalScreen, `OS Kernel: Linux 5.15.0-88-generic x86_64`, 'normal');
+          }
+        }, lineDelay + 200);
+
+        setTimeout(() => {
+          appendTerminalLine(terminalScreen, `[SUCCESS] Script execution terminated with status code 0.`, 'success');
+          terminalScreen.innerHTML += `<div class="terminal-line"><span class="terminal-cursor"></span></div>`;
+          terminalScreen.scrollTop = terminalScreen.scrollHeight;
+
+          // Add execution record to history log
+          const newRunId = `RUN-${Math.floor(1000 + Math.random() * 9000)}`;
+          const now = new Date();
+          const timeStr = now.toISOString().replace('T', ' ').substring(0, 19);
+          runsHistory.unshift({
+            id: newRunId,
+            time: timeStr,
+            target: targetNode,
+            script: scriptContent,
+            status: "completed",
+            operator: "pranav-admin"
+          });
+
+          // Resolve active alert if linked to this run
+          if (activeRemediationAlertId) {
+            const alert = alertsLog.find(a => a.id === activeRemediationAlertId);
+            if (alert) {
+              alert.status = 'resolved';
+              showToast(`Alert resolved! [${alert.serverName}] - ${alert.text} is cleared.`, true);
+              
+              // Dynamically update notification badges
+              updateBellBadge();
+              
+              // Re-render Pulse page to hide this resolved card
+              if (window.renderPulsePage) renderPulsePage();
+              
+              // Re-render Inventory domain page to reflect any resolved states if applicable
+              if (window.renderInventoryPage) renderInventoryPage();
+            }
+            activeRemediationAlertId = null;
+          }
+
+          // Reset buttons and reload runs page
+          isExecutingRun = false;
+          executeBtn.disabled = false;
+          executeBtn.style.opacity = '1';
+          executeBtn.querySelector('span').textContent = 'Execute Remediation';
+
+          renderRunsPage();
+        }, lineDelay + 800);
+      });
+    }
+  }
+
+  function appendTerminalLine(terminalScreen, text, type) {
+    const cursor = terminalScreen.querySelector('.terminal-cursor');
+    if (cursor) {
+      const cursorLine = cursor.closest('.terminal-line');
+      if (cursorLine) cursorLine.remove();
+    }
+
+    const line = document.createElement('div');
+    line.className = `terminal-line ${type}`;
+    line.textContent = text;
+    terminalScreen.appendChild(line);
+
+    const cursorLine = document.createElement('div');
+    cursorLine.className = 'terminal-line';
+    cursorLine.innerHTML = `<span class="terminal-cursor"></span>`;
+    terminalScreen.appendChild(cursorLine);
+
+    terminalScreen.scrollTop = terminalScreen.scrollHeight;
+  }
+
+  window.renderClientPage = renderClientPage;
+  window.renderProjectPage = renderProjectPage;
+  window.renderRunsPage = renderRunsPage;
 
 });
