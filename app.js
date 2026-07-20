@@ -97,61 +97,63 @@ document.addEventListener('DOMContentLoaded', () => {
   let editingInstanceId = null;
 
   // Onboarding commits history state array
-  let commitsHistory = [
-    {
-      id: "uplink-a8d2c9f",
-      timestamp: new Date().toLocaleString(),
-      operator: "User",
-      servers: 85,
-      domains: 9,
-      databases: 3,
-      subdomains: 22,
-      incidents: 2,
-      status: "SUCCESS"
-    }
-  ];
+  let commitsHistory = [];
 
   function renderCommitsHistory() {
-    const container = document.getElementById('recent-commits-container');
-    if (!container) return;
+    const containers = [
+      document.getElementById('recent-commits-container'),
+      document.getElementById('settings-commits-container')
+    ].filter(Boolean);
 
-    container.innerHTML = commitsHistory.map(commit => {
-      return `
-        <div class="recent-commit-card">
-          <div class="commit-card-info-left">
-            <div style="display: flex; align-items: center; gap: 0.6rem;">
-              <code style="font-family: var(--font-mono); font-weight: 700; color: var(--cyber-cyan); font-size: 0.85rem; letter-spacing: 0.5px;">${commit.id}</code>
-              <span class="commit-status-success">${commit.status}</span>
+    if (containers.length === 0) return;
+
+    containers.forEach(container => {
+      if (commitsHistory.length === 0) {
+        if (container.id === 'settings-commits-container') {
+          container.innerHTML = `<div class="settings-card" style="border: 1px dashed rgba(255,255,255,0.15); border-radius: 8px; padding: 3rem; text-align: center; color: var(--text-muted); font-size: 0.85rem;">No commits performed yet. Complete the Discovery Onboarding process to create a commit audit log.</div>`;
+        } else {
+          container.innerHTML = '';
+        }
+        return;
+      }
+
+      container.innerHTML = commitsHistory.map(commit => {
+        return `
+          <div class="recent-commit-card">
+            <div class="commit-card-info-left">
+              <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <code style="font-family: var(--font-mono); font-weight: 700; color: var(--cyber-cyan); font-size: 0.85rem; letter-spacing: 0.5px;">${commit.id}</code>
+                <span class="commit-status-success">${commit.status}</span>
+              </div>
+              <div class="commit-card-meta" style="margin-top: 0.4rem;">
+                <span><strong>Operator:</strong> ${commit.operator}</span>
+                <span style="color: rgba(255,255,255,0.1)">|</span>
+                <span><strong>Timestamp:</strong> ${commit.timestamp}</span>
+                <span style="color: rgba(255,255,255,0.1)">|</span>
+                <span class="commit-scope-badge">${commit.servers} Servers</span>
+                <span class="commit-scope-badge">${commit.domains} Domains</span>
+                <span class="commit-scope-badge">${commit.databases} Databases</span>
+                <span class="commit-scope-badge">${commit.subdomains} Subdomains</span>
+              </div>
             </div>
-            <div class="commit-card-meta" style="margin-top: 0.4rem;">
-              <span><strong>Operator:</strong> ${commit.operator}</span>
-              <span style="color: rgba(255,255,255,0.1)">|</span>
-              <span><strong>Timestamp:</strong> ${commit.timestamp}</span>
-              <span style="color: rgba(255,255,255,0.1)">|</span>
-              <span class="commit-scope-badge">${commit.servers} Servers</span>
-              <span class="commit-scope-badge">${commit.domains} Domains</span>
-              <span class="commit-scope-badge">${commit.databases} Databases</span>
-              <span class="commit-scope-badge">${commit.subdomains} Subdomains</span>
-            </div>
+            <button class="download-commit-report-btn" data-commit-id="${commit.id}" style="background: none; border: 1px solid rgba(0, 242, 254, 0.25); color: var(--cyber-cyan); font-size: 0.72rem; font-weight: bold; padding: 0.35rem 0.88rem; border-radius: 20px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 0.35rem;" onmouseover="this.style.background='rgba(0, 242, 254, 0.08)';" onmouseout="this.style.background='none';">
+              <svg viewBox="0 0 24 24" width="11" height="11" stroke="currentColor" fill="none" stroke-width="3">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Download Report
+            </button>
           </div>
-          <button class="download-commit-report-btn" data-commit-id="${commit.id}" style="background: none; border: 1px solid rgba(0, 242, 254, 0.25); color: var(--cyber-cyan); font-size: 0.72rem; font-weight: bold; padding: 0.35rem 0.8rem; border-radius: 20px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 0.35rem;" onmouseover="this.style.background='rgba(0, 242, 254, 0.08)';" onmouseout="this.style.background='none';">
-            <svg viewBox="0 0 24 24" width="11" height="11" stroke="currentColor" fill="none" stroke-width="3">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7 10 12 15 17 10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            Download Report
-          </button>
-        </div>
-      `;
-    }).join('');
+        `;
+      }).join('');
 
-    // Bind click events to download buttons
-    container.querySelectorAll('.download-commit-report-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const commitId = btn.getAttribute('data-commit-id');
-        downloadCommitReport(commitId);
+      container.querySelectorAll('.download-commit-report-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const commitId = btn.getAttribute('data-commit-id');
+          downloadCommitReport(commitId);
+        });
       });
     });
   }
@@ -558,13 +560,18 @@ This is an automated audit report generated by the Uplink entity graph engine.
       actionBtn.style.opacity = '0.5';
     }
 
+    const ingestedSec = document.querySelector('.ingested-section');
+    const recentCommitsSec = document.querySelector('.recent-commits-section');
     const topCommitBtnContainer = document.getElementById('new-commit-session-top-container');
-    if (topCommitBtnContainer) {
-      if (currentStep === 7) {
-        topCommitBtnContainer.classList.remove('hidden');
-      } else {
-        topCommitBtnContainer.classList.add('hidden');
-      }
+
+    if (currentStep === 7) {
+      if (ingestedSec) ingestedSec.classList.remove('hidden');
+      if (recentCommitsSec && commitsHistory.length > 0) recentCommitsSec.classList.remove('hidden');
+      if (topCommitBtnContainer) topCommitBtnContainer.classList.remove('hidden');
+    } else {
+      if (ingestedSec) ingestedSec.classList.add('hidden');
+      if (recentCommitsSec) recentCommitsSec.classList.add('hidden');
+      if (topCommitBtnContainer) topCommitBtnContainer.classList.add('hidden');
     }
 
     // 5. Update left-side help descriptions in footer
@@ -597,20 +604,58 @@ This is an automated audit report generated by the Uplink entity graph engine.
       return;
     }
     
+    function resetOnboardingWizardState() {
+      // 1. Reset Sources (Step 1)
+      addedSources = [];
+      if (typeof renderSourcesStack === 'function') {
+        renderSourcesStack();
+      }
+
+      // 2. Reset Infrastructure decisions (Step 2)
+      document.querySelectorAll('.infra-row .action-undo-btn').forEach(undoBtn => {
+        undoBtn.click();
+      });
+
+      // 3. Reset Instances (Step 3)
+      if (typeof instancesData !== 'undefined') {
+        instancesData.forEach(item => {
+          item.accepted = false;
+        });
+      }
+      if (typeof renderInstancesList === 'function') {
+        renderInstancesList();
+      }
+
+      // 4. Reset Projects (Step 4)
+      if (typeof projectsData !== 'undefined') {
+        projectsData.forEach(proj => {
+          proj.accepted = false;
+        });
+      }
+      if (typeof renderProjectsList === 'function') {
+        renderProjectsList();
+      }
+
+      // 5. Reset Review & Commit status badge (Step 6)
+      const statusBadge = document.getElementById('report-status-badge');
+      if (statusBadge) {
+        statusBadge.textContent = "STATUS: PENDING COMMIT";
+        statusBadge.classList.remove('committed');
+      }
+
+      // 6. Reset Wizard step back to 1
+      currentStep = 1;
+      updateStepUI();
+      showToast("Started a fresh commit session. All wizard selections have been reset for a clean commit flow!", true);
+    }
+
     // Bind click handler for top Start New Commit Session button
     const topStartNewCommitBtn = document.getElementById('start-new-commit-btn-top');
     if (topStartNewCommitBtn && !topStartNewCommitBtn.dataset.bound) {
       topStartNewCommitBtn.dataset.bound = "true";
       topStartNewCommitBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        currentStep = 1;
-        const statusBadge = document.getElementById('report-status-badge');
-        if (statusBadge) {
-          statusBadge.textContent = "STATUS: PENDING COMMIT";
-          statusBadge.classList.remove('committed');
-        }
-        updateStepUI();
-        showToast("Started a new commit session. You can now adjust your onboarding steps and commit again!", true);
+        resetOnboardingWizardState();
       });
     }
     if (currentStep === 1 && addedSources.length === 0) {
@@ -7399,6 +7444,220 @@ echo "[SUCCESS] Task completed."`
   window.renderClientPage = renderClientPage;
   window.renderProjectPage = renderProjectPage;
   window.renderRunsPage = renderRunsPage;
+
+  // Profile Name Edit & Header Synchronization Logic
+  const editProfileNameBtn = document.getElementById('edit-profile-name-btn');
+  const saveProfileNameBtn = document.getElementById('save-profile-name-btn');
+  const cancelProfileNameBtn = document.getElementById('cancel-profile-name-btn');
+  const nameDisplayGroup = document.getElementById('name-display-group');
+  const nameEditGroup = document.getElementById('name-edit-group');
+  const nameEditInput = document.getElementById('name-edit-input');
+
+  const settingsProfileFullname = document.getElementById('settings-profile-fullname');
+  const settingsTableNameVal = document.getElementById('settings-table-name-val');
+  const headerUserFullname = document.getElementById('header-user-fullname');
+  const headerAvatarBadge = document.getElementById('header-avatar-badge');
+  const profileAvatarLarge = document.querySelector('.profile-avatar-large');
+
+  function sanitizeAndFormatName(val) {
+    if (!val) return '';
+    // 1. Strip everything except alphabetic letters and spaces
+    let cleaned = val.replace(/[^a-zA-Z ]/g, '');
+
+    // 2. Allow at most 1 space
+    const parts = cleaned.split(' ');
+    if (parts.length > 2) {
+      cleaned = parts[0] + ' ' + parts.slice(1).join('');
+    }
+
+    // 3. Format Title Case for each word
+    return cleaned.split(' ').map(word => {
+      if (!word) return '';
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    }).join(' ');
+  }
+
+  function getInitials(name) {
+    if (!name) return "P";
+    const words = name.trim().split(/\s+/).filter(Boolean);
+    if (words.length === 0) return "P";
+    return words.map(w => w[0].toUpperCase()).join('');
+  }
+
+  if (nameEditInput) {
+    nameEditInput.addEventListener('keydown', (e) => {
+      // Allow navigation and edit control keys
+      if (['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab', 'Enter'].includes(e.key) || e.ctrlKey || e.metaKey) {
+        return;
+      }
+
+      // Block second space
+      if (e.key === ' ' && nameEditInput.value.includes(' ')) {
+        e.preventDefault();
+        showToast("Only one space is allowed in the name.", false);
+        return;
+      }
+
+      // Block numbers and special characters
+      if (!/^[a-zA-Z ]$/.test(e.key)) {
+        e.preventDefault();
+        showToast("Only letters and a single space are allowed in the name.", false);
+        return;
+      }
+    });
+
+    nameEditInput.addEventListener('input', () => {
+      const formatted = sanitizeAndFormatName(nameEditInput.value);
+      if (formatted !== nameEditInput.value) {
+        nameEditInput.value = formatted;
+      }
+    });
+  }
+
+  if (editProfileNameBtn && saveProfileNameBtn && cancelProfileNameBtn) {
+    editProfileNameBtn.addEventListener('click', () => {
+      if (nameDisplayGroup) nameDisplayGroup.style.display = 'none';
+      if (nameEditGroup) nameEditGroup.style.display = 'flex';
+      if (nameEditInput) {
+        nameEditInput.value = settingsProfileFullname ? settingsProfileFullname.textContent.trim() : "Pranav Gupta";
+        nameEditInput.focus();
+      }
+    });
+
+    cancelProfileNameBtn.addEventListener('click', () => {
+      if (nameEditGroup) nameEditGroup.style.display = 'none';
+      if (nameDisplayGroup) nameDisplayGroup.style.display = 'flex';
+    });
+
+    saveProfileNameBtn.addEventListener('click', () => {
+      const rawName = nameEditInput ? nameEditInput.value : "";
+      const newName = sanitizeAndFormatName(rawName.trim());
+
+      if (!newName) {
+        showToast("Name cannot be empty.");
+        return;
+      }
+
+      const initials = getInitials(newName);
+
+      if (settingsProfileFullname) settingsProfileFullname.textContent = newName;
+      if (settingsTableNameVal) settingsTableNameVal.textContent = newName;
+      if (headerUserFullname) headerUserFullname.textContent = newName;
+      if (headerAvatarBadge) headerAvatarBadge.textContent = initials;
+      if (profileAvatarLarge) profileAvatarLarge.textContent = initials;
+
+      if (nameEditGroup) nameEditGroup.style.display = 'none';
+      if (nameDisplayGroup) nameDisplayGroup.style.display = 'flex';
+
+      showToast(`Account name updated to "${newName}"`, true);
+    });
+  }
+
+  // SIEM Configuration Edit Modal Handler
+  const editSiemConfigTrigger = document.getElementById('edit-siem-config-trigger');
+  const editSiemConfigModal = document.getElementById('edit-siem-config-modal');
+  const editSiemModalCloseBtn = document.getElementById('edit-siem-modal-close-btn');
+  const editSiemModalCancelBtn = document.getElementById('edit-siem-modal-cancel-btn');
+  const editSiemModalSaveBtn = document.getElementById('edit-siem-modal-save-btn');
+  const addSiemConfigBtn = document.getElementById('add-siem-config-btn');
+  const addSourceBtnIntegrations = document.getElementById('add-source-btn-integrations');
+
+  const openSiemModal = () => {
+    if (editSiemConfigModal) editSiemConfigModal.classList.add('active');
+  };
+
+  const closeSiemModal = () => {
+    if (editSiemConfigModal) editSiemConfigModal.classList.remove('active');
+  };
+
+  if (editSiemConfigTrigger) editSiemConfigTrigger.addEventListener('click', openSiemModal);
+  if (addSiemConfigBtn) addSiemConfigBtn.addEventListener('click', openSiemModal);
+  if (editSiemModalCloseBtn) editSiemModalCloseBtn.addEventListener('click', closeSiemModal);
+  if (editSiemModalCancelBtn) editSiemModalCancelBtn.addEventListener('click', closeSiemModal);
+
+  if (addSourceBtnIntegrations) {
+    addSourceBtnIntegrations.addEventListener('click', () => {
+      showToast("Opening Add Data Source wizard...");
+      const addSourceTriggerInitial = document.getElementById('add-source-trigger-initial');
+      if (addSourceTriggerInitial) addSourceTriggerInitial.click();
+    });
+  }
+
+  if (editSiemModalSaveBtn) {
+    editSiemModalSaveBtn.addEventListener('click', () => {
+      const domainsText = document.getElementById('siem-watch-domains')?.value || "";
+      const emailsText = document.getElementById('siem-breach-emails')?.value || "";
+      const brandText = document.getElementById('siem-brand-terms')?.value || "";
+
+      const domainsCount = domainsText.split('\n').filter(l => l.trim()).length;
+      const emailsCount = emailsText.split('\n').filter(l => l.trim()).length;
+      const brandCount = brandText.split('\n').filter(l => l.trim()).length;
+
+      const summaryText = document.getElementById('siem-config-summary-text');
+      if (summaryText) {
+        summaryText.textContent = `${domainsCount} domain(s) · ${emailsCount} email(s) · ${brandCount} brand term(s) · wazuh`;
+      }
+
+      closeSiemModal();
+      showToast("SIEM configuration saved successfully", true);
+    });
+  }
+
+  // Available to Connect Pills Handlers
+  document.querySelectorAll('.available-source-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      const name = pill.textContent.replace('+', '').trim();
+      showToast(`Added source requirement: ${name}`, true);
+    });
+  });
+
+  // Settings: Session & Access sign-out handlers
+  document.querySelectorAll('.btn-signout-session').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const user = btn.getAttribute('data-user') || "User";
+      const row = btn.closest('[id^="team-session-row-"]');
+      if (row) {
+        row.style.transition = 'all 0.3s opacity';
+        row.style.opacity = '0';
+        setTimeout(() => row.remove(), 300);
+      }
+      showToast(`Revoked active session for ${user}.`, true);
+    });
+  });
+
+  // Settings: Maintenance mode toggle polling handler
+  let pollingPaused = false;
+  const togglePollingBtn = document.getElementById('toggle-polling-btn');
+  const pollingStatusTitle = document.getElementById('polling-status-title');
+  const pollingStatusDesc = document.getElementById('polling-status-desc');
+
+  if (togglePollingBtn) {
+    togglePollingBtn.addEventListener('click', () => {
+      pollingPaused = !pollingPaused;
+      if (pollingPaused) {
+        togglePollingBtn.textContent = 'Resume polling';
+        togglePollingBtn.style.background = '#10b981';
+        if (pollingStatusTitle) pollingStatusTitle.textContent = 'Polling is currently paused';
+        if (pollingStatusDesc) pollingStatusDesc.textContent = 'adapter pollers are skipping execution cycles';
+        showToast('Polling paused across all system adapters.');
+      } else {
+        togglePollingBtn.textContent = 'Pause polling';
+        togglePollingBtn.style.background = '#e11d48';
+        if (pollingStatusTitle) pollingStatusTitle.textContent = 'Polling is running normally';
+        if (pollingStatusDesc) pollingStatusDesc.textContent = 'every adapter poller — skips its cycle while enabled';
+        showToast('Normal polling resumed across all system adapters.', true);
+      }
+    });
+  }
+
+  // Settings: Danger zone sign out team handler
+  const dangerSignoutTeamBtn = document.getElementById('danger-signout-team-btn');
+  if (dangerSignoutTeamBtn) {
+    dangerSignoutTeamBtn.addEventListener('click', () => {
+      showToast('Team sessions revoked. Session sign-out event recorded in audit logs.', true);
+    });
+  }
 
   // Initial render of commits history
   renderCommitsHistory();

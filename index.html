@@ -147,11 +147,9 @@
         </svg>
       </button>
       <div class="profile-section" id="profile-trigger">
-        <span class="user-name">User</span>
-        <div class="avatar">
-          <svg viewBox="0 0 32 32" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16 8C18.2091 8 20 9.79086 20 12C20 14.2091 18.2091 16 16 16C13.7909 16 12 14.2091 12 12C12 9.79086 13.7909 8 16 8ZM16 18C21.5228 18 26 21.134 26 25V26H6V25C6 21.134 10.4772 18 16 18Z" fill="var(--bg-darker)" />
-          </svg>
+        <span class="user-name" id="header-user-fullname">Pranav Gupta</span>
+        <div class="avatar" id="header-avatar-badge" style="background: var(--cyber-cyan); color: #050811; font-weight: 800; font-size: 0.75rem; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(0,242,254,0.3);">
+          PG
         </div>
         <svg class="dropdown-arrow" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="6 9 12 15 18 9"></polyline>
@@ -1411,6 +1409,38 @@
               <span>Sources & Integrations</span>
             </button>
             
+            <button class="settings-nav-item" data-settings-tab="defaults">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="21" x2="4" y2="14"></line>
+                <line x1="4" y1="10" x2="4" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="3"></line>
+                <line x1="20" y1="21" x2="20" y2="16"></line>
+                <line x1="20" y1="12" x2="20" y2="3"></line>
+                <line x1="1" y1="14" x2="7" y2="14"></line>
+                <line x1="9" y1="8" x2="15" y2="8"></line>
+                <line x1="17" y1="16" x2="23" y2="16"></line>
+              </svg>
+              <span>Defaults</span>
+            </button>
+
+            <button class="settings-nav-item" data-settings-tab="commits">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4"></circle>
+                <line x1="1.05" y1="12" x2="8" y2="12"></line>
+                <line x1="16" y1="12" x2="22.95" y2="12"></line>
+              </svg>
+              <span>Commits</span>
+            </button>
+
+            <button class="settings-nav-item" data-settings-tab="session">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span>Session & access</span>
+            </button>
+            
             <button class="settings-nav-item" data-settings-tab="maintenance">
               <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
@@ -1435,6 +1465,15 @@
                 <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
               </svg>
               <span>API Docs</span>
+            </button>
+
+            <button class="settings-nav-item" data-settings-tab="danger" style="color: #ef4444;">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="#ef4444" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
+              <span style="color: #ef4444;">Danger zone</span>
             </button>
           </div>
           
@@ -1461,7 +1500,21 @@
               <div class="settings-card" style="border: 1px solid var(--border-cyber); border-radius: 8px; overflow: hidden; background: var(--bg-card); margin-bottom: 2rem;">
                 <div class="settings-table-row" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
                   <span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Name</span>
-                  <span style="font-size: 0.85rem; color: var(--text-primary); font-weight: 600;">Pranav Gupta</span>
+                  <div style="display: flex; align-items: center; gap: 0.75rem;" id="name-display-group">
+                    <span style="font-size: 0.85rem; color: var(--text-primary); font-weight: 600;" id="settings-table-name-val">Pranav Gupta</span>
+                    <button class="secondary-btn" id="edit-profile-name-btn" style="padding: 0.25rem 0.65rem; font-size: 0.75rem; border-radius: 4px; display: flex; align-items: center; gap: 0.3rem;">
+                      <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                      </svg>
+                      Edit
+                    </button>
+                  </div>
+                  <div style="display: none; align-items: center; gap: 0.5rem;" id="name-edit-group">
+                    <input type="text" class="cyber-modal-input" id="name-edit-input" value="Pranav Gupta" style="padding: 0.3rem 0.6rem; font-size: 0.82rem; width: 180px;">
+                    <button class="primary-btn" id="save-profile-name-btn" style="padding: 0.3rem 0.75rem; font-size: 0.75rem; border-radius: 4px; background: var(--cyber-cyan); color: #050811; font-weight: 700;">Save</button>
+                    <button class="secondary-btn" id="cancel-profile-name-btn" style="padding: 0.3rem 0.65rem; font-size: 0.75rem; border-radius: 4px;">Cancel</button>
+                  </div>
                 </div>
                 <div class="settings-table-row" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
                   <span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Email</span>
@@ -1588,11 +1641,98 @@
             </div>
             
             <div id="settings-pane-integrations" class="settings-pane hidden">
-              <h2 style="font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">Sources & Integrations</h2>
-              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Manage SIEM connectors, enrichment feeds, and orchestration pipelines.</p>
-              
+              <!-- Top Header & Action Row -->
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+                <div>
+                  <h2 style="font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.25rem 0;">Sources & Integrations</h2>
+                  <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Adapter credential accounts — encrypted at rest, secrets masked.</p>
+                </div>
+                <button class="primary-btn" id="add-source-btn-integrations" style="padding: 0.45rem 1.1rem; font-size: 0.82rem; font-weight: 700; border-radius: 6px; display: flex; align-items: center; gap: 0.4rem; background: var(--cyber-cyan); color: #050811;">
+                  <span style="font-size: 1.1rem; font-weight: bold; line-height: 1;">+</span> Add source
+                </button>
+              </div>
+
+              <!-- Data Table -->
+              <div class="settings-card" style="border: 1px solid var(--border-cyber); border-radius: 8px; overflow: hidden; background: var(--bg-card); margin-bottom: 2.5rem;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.82rem;">
+                  <thead>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(0,0,0,0.15);">
+                      <th style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">SOURCE</th>
+                      <th style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">PROVIDER</th>
+                      <th style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">BASE URL</th>
+                      <th style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">CREDENTIAL</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+                      <td style="padding: 0.9rem 1.25rem;">
+                        <strong style="color: var(--text-primary); font-size: 0.88rem; display: block;">Proeffico Linode (Account 1)</strong>
+                        <span style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono);">infra-metrics</span>
+                      </td>
+                      <td style="padding: 0.9rem 1.25rem;"><span class="provider-pill pill-linode">linode</span></td>
+                      <td style="padding: 0.9rem 1.25rem; color: var(--text-muted); font-family: var(--font-mono);">-</td>
+                      <td style="padding: 0.9rem 1.25rem; color: var(--text-muted); font-family: var(--font-mono); letter-spacing: 2px;">................................</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+                      <td style="padding: 0.9rem 1.25rem;">
+                        <strong style="color: var(--text-primary); font-size: 0.88rem; display: block;">Proeffico Linode (Account 2)</strong>
+                        <span style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono);">infra-metrics</span>
+                      </td>
+                      <td style="padding: 0.9rem 1.25rem;"><span class="provider-pill pill-linode">linode</span></td>
+                      <td style="padding: 0.9rem 1.25rem; color: var(--text-muted); font-family: var(--font-mono);">-</td>
+                      <td style="padding: 0.9rem 1.25rem; color: var(--text-muted); font-family: var(--font-mono); letter-spacing: 2px;">................................</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+                      <td style="padding: 0.9rem 1.25rem;">
+                        <strong style="color: var(--text-primary); font-size: 0.88rem; display: block;">Proeffico Jenkins</strong>
+                        <span style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono);">ci</span>
+                      </td>
+                      <td style="padding: 0.9rem 1.25rem;"><span class="provider-pill pill-jenkins">jenkins</span></td>
+                      <td style="padding: 0.9rem 1.25rem; color: var(--text-muted); font-family: var(--font-mono);">http://jenkins.proeffico..</td>
+                      <td style="padding: 0.9rem 1.25rem; color: var(--text-muted); font-family: var(--font-mono); letter-spacing: 1px;">..........................d4d3</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+                      <td style="padding: 0.9rem 1.25rem;">
+                        <strong style="color: var(--text-primary); font-size: 0.88rem; display: block;">Proeffico SonarQube</strong>
+                        <span style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono);">quality</span>
+                      </td>
+                      <td style="padding: 0.9rem 1.25rem;"><span class="provider-pill pill-sonarqube">sonarqube</span></td>
+                      <td style="padding: 0.9rem 1.25rem; color: var(--text-muted); font-family: var(--font-mono);">https://sonarqube.proeff..</td>
+                      <td style="padding: 0.9rem 1.25rem; color: var(--text-muted); font-family: var(--font-mono); letter-spacing: 1px;">..........................e35</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+                      <td style="padding: 0.9rem 1.25rem;">
+                        <strong style="color: var(--text-primary); font-size: 0.88rem; display: block;">Proeffico Prometheus</strong>
+                        <span style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono);">metrics</span>
+                      </td>
+                      <td style="padding: 0.9rem 1.25rem;"><span class="provider-pill pill-prometheus">prometheus</span></td>
+                      <td style="padding: 0.9rem 1.25rem; color: var(--text-muted); font-family: var(--font-mono);">https://monitoring.proef..</td>
+                      <td style="padding: 0.9rem 1.25rem; color: var(--text-muted); font-family: var(--font-mono); letter-spacing: 1px;">......</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+                      <td style="padding: 0.9rem 1.25rem;">
+                        <strong style="color: var(--text-primary); font-size: 0.88rem; display: block;">siem-external-leakage</strong>
+                        <span style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono);">siem</span>
+                      </td>
+                      <td style="padding: 0.9rem 1.25rem;"><span class="provider-pill pill-siem">siem</span></td>
+                      <td style="padding: 0.9rem 1.25rem; color: var(--text-muted); font-family: var(--font-mono);">-</td>
+                      <td style="padding: 0.9rem 1.25rem; color: var(--text-muted); font-family: var(--font-mono); letter-spacing: 1px;">..........................LR4o</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 0.9rem 1.25rem;">
+                        <strong style="color: var(--text-primary); font-size: 0.88rem; display: block;">Wazuh</strong>
+                        <span style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono);">siem</span>
+                      </td>
+                      <td style="padding: 0.9rem 1.25rem;"><span class="provider-pill pill-siem">siem</span></td>
+                      <td style="padding: 0.9rem 1.25rem; color: var(--text-muted); font-family: var(--font-mono);">-</td>
+                      <td style="padding: 0.9rem 1.25rem; color: var(--text-muted); font-family: var(--font-mono); letter-spacing: 1px;">..........................ctor</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
               <!-- Cortex & SIEM Integrations Card -->
-              <div class="settings-card" style="border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem; background: var(--bg-card); margin-bottom: 2rem;">
+              <div class="settings-card" style="border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem; background: var(--bg-card); margin-bottom: 2.5rem;">
                 <h3 style="font-size: 1rem; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 1.25rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 0.75rem;">Cortex & SIEM Integrations</h3>
                 
                 <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.04);">
@@ -1627,9 +1767,35 @@
                   <span style="font-size: 0.68rem; font-weight: 700; background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.25); color: #f59e0b; padding: 0.2rem 0.65rem; border-radius: 5px; text-transform: uppercase; letter-spacing: 0.5px;">Standby</span>
                 </div>
               </div>
-              
+
+              <!-- SIEM Scan Configuration Section -->
+              <div style="margin-bottom: 2.5rem;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
+                  <div>
+                    <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.2rem 0;">SIEM scan configuration</h3>
+                    <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0;">What the SIEM adapter scans — domains, emails, GitHub/brand/IP terms, Wazuh, poll cadence.</p>
+                  </div>
+                  <button class="secondary-btn" id="add-siem-config-btn" style="padding: 0.35rem 0.85rem; font-size: 0.78rem; font-weight: 600; border-radius: 6px; display: flex; align-items: center; gap: 0.3rem;">
+                    <span>+</span> Add configuration
+                  </button>
+                </div>
+
+                <div class="settings-card" style="border: 1px solid var(--border-cyber); border-radius: 8px; padding: 1.25rem 1.5rem; background: var(--bg-card); display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                  <div>
+                    <strong style="color: var(--text-primary); font-size: 0.92rem; display: block; margin-bottom: 0.2rem;">Config #86 acct 6</strong>
+                    <span style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);" id="siem-config-summary-text">6 domain(s) · 3 email(s) · 2 brand term(s) · wazuh</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 1rem;">
+                    <span style="font-size: 0.7rem; font-weight: bold; font-family: var(--font-mono); color: var(--cyber-green); background: rgba(5, 255, 196, 0.08); border: 1px solid rgba(5, 255, 196, 0.2); padding: 0.2rem 0.6rem; border-radius: 4px;">enabled</span>
+                    <button class="secondary-btn" id="edit-siem-config-trigger" style="padding: 0.35rem 0.9rem; font-size: 0.78rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.15);">
+                      Edit
+                    </button>
+                  </div>
+                </div>
+              </div>
+
               <!-- Data Source Connectors -->
-              <div class="settings-card" style="border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem; background: var(--bg-card);">
+              <div class="settings-card" style="border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem; background: var(--bg-card); margin-bottom: 2.5rem;">
                 <h3 style="font-size: 1rem; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 0.75rem;">Data Source Connectors</h3>
                 
                 <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 0; border-bottom: 1px solid rgba(255,255,255,0.04);">
@@ -1654,13 +1820,161 @@
                   <span style="font-size: 0.68rem; font-weight: 700; background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.25); color: #f59e0b; padding: 0.2rem 0.65rem; border-radius: 5px;">Degraded</span>
                 </div>
               </div>
+
+              <!-- Available to Connect Section -->
+              <div>
+                <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.2rem 0;">Available to connect</h3>
+                <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0 0 1.25rem 0;">Sources we've scoped as worth adding — not yet wired.</p>
+
+                <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;" id="available-sources-pills-grid">
+                  <button class="available-source-pill">+ Cert server (own)</button>
+                  <button class="available-source-pill">+ Apache / Nginx logs — latency + 5xx</button>
+                  <button class="available-source-pill">+ Linode billing / cost</button>
+                  <button class="available-source-pill">+ Pushgateway — backup metrics</button>
+                  <button class="available-source-pill">+ MySQL slow-query log</button>
+                  <button class="available-source-pill">+ MariaDB replication / backup health</button>
+                  <button class="available-source-pill">+ Domain WHOIS</button>
+                  <button class="available-source-pill">+ GPU (DCGM)</button>
+                  <button class="available-source-pill">+ Kafka / Vault health</button>
+                </div>
+              </div>
+            </div>
+
+            <div id="settings-pane-defaults" class="settings-pane hidden">
+              <div style="margin-bottom: 1.5rem;">
+                <h2 style="font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.25rem 0;">Defaults</h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Default configuration parameters for newly ingested nodes and adapters.</p>
+              </div>
+
+              <div class="settings-card" style="border: 1px solid var(--border-cyber); border-radius: 8px; overflow: hidden; background: var(--bg-card);">
+                <div class="settings-table-row" style="display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                  <div>
+                    <strong style="color: var(--text-primary); font-size: 0.9rem; display: block; margin-bottom: 0.15rem;">Default Discovery Network Subnet</strong>
+                    <span style="font-size: 0.78rem; color: var(--text-muted);">Initial CIDR range scanned during auto-discovery</span>
+                  </div>
+                  <span style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--cyber-cyan);">192.168.1.0/24</span>
+                </div>
+                <div class="settings-table-row" style="display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                  <div>
+                    <strong style="color: var(--text-primary); font-size: 0.9rem; display: block; margin-bottom: 0.15rem;">Default Adapter Polling Interval</strong>
+                    <span style="font-size: 0.78rem; color: var(--text-muted);">Cycle frequency for external cloud & SIEM adapters</span>
+                  </div>
+                  <span style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-primary);">60 seconds</span>
+                </div>
+                <div class="settings-table-row" style="display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                  <div>
+                    <strong style="color: var(--text-primary); font-size: 0.9rem; display: block; margin-bottom: 0.15rem;">Audit Log Retention Period</strong>
+                    <span style="font-size: 0.78rem; color: var(--text-muted);">Retention cycle for administrator action history</span>
+                  </div>
+                  <span style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-primary);">90 days</span>
+                </div>
+                <div class="settings-table-row" style="display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem;">
+                  <div>
+                    <strong style="color: var(--text-primary); font-size: 0.9rem; display: block; margin-bottom: 0.15rem;">Default IP Allocation Range</strong>
+                    <span style="font-size: 0.78rem; color: var(--text-muted);">Subnet range reserved for auto-assigned gateway nodes</span>
+                  </div>
+                  <span style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-primary);">10.0.0.0/16</span>
+                </div>
+              </div>
+            </div>
+
+            <div id="settings-pane-commits" class="settings-pane hidden">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+                <div>
+                  <h2 style="font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.25rem 0;">Commits Log</h2>
+                  <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Audit trail of all onboarding commits performed on Uplink.</p>
+                </div>
+                <span style="font-size: 0.75rem; font-weight: 700; font-family: var(--font-mono); color: var(--cyber-cyan); background: rgba(0, 242, 254, 0.08); border: 1px solid rgba(0, 242, 254, 0.2); padding: 0.25rem 0.75rem; border-radius: 4px;">ADMIN AUDIT</span>
+              </div>
+
+              <div id="settings-commits-container" style="display: flex; flex-direction: column; gap: 1rem;">
+                <!-- Populated dynamically by renderCommitsHistory() -->
+              </div>
+            </div>
+
+            <div id="settings-pane-session" class="settings-pane hidden">
+              <div style="margin-bottom: 1.5rem;">
+                <h2 style="font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.25rem 0;">Session & access</h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Where you're signed in, and — for admins — the platform session policy.</p>
+              </div>
+
+              <!-- YOUR SESSIONS -->
+              <div style="margin-bottom: 2rem;">
+                <h3 style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin: 0 0 0.25rem 0;">YOUR SESSIONS</h3>
+                <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0 0 0.75rem 0;">1 active session.</p>
+
+                <div class="settings-card" style="border: 1px solid var(--border-cyber); border-radius: 8px; padding: 1.1rem 1.5rem; background: var(--bg-card); display: flex; justify-content: space-between; align-items: center;">
+                  <div>
+                    <strong style="color: var(--text-primary); font-size: 0.88rem; display: block; margin-bottom: 0.2rem;">Chrome · Windows</strong>
+                    <span style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">103.117.15.75</span>
+                  </div>
+                  <span style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);" id="current-session-timestamp">20/07/2026, 15:51:14</span>
+                </div>
+              </div>
+
+              <!-- YOUR TEAM'S SESSIONS -->
+              <div>
+                <h3 style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin: 0 0 0.25rem 0;">YOUR TEAM'S SESSIONS</h3>
+                <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0 0 0.75rem 0;" id="team-sessions-count-label">3 active sessions across 3 users.</p>
+
+                <div class="settings-card" style="border: 1px solid var(--border-cyber); border-radius: 8px; overflow: hidden; background: var(--bg-card);">
+                  <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05);" id="team-session-row-1">
+                    <div>
+                      <strong style="color: var(--text-primary); font-size: 0.88rem; display: block; margin-bottom: 0.15rem;" class="user-session-name">Pranav Gupta</strong>
+                      <span style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);" class="user-session-email">pranav.gupta@proeffico.com</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 2rem;">
+                      <div style="text-align: right;">
+                        <strong style="color: var(--text-primary); font-size: 0.82rem; display: block;">1 session</strong>
+                        <span style="font-size: 0.72rem; color: var(--text-muted);">last 20/07/2026</span>
+                      </div>
+                      <button class="secondary-btn btn-signout-session" style="padding: 0.3rem 0.8rem; font-size: 0.78rem; border-radius: 4px;" data-user="Pranav Gupta">Sign out</button>
+                    </div>
+                  </div>
+
+                  <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05);" id="team-session-row-2">
+                    <div>
+                      <strong style="color: var(--text-primary); font-size: 0.88rem; display: block; margin-bottom: 0.15rem;">Nishant</strong>
+                      <span style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">nishant@proeffico.com</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 2rem;">
+                      <div style="text-align: right;">
+                        <strong style="color: var(--text-primary); font-size: 0.82rem; display: block;">1 session</strong>
+                        <span style="font-size: 0.72rem; color: var(--text-muted);">last 20/07/2026</span>
+                      </div>
+                      <button class="secondary-btn btn-signout-session" style="padding: 0.3rem 0.8rem; font-size: 0.78rem; border-radius: 4px;" data-user="Nishant">Sign out</button>
+                    </div>
+                  </div>
+
+                  <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem;" id="team-session-row-3">
+                    <div>
+                      <strong style="color: var(--text-primary); font-size: 0.88rem; display: block; margin-bottom: 0.15rem;">Nirvaan Katyal</strong>
+                      <span style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">nirvaan.katyal@proeffico.com</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 2rem;">
+                      <div style="text-align: right;">
+                        <strong style="color: var(--text-primary); font-size: 0.82rem; display: block;">1 session</strong>
+                        <span style="font-size: 0.72rem; color: var(--text-muted);">last 20/07/2026</span>
+                      </div>
+                      <button class="secondary-btn btn-signout-session" style="padding: 0.3rem 0.8rem; font-size: 0.78rem; border-radius: 4px;" data-user="Nirvaan Katyal">Sign out</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div id="settings-pane-maintenance" class="settings-pane hidden">
-              <h2 style="font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">Maintenance Mode</h2>
-              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Perform system administration and backup exports.</p>
-              <div class="settings-card" style="border: 1px dashed rgba(255,255,255,0.15); border-radius: 8px; padding: 3rem; text-align: center; color: var(--text-muted);">
-                Maintenance console options are locked under read-only demo mode.
+              <div style="margin-bottom: 1.5rem;">
+                <h2 style="font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.25rem 0;">Maintenance mode</h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Pause every adapter's polling during an upgrade or migration, so scheduled jobs don't fire mid-maintenance and flood the logs with false failures.</p>
+              </div>
+
+              <div class="settings-card" style="border: 1px solid var(--border-cyber); border-radius: 8px; padding: 1.5rem 1.75rem; background: var(--bg-card); display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <strong style="color: var(--text-primary); font-size: 0.95rem; display: block; margin-bottom: 0.25rem;" id="polling-status-title">Polling is running normally</strong>
+                  <span style="font-size: 0.82rem; color: var(--text-muted);" id="polling-status-desc">every adapter poller — skips its cycle while enabled</span>
+                </div>
+                <button class="primary-btn" id="toggle-polling-btn" style="background: #e11d48; color: #fff; border: none; font-weight: 700; padding: 0.55rem 1.35rem; border-radius: 6px; cursor: pointer; transition: all 0.2s;">Pause polling</button>
               </div>
             </div>
 
@@ -1679,6 +1993,26 @@
               <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">API details for integrating with the Uplink REST gateway.</p>
               <div class="settings-card" style="border: 1px dashed rgba(255,255,255,0.15); border-radius: 8px; padding: 3rem; text-align: center; color: var(--text-muted);">
                 API gateway keys and documentation are available in the developer portal.
+              </div>
+            </div>
+
+            <div id="settings-pane-danger" class="settings-pane hidden">
+              <div style="margin-bottom: 1.5rem;">
+                <h2 style="font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.25rem 0;">Danger zone</h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Irreversible actions. Handle with care.</p>
+              </div>
+
+              <div style="border: 1px solid rgba(225, 29, 72, 0.4); background: rgba(225, 29, 72, 0.03); border-radius: 8px; padding: 1.5rem 1.75rem;">
+                <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem;">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="#e11d48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                  </svg>
+                  <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin: 0;">Sign out my team</h3>
+                </div>
+                <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; margin: 0 0 1.25rem 0;">Revokes the active sessions of everyone on your team, including you. Use this if a teammate's device or token may be compromised. It does not affect anyone outside your team. Already-open sessions keep working for up to 15 minutes until their access token expires; no one can stay signed in past that. The action is recorded in Logs.</p>
+                <button class="primary-btn" id="danger-signout-team-btn" style="background: #e11d48; color: #fff; border: none; font-weight: 700; padding: 0.55rem 1.25rem; border-radius: 6px; cursor: pointer; transition: all 0.2s;">Sign out my team</button>
               </div>
             </div>
 
@@ -3045,6 +3379,153 @@
       <div class="modal-buttons" style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem;">
         <button class="secondary-btn" id="settings-close-btn" style="padding: 0.5rem 1.2rem;">Close</button>
         <button class="primary-btn" id="settings-save-btn" style="padding: 0.5rem 1.5rem;">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit SIEM Configuration Modal -->
+  <div class="cyber-modal-overlay" id="edit-siem-config-modal">
+    <div class="cyber-modal" style="max-width: 780px; width: 92%; max-height: 88vh; display: flex; flex-direction: column;">
+      <div class="modal-header" style="border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--text-primary); margin: 0 0 0.2rem 0;">Edit SIEM configuration</h3>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Scan targets for the siem adapter. Validated server-side against the contract.</p>
+        </div>
+        <button class="modal-close" id="edit-siem-modal-close-btn">&times;</button>
+      </div>
+
+      <div class="modal-body" style="flex: 1; overflow-y: auto; padding: 1.25rem 0; display: flex; flex-direction: column; gap: 1.25rem; text-align: left;">
+        
+        <!-- 2 Column Grid for Scan targets -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+          <div class="modal-form-group">
+            <label style="font-size: 0.78rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.35rem;">Credential account</label>
+            <select class="cyber-modal-select" id="siem-credential-account" style="width: 100%; font-family: var(--font-mono); font-size: 0.82rem;">
+              <option value="siem-external-leakage">siem-external-leakage (#6)</option>
+              <option value="wazuh-primary">Wazuh Primary (#7)</option>
+            </select>
+          </div>
+
+          <div class="modal-form-group">
+            <label style="font-size: 0.78rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.15rem;">Watch domains</label>
+            <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">one per line</span>
+            <textarea class="cyber-modal-input" id="siem-watch-domains" rows="4" style="width: 100%; font-family: var(--font-mono); font-size: 0.8rem; resize: vertical;">proeffico.com
+proeffico.ai
+vizo361.ai
+zivux.ai</textarea>
+          </div>
+
+          <div class="modal-form-group">
+            <label style="font-size: 0.78rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.15rem;">Breach emails</label>
+            <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">HIBP — one per line</span>
+            <textarea class="cyber-modal-input" id="siem-breach-emails" rows="4" style="width: 100%; font-family: var(--font-mono); font-size: 0.8rem; resize: vertical;">saurabh@proeffico.com
+contact@proeffico.com
+security@proeffico.com</textarea>
+          </div>
+
+          <div class="modal-form-group">
+            <label style="font-size: 0.78rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.35rem;">GitHub orgs to watch</label>
+            <textarea class="cyber-modal-input" id="siem-github-orgs" rows="4" style="width: 100%; font-family: var(--font-mono); font-size: 0.8rem; resize: vertical;">proeffico</textarea>
+          </div>
+
+          <div class="modal-form-group">
+            <label style="font-size: 0.78rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.35rem;">GitHub users to watch</label>
+            <textarea class="cyber-modal-input" id="siem-github-users" rows="3" style="width: 100%; font-family: var(--font-mono); font-size: 0.8rem; resize: vertical;"></textarea>
+          </div>
+
+          <div class="modal-form-group">
+            <label style="font-size: 0.78rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.35rem;">Brand search terms</label>
+            <textarea class="cyber-modal-input" id="siem-brand-terms" rows="3" style="width: 100%; font-family: var(--font-mono); font-size: 0.8rem; resize: vertical;">proeffico
+vizo361</textarea>
+          </div>
+
+          <div class="modal-form-group">
+            <label style="font-size: 0.78rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.35rem;">Proprietary strings (IP)</label>
+            <textarea class="cyber-modal-input" id="siem-proprietary-strings" rows="3" style="width: 100%; font-family: var(--font-mono); font-size: 0.8rem; resize: vertical;">VIZO361_FR_v</textarea>
+          </div>
+
+          <div class="modal-form-group">
+            <label style="font-size: 0.78rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.35rem;">Customer names (IP)</label>
+            <textarea class="cyber-modal-input" id="siem-customer-names" rows="3" style="width: 100%; font-family: var(--font-mono); font-size: 0.8rem; resize: vertical;">Omantel</textarea>
+          </div>
+        </div>
+
+        <!-- Section: Wazuh IDS (Optional) -->
+        <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1rem;">
+          <h4 style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 0.8rem 0;">WAZUH IDS (OPTIONAL)</h4>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="modal-form-group">
+              <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.25rem;">Base URL (override)</label>
+              <input type="text" class="cyber-modal-input" id="wazuh-base-url" value="https://wazuh.proeffico.com:9200" style="width: 100%; font-family: var(--font-mono); font-size: 0.8rem;">
+              <span style="font-size: 0.68rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">Leave blank to use the Base URL set on the SIEM source.</span>
+            </div>
+            <div class="modal-form-group">
+              <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.25rem;">Index pattern</label>
+              <input type="text" class="cyber-modal-input" id="wazuh-index-pattern" value="wazuh-alerts-*" style="width: 100%; font-family: var(--font-mono); font-size: 0.8rem;">
+            </div>
+            <div class="modal-form-group">
+              <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.25rem;">Min alert level</label>
+              <input type="number" class="cyber-modal-input" id="wazuh-min-alert" value="6" style="width: 100%; font-family: var(--font-mono); font-size: 0.8rem;">
+            </div>
+            <div class="modal-form-group">
+              <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.25rem;">Lookback (minutes)</label>
+              <input type="number" class="cyber-modal-input" id="wazuh-lookback" value="30" style="width: 100%; font-family: var(--font-mono); font-size: 0.8rem;">
+            </div>
+            <div class="modal-form-group">
+              <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.25rem;">Timestamp field</label>
+              <input type="text" class="cyber-modal-input" id="wazuh-timestamp-field" value="@timestamp" style="width: 100%; font-family: var(--font-mono); font-size: 0.8rem;">
+              <span style="font-size: 0.68rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">default @timestamp</span>
+            </div>
+            <div class="modal-form-group" style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1.25rem;">
+              <input type="checkbox" id="wazuh-verify-tls" style="accent-color: var(--cyber-cyan);">
+              <label for="wazuh-verify-tls" style="font-size: 0.8rem; color: var(--text-primary); cursor: pointer;">Verify TLS</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section: Noise Suppression (Optional) -->
+        <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1rem;">
+          <h4 style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 0.2rem 0;">NOISE SUPPRESSION (OPTIONAL)</h4>
+          <p style="font-size: 0.72rem; color: var(--text-muted); margin: 0 0 0.8rem 0;">Matching Wazuh hits are dropped before the SOC queue. Use for operational noise that belongs on infra/ops channels — never for attack signal.</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="modal-form-group">
+              <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.15rem;">Suppress rule IDs</label>
+              <span style="font-size: 0.68rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Wazuh rule.id — one per line</span>
+              <textarea class="cyber-modal-input" id="siem-suppress-rules" rows="4" style="width: 100%; font-family: var(--font-mono); font-size: 0.8rem; resize: vertical;">31301
+31151
+31123
+86803</textarea>
+            </div>
+            <div class="modal-form-group">
+              <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.15rem;">Suppress title patterns</label>
+              <span style="font-size: 0.68rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">case-insensitive substring of rule.description</span>
+              <textarea class="cyber-modal-input" id="siem-suppress-titles" rows="4" style="width: 100%; font-family: var(--font-mono); font-size: 0.8rem; resize: vertical;">nginx error message</textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section: Poll Cadence (Minutes) -->
+        <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1rem;">
+          <h4 style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 0.8rem 0;">POLL CADENCE (MINUTES)</h4>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="modal-form-group">
+              <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.25rem;">External leakage</label>
+              <input type="number" class="cyber-modal-input" id="siem-cadence-leakage" value="60" style="width: 100%; font-family: var(--font-mono); font-size: 0.8rem;">
+              <span style="font-size: 0.68rem; color: var(--text-muted); display: block; margin-top: 0.2rem;">default 60</span>
+            </div>
+            <div class="modal-form-group">
+              <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.25rem;">Wazuh IDS</label>
+              <input type="number" class="cyber-modal-input" id="siem-cadence-wazuh" value="5" style="width: 100%; font-family: var(--font-mono); font-size: 0.8rem;">
+              <span style="font-size: 0.68rem; color: var(--text-muted); display: block; margin-top: 0.2rem;">default 5</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-buttons" style="display: flex; gap: 0.75rem; justify-content: flex-end; padding-top: 0.85rem; border-top: 1px solid rgba(255,255,255,0.08);">
+        <button class="secondary-btn" id="edit-siem-modal-cancel-btn" style="padding: 0.45rem 1.1rem; font-size: 0.82rem; border-radius: 6px;">Cancel</button>
+        <button class="primary-btn" id="edit-siem-modal-save-btn" style="padding: 0.45rem 1.25rem; font-size: 0.82rem; font-weight: 700; border-radius: 6px; background: var(--cyber-cyan); color: #050811;">Save configuration</button>
       </div>
     </div>
   </div>
