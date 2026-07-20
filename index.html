@@ -847,11 +847,23 @@
             <!-- Header Section of PDF -->
             <div class="report-header">
               <div class="report-header-left">
-                <div class="report-logo">
-                  <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#00f2fe" stroke-width="2.5">
-                    <polygon points="12,2 22,7 22,17 12,22 2,17 2,7" />
+                <div class="report-logo" style="display: flex; align-items: center; gap: 0.6rem;">
+                  <svg viewBox="0 0 32 32" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="report-gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ffe66d" />
+                        <stop offset="50%" stop-color="#ffb703" />
+                        <stop offset="100%" stop-color="#fb8500" />
+                      </linearGradient>
+                      <linearGradient id="report-dark-gold-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#d4af37" />
+                        <stop offset="100%" stop-color="#8a5a00" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M7 6V18C7 22.9706 11.0294 27 16 27C20.9706 27 25 22.9706 25 18V6" stroke="url(#report-gold-grad)" stroke-width="3" stroke-linecap="round" />
+                    <path d="M12 6V18C12 20.2091 13.7909 22 16 22C18.2091 22 20 20.2091 20 18V6" stroke="url(#report-dark-gold-grad)" stroke-width="2" stroke-linecap="round" />
                   </svg>
-                  <span class="report-logo-text">UPLINK</span>
+                  <span class="report-logo-text" style="color: #ffb703; font-weight: 800; font-size: 1.1rem; letter-spacing: 1px;">UPLINK</span>
                 </div>
                 <h1 class="report-title">Discovery Onboarding Summary</h1>
                 <p class="report-subtitle">Infrastructure & Mapping Verification Report</p>

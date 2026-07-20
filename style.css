@@ -529,7 +529,20 @@ body::after {
   align-items: center;
   transition: all var(--transition-speed) ease;
   position: relative;
-  overflow: hidden;
+  overflow: visible !important;
+}
+
+.commit-report-dropdown-menu {
+  position: absolute;
+  right: 0;
+  bottom: 115%;
+  background: #0a0f1d;
+  border: 1px solid var(--border-cyber);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 242, 254, 0.15);
+  z-index: 99999 !important;
+  min-width: 185px;
+  padding: 0.35rem 0;
 }
 
 .recent-commit-card:hover {

@@ -136,31 +136,160 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="commit-scope-badge">${commit.subdomains} Subdomains</span>
               </div>
             </div>
-            <button class="download-commit-report-btn" data-commit-id="${commit.id}" style="background: none; border: 1px solid rgba(0, 242, 254, 0.25); color: var(--cyber-cyan); font-size: 0.72rem; font-weight: bold; padding: 0.35rem 0.88rem; border-radius: 20px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 0.35rem;" onmouseover="this.style.background='rgba(0, 242, 254, 0.08)';" onmouseout="this.style.background='none';">
-              <svg viewBox="0 0 24 24" width="11" height="11" stroke="currentColor" fill="none" stroke-width="3">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-              </svg>
-              Download Report
-            </button>
+            
+            <!-- Download Report Dropdown Wrapper -->
+            <div class="commit-report-dropdown-wrapper" style="position: relative;">
+              <button class="download-commit-report-btn" data-commit-id="${commit.id}" style="background: none; border: 1px solid rgba(0, 242, 254, 0.25); color: var(--cyber-cyan); font-size: 0.72rem; font-weight: bold; padding: 0.35rem 0.88rem; border-radius: 20px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 0.35rem;" onmouseover="this.style.background='rgba(0, 242, 254, 0.08)';" onmouseout="this.style.background='none';">
+                <svg viewBox="0 0 24 24" width="11" height="11" stroke="currentColor" fill="none" stroke-width="3">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>Download Report</span>
+                <span style="font-size: 0.6rem; margin-left: 0.15rem; opacity: 0.8;">▼</span>
+              </button>
+              <div class="commit-report-dropdown-menu hidden" style="position: absolute; right: 0; bottom: 115%; background: #0a0f1d; border: 1px solid var(--border-cyber); border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.9), 0 0 15px rgba(0, 242, 254, 0.2); z-index: 99999; min-width: 185px; padding: 0.35rem 0;">
+                <div class="commit-report-option" data-format="txt" data-commit-id="${commit.id}" style="padding: 0.55rem 0.9rem; font-size: 0.76rem; color: var(--text-primary); cursor: pointer; display: flex; align-items: center; gap: 0.55rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(0, 242, 254, 0.08)';" onmouseout="this.style.background='none';">
+                  <svg viewBox="0 0 24 24" width="13" height="13" stroke="var(--cyber-cyan)" fill="none" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                  <span>Download as TXT (.txt)</span>
+                </div>
+                <div class="commit-report-option" data-format="pdf" data-commit-id="${commit.id}" style="padding: 0.55rem 0.9rem; font-size: 0.76rem; color: var(--text-primary); cursor: pointer; display: flex; align-items: center; gap: 0.55rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(239, 68, 68, 0.08)';" onmouseout="this.style.background='none';">
+                  <svg viewBox="0 0 24 24" width="13" height="13" stroke="#ef4444" fill="none" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                  <span>Download as PDF (.pdf)</span>
+                </div>
+              </div>
+            </div>
           </div>
         `;
       }).join('');
 
-      container.querySelectorAll('.download-commit-report-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const commitId = btn.getAttribute('data-commit-id');
-          downloadCommitReport(commitId);
-        });
+      // Bind dropdown toggle & option clicks
+      container.querySelectorAll('.commit-report-dropdown-wrapper').forEach(wrapper => {
+        const btn = wrapper.querySelector('.download-commit-report-btn');
+        const menu = wrapper.querySelector('.commit-report-dropdown-menu');
+
+        if (btn && menu) {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.querySelectorAll('.commit-report-dropdown-menu').forEach(m => {
+              if (m !== menu) m.classList.add('hidden');
+            });
+            menu.classList.toggle('hidden');
+          });
+
+          menu.querySelectorAll('.commit-report-option').forEach(opt => {
+            opt.addEventListener('click', (e) => {
+              e.stopPropagation();
+              const commitId = opt.getAttribute('data-commit-id');
+              const format = opt.getAttribute('data-format');
+              menu.classList.add('hidden');
+              downloadCommitReport(commitId, format);
+            });
+          });
+        }
       });
     });
   }
 
-  function downloadCommitReport(commitId) {
+  // Close commit report dropdowns on document click
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.commit-report-dropdown-menu').forEach(m => m.classList.add('hidden'));
+  });
+
+  function downloadCommitReport(commitId, format = 'txt') {
     const commit = commitsHistory.find(c => c.id === commitId);
     if (!commit) return;
+
+    if (format === 'pdf') {
+      const pdfContainer = document.createElement('div');
+      pdfContainer.style.padding = '25px 30px';
+      pdfContainer.style.background = '#ffffff';
+      pdfContainer.style.color = '#0f172a';
+      pdfContainer.style.fontFamily = "'Outfit', sans-serif";
+      pdfContainer.style.width = '650px';
+
+      pdfContainer.innerHTML = `
+        <div style="border-bottom: 3px solid #00f2fe; padding-bottom: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <h1 style="margin: 0; color: #0f172a; font-size: 20px; font-weight: 800;">UPLINK INFRASTRUCTURE COMMIT REPORT</h1>
+            <p style="margin: 4px 0 0 0; color: #64748b; font-size: 12px;">Official Audit Record · Entity Graph Engine</p>
+          </div>
+          <div style="background: #e0f2fe; color: #0284c7; padding: 4px 12px; border-radius: 4px; font-weight: bold; font-size: 11px; font-family: monospace;">${commit.status}</div>
+        </div>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin-bottom: 20px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12px;">
+            <div><strong>Commit ID:</strong> <code style="background: #cbd5e1; padding: 2px 6px; border-radius: 4px; font-family: monospace;">${commit.id}</code></div>
+            <div><strong>Timestamp:</strong> ${commit.timestamp}</div>
+            <div><strong>Operator:</strong> ${commit.operator}</div>
+            <div><strong>Verification:</strong> <span style="color: #16a34a; font-weight: bold;">PASSED</span></div>
+          </div>
+        </div>
+
+        <h3 style="color: #0f172a; font-size: 14px; margin: 0 0 10px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 6px;">Scope Summary</h3>
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px;">
+          <thead>
+            <tr style="background: #f1f5f9; text-align: left;">
+              <th style="padding: 8px 12px; border: 1px solid #e2e8f0;">Resource Type</th>
+              <th style="padding: 8px 12px; border: 1px solid #e2e8f0;">Quantity</th>
+              <th style="padding: 8px 12px; border: 1px solid #e2e8f0;">Verification State</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 8px 12px; border: 1px solid #e2e8f0;">Servers</td>
+              <td style="padding: 8px 12px; border: 1px solid #e2e8f0; font-weight: bold;">${commit.servers}</td>
+              <td style="padding: 8px 12px; border: 1px solid #e2e8f0; color: #16a34a;">Ingested & Verified</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 12px; border: 1px solid #e2e8f0;">Databases</td>
+              <td style="padding: 8px 12px; border: 1px solid #e2e8f0; font-weight: bold;">${commit.databases}</td>
+              <td style="padding: 8px 12px; border: 1px solid #e2e8f0; color: #16a34a;">Connected & Synced</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 12px; border: 1px solid #e2e8f0;">Domains</td>
+              <td style="padding: 8px 12px; border: 1px solid #e2e8f0; font-weight: bold;">${commit.domains}</td>
+              <td style="padding: 8px 12px; border: 1px solid #e2e8f0; color: #16a34a;">Verified DNS</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 12px; border: 1px solid #e2e8f0;">Subdomains</td>
+              <td style="padding: 8px 12px; border: 1px solid #e2e8f0; font-weight: bold;">${commit.subdomains}</td>
+              <td style="padding: 8px 12px; border: 1px solid #e2e8f0; color: #16a34a;">Topology Inferred</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="border-top: 1px dashed #cbd5e1; padding-top: 12px; font-size: 11px; color: #64748b; text-align: center;">
+          Security Encryption Standard: AES-256-GCM · Automated Audit Log by Uplink Entity Graph Engine
+        </div>
+      `;
+
+      document.body.appendChild(pdfContainer);
+
+      if (window.html2pdf) {
+        const opt = {
+          margin:       0.4,
+          filename:     `${commit.id}-report.pdf`,
+          image:        { type: 'jpeg', quality: 0.98 },
+          html2canvas:  { scale: 2 },
+          jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+        window.html2pdf().set(opt).from(pdfContainer).save().then(() => {
+          document.body.removeChild(pdfContainer);
+          showToast(`PDF report downloaded for commit ${commit.id}`, true);
+        });
+      } else {
+        const printWin = window.open('', '_blank');
+        printWin.document.write(`<html><head><title>${commit.id}-report</title></head><body>${pdfContainer.innerHTML}</body></html>`);
+        printWin.document.close();
+        printWin.focus();
+        printWin.print();
+        printWin.close();
+        document.body.removeChild(pdfContainer);
+        showToast(`Printed PDF report for commit ${commit.id}`, true);
+      }
+      return;
+    }
 
     const reportContent = `==================================================
 UPLINK INFRASTRUCTURE COMMIT REPORT
@@ -175,7 +304,7 @@ Scope Summary:
 - Databases:  ${commit.databases} Connected & Verified
 - Domains:    ${commit.domains} Verified
 - Subdomains: ${commit.subdomains} Verified
-- Incidents:  ${commit.incidents} Active Alerts Handled
+- Incidents:  ${commit.incidents || 0} Active Alerts Handled
 
 Security Context:
 - Encryption Standard: AES-256-GCM
@@ -194,7 +323,7 @@ This is an automated audit report generated by the Uplink entity graph engine.
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    showToast(`Report downloaded for commit ${commitId}`, true);
+    showToast(`TXT report downloaded for commit ${commitId}`, true);
   }
 
   // Custom Toast notification
@@ -761,6 +890,18 @@ This is an automated audit report generated by the Uplink entity graph engine.
     // Reveal Ingested From section at the bottom
     ingestedSection.classList.remove('hidden');
 
+  function getCurrentOperatorName() {
+    const headerNameEl = document.getElementById('header-user-fullname');
+    if (headerNameEl && headerNameEl.textContent.trim()) {
+      return headerNameEl.textContent.trim();
+    }
+    const profileNameEl = document.getElementById('settings-profile-fullname');
+    if (profileNameEl && profileNameEl.textContent.trim()) {
+      return profileNameEl.textContent.trim();
+    }
+    return "Pranav Gupta";
+  }
+
     // Compute current verified counts for history logging
     const totalServers = document.querySelectorAll('#panel-servers .infra-row.confirmed-state').length || 85;
     const totalDatabases = document.querySelectorAll('#panel-databases .infra-row.confirmed-state').length || 3;
@@ -770,7 +911,7 @@ This is an automated audit report generated by the Uplink entity graph engine.
     const newCommit = {
       id: "uplink-" + Math.random().toString(36).substring(2, 9),
       timestamp: new Date().toLocaleString(),
-      operator: "User",
+      operator: getCurrentOperatorName(),
       servers: totalServers,
       domains: totalDomains,
       databases: totalDatabases,
@@ -6972,8 +7113,8 @@ echo "[SUCCESS] Task completed."`
     const wrapper = document.getElementById('runs-view-wrapper');
     if (!wrapper) return;
 
-    // Get active alerts for remediation context
-    const activeRemediationAlerts = alertsLog.filter(a => a.status !== 'resolved');
+    // Get active alerts for remediation context (Only Critical severity alerts)
+    const activeRemediationAlerts = alertsLog.filter(a => a.status !== 'resolved' && a.severity === 'critical');
 
     // Get list of targets for dropdown (confirmed instances)
     const confirmedInstances = instancesData.filter(inst => inst.accepted);
@@ -6997,21 +7138,22 @@ echo "[SUCCESS] Task completed."`
       alertsHtml = `
         <div style="background: rgba(255,255,255,0.01); border: 1px dashed var(--border-cyber); border-radius: 8px; padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.8rem;">
           <span style="font-size: 1.25rem; display: block; margin-bottom: 0.4rem;">🎉</span>
-          No active alerts requiring remediation.
+          No active critical alerts requiring remediation.
         </div>
       `;
     } else {
       alertsHtml = activeRemediationAlerts.map(a => {
-        const severityClass = a.severity === 'critical' ? 'critical' : 'warning';
-        const recommendedScript = a.severity === 'critical' ? 'firewall' : 'restart';
+        const severityClass = 'critical';
+        const recommendedScript = 'firewall';
+        const alertReasonText = a.reason || a.text || `CPU utilization on ${a.serverName} exceeded critical threshold.`;
         return `
           <div class="remediation-card ${severityClass}" data-alert-id="${a.id}" data-recommended="${recommendedScript}" data-target-node="${a.serverName}">
             <div>
-              <span style="font-weight: 800; font-size: 0.65rem; color: ${a.severity === 'critical' ? '#ef4444' : '#f97316'}; background: ${a.severity === 'critical' ? 'rgba(239,68,68,0.1)' : 'rgba(249,115,22,0.1)'}; padding: 0.1rem 0.35rem; border-radius: 2px; margin-right: 0.5rem; text-transform: uppercase;">
-                ${a.severity}
+              <span style="font-weight: 800; font-size: 0.65rem; color: #ef4444; background: rgba(239,68,68,0.1); padding: 0.1rem 0.35rem; border-radius: 2px; margin-right: 0.5rem; text-transform: uppercase;">
+                CRITICAL
               </span>
               <strong style="color: var(--text-primary); font-size: 0.82rem;">${a.serverName}</strong>
-              <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem;">${a.text}</div>
+              <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem;">${alertReasonText}</div>
             </div>
             <div style="display: flex; align-items: center; gap: 0.4rem; position: relative;">
               <button class="runs-load-btn" style="background: none; border: 1px solid rgba(0, 242, 254, 0.2); color: var(--cyber-cyan); font-size: 0.7rem; font-weight: bold; padding: 0.3rem 0.6rem; border-radius: 4px; cursor: pointer; transition: all 0.2s;">
@@ -7080,7 +7222,7 @@ echo "[SUCCESS] Task completed."`
           <div style="display: flex; flex-direction: column; gap: 1.5rem;">
             <!-- Suggested Actions -->
             <div class="runs-card">
-              <h2 style="font-size: 0.9rem; font-family: var(--font-mono); color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+              <h2 id="runs-suggested-header-title" style="font-size: 0.9rem; font-family: var(--font-mono); color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
                 <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" style="color: #f97316;">
                   <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
                 </svg>
@@ -7377,10 +7519,17 @@ echo "[SUCCESS] Task completed."`
           terminalScreen.innerHTML += `<div class="terminal-line"><span class="terminal-cursor"></span></div>`;
           terminalScreen.scrollTop = terminalScreen.scrollHeight;
 
-          // Add execution record to history log
+          // Add execution record to history log with CURRENT LOCAL TIMESTAMP
           const newRunId = `RUN-${Math.floor(1000 + Math.random() * 9000)}`;
           const now = new Date();
-          const timeStr = now.toISOString().replace('T', ' ').substring(0, 19);
+          const YYYY = now.getFullYear();
+          const MM = String(now.getMonth() + 1).padStart(2, '0');
+          const DD = String(now.getDate()).padStart(2, '0');
+          const hh = String(now.getHours()).padStart(2, '0');
+          const mm = String(now.getMinutes()).padStart(2, '0');
+          const ss = String(now.getSeconds()).padStart(2, '0');
+          const timeStr = `${YYYY}-${MM}-${DD} ${hh}:${mm}:${ss}`;
+
           runsHistory.unshift({
             id: newRunId,
             time: timeStr,
@@ -7390,34 +7539,182 @@ echo "[SUCCESS] Task completed."`
             operator: "pranav-admin"
           });
 
-          // Resolve active alert if linked to this run
-          if (activeRemediationAlertId) {
-            const alert = alertsLog.find(a => a.id === activeRemediationAlertId);
-            if (alert) {
-              alert.status = 'resolved';
-              showToast(`Alert resolved! [${alert.serverName}] - ${alert.text} is cleared.`, true);
-              
-              // Dynamically update notification badges
-              updateBellBadge();
-              
-              // Re-render Pulse page to hide this resolved card
-              if (window.renderPulsePage) renderPulsePage();
-              
-              // Re-render Inventory domain page to reflect any resolved states if applicable
-              if (window.renderInventoryPage) renderInventoryPage();
+          // Resolve active alert associated with this run or target node
+          let resolvedCount = 0;
+          alertsLog.forEach(a => {
+            if (a.status !== 'resolved') {
+              if (activeRemediationAlertId && a.id === activeRemediationAlertId) {
+                a.status = 'resolved';
+                resolvedCount++;
+              } else if (a.serverName === targetNode) {
+                a.status = 'resolved';
+                resolvedCount++;
+              }
             }
-            activeRemediationAlertId = null;
+          });
+
+          // Fallback: If no alert directly matched targetNode, resolve the top active critical alert
+          if (resolvedCount === 0) {
+            const topAlert = alertsLog.find(a => a.status !== 'resolved' && a.severity === 'critical');
+            if (topAlert) {
+              topAlert.status = 'resolved';
+              resolvedCount++;
+            }
           }
 
-          // Reset buttons and reload runs page
+          if (resolvedCount > 0) {
+            showToast(`Remediation executed successfully! Active alert cleared.`, true);
+            updateBellBadge();
+            if (window.renderPulsePage) renderPulsePage();
+            if (window.renderInventoryPage) renderInventoryPage();
+          }
+          activeRemediationAlertId = null;
+
+          // Reset execution button state immediately back to idle
           isExecutingRun = false;
           executeBtn.disabled = false;
           executeBtn.style.opacity = '1';
-          executeBtn.querySelector('span').textContent = 'Execute Remediation';
+          executeBtn.style.background = 'rgba(0, 242, 254, 0.1)';
+          executeBtn.innerHTML = `
+            <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="currentColor" style="opacity: 0.8;">
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+            <span>Execute Remediation</span>
+          `;
 
-          renderRunsPage();
+          // Clear active context badge in editor
+          const activeContextLabel = wrapper.querySelector('#runs-active-context');
+          if (activeContextLabel) activeContextLabel.textContent = '';
+
+          // Live refresh Suggested Remediations list & Runs History table without wiping terminal
+          updateRunsPageLiveViews();
         }, lineDelay + 800);
       });
+    }
+  }
+
+  function updateRunsPageLiveViews() {
+    const wrapper = document.getElementById('runs-view-wrapper');
+    if (!wrapper) return;
+
+    const activeRemediationAlerts = alertsLog.filter(a => a.status !== 'resolved' && a.severity === 'critical');
+    
+    // Update header count
+    const headerTitle = wrapper.querySelector('#runs-suggested-header-title');
+    if (headerTitle) {
+      headerTitle.innerHTML = `
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" style="color: #f97316;">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+        </svg>
+        Suggested Remediations (${activeRemediationAlerts.length})
+      `;
+    }
+
+    // Update Suggested Remediations list HTML
+    const quickRemediationsContainer = wrapper.querySelector('.runs-quick-remediations');
+    if (quickRemediationsContainer) {
+      if (activeRemediationAlerts.length === 0) {
+        quickRemediationsContainer.innerHTML = `
+          <div style="background: rgba(255,255,255,0.01); border: 1px dashed var(--border-cyber); border-radius: 8px; padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.8rem;">
+            <span style="font-size: 1.25rem; display: block; margin-bottom: 0.4rem;">🎉</span>
+            No active critical alerts requiring remediation.
+          </div>
+        `;
+      } else {
+        quickRemediationsContainer.innerHTML = activeRemediationAlerts.map(a => {
+          const alertReasonText = a.reason || a.text || `CPU utilization on ${a.serverName} exceeded critical threshold.`;
+          return `
+            <div class="remediation-card critical" data-alert-id="${a.id}" data-recommended="firewall" data-target-node="${a.serverName}">
+              <div>
+                <span style="font-weight: 800; font-size: 0.65rem; color: #ef4444; background: rgba(239,68,68,0.1); padding: 0.1rem 0.35rem; border-radius: 2px; margin-right: 0.5rem; text-transform: uppercase;">
+                  CRITICAL
+                </span>
+                <strong style="color: var(--text-primary); font-size: 0.82rem;">${a.serverName}</strong>
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem;">${alertReasonText}</div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.4rem; position: relative;">
+                <button class="runs-load-btn" style="background: none; border: 1px solid rgba(0, 242, 254, 0.2); color: var(--cyber-cyan); font-size: 0.7rem; font-weight: bold; padding: 0.3rem 0.6rem; border-radius: 4px; cursor: pointer; transition: all 0.2s;">
+                  Load Remediation
+                </button>
+                <div class="runs-dots-wrapper" style="position: relative;">
+                  <button class="runs-dots-btn" style="background: none; border: 1px solid rgba(255,255,255,0.08); color: var(--text-secondary); width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 4px; cursor: pointer; font-size: 0.85rem; padding: 0; line-height: 1;">
+                    &#8942;
+                  </button>
+                  <div class="runs-dropdown hidden" style="position: absolute; right: 0; top: 28px; background: #0a0f1d; border: 1px solid var(--border-cyber); border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.6); z-index: 99; width: 110px; padding: 0.2rem 0;">
+                    <div class="runs-view-details-btn" style="padding: 0.4rem 0.75rem; font-size: 0.72rem; color: var(--text-secondary); cursor: pointer; text-align: left; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'; this.style.color='var(--text-primary)';" onmouseout="this.style.background='none'; this.style.color='var(--text-secondary)';">
+                      View Details
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        // Rebind click events to newly created remediation cards
+        quickRemediationsContainer.querySelectorAll('.remediation-card').forEach(card => {
+          const alertId = card.getAttribute('data-alert-id');
+          const recScript = card.getAttribute('data-recommended');
+          const targetNode = card.getAttribute('data-target-node');
+          const alert = alertsLog.find(a => a.id === alertId);
+
+          const loadRemediationContext = () => {
+            const editor = wrapper.querySelector('#runs-script-editor');
+            const templateSelect = wrapper.querySelector('#runs-template-select');
+            const targetSelect = wrapper.querySelector('#runs-target-select');
+            const contextLabel = wrapper.querySelector('#runs-active-context');
+
+            if (targetSelect) {
+              const matchingOpt = Array.from(targetSelect.options).find(o => o.value === targetNode);
+              if (matchingOpt) {
+                targetSelect.value = targetNode;
+              } else {
+                const newOpt = document.createElement('option');
+                newOpt.value = targetNode;
+                newOpt.textContent = `${targetNode} (alerting)`;
+                targetSelect.appendChild(newOpt);
+                targetSelect.value = targetNode;
+              }
+            }
+
+            if (templateSelect) templateSelect.value = recScript || 'restart';
+            if (editor) editor.value = runTemplates[recScript] || runTemplates['restart'];
+            if (contextLabel) contextLabel.textContent = `[TARGET ALERT ID: ${alertId}]`;
+            activeRemediationAlertId = alertId;
+            showToast(`Loaded remediation playbook for target: ${targetNode}`);
+          };
+
+          card.addEventListener('click', loadRemediationContext);
+          const loadBtn = card.querySelector('.runs-load-btn');
+          if (loadBtn) loadBtn.addEventListener('click', (e) => { e.stopPropagation(); loadRemediationContext(); });
+        });
+      }
+    }
+
+    // Update Runs History table rows live with current timestamps
+    const historyTbody = wrapper.querySelector('#runs-history-tbody');
+    if (historyTbody) {
+      historyTbody.innerHTML = runsHistory.map(run => {
+        const statusColor = run.status === 'completed' ? 'var(--cyber-green)' : '#ef4444';
+        return `
+          <tr>
+            <td style="font-family: var(--font-mono); color: var(--cyber-cyan);">${run.id}</td>
+            <td style="color: var(--text-muted); font-size: 0.75rem;">${run.time}</td>
+            <td style="font-weight: bold;">${run.target}</td>
+            <td>
+              <code style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary); background: rgba(255,255,255,0.03); padding: 0.15rem 0.35rem; border-radius: 3px;">
+                ${run.script.split('\n')[0].replace('#', '').trim()}
+              </code>
+            </td>
+            <td>
+              <span style="font-size: 0.72rem; color: ${statusColor}; font-family: var(--font-mono); font-weight: bold; background: ${statusColor}10; border: 1px solid ${statusColor}20; padding: 0.15rem 0.4rem; border-radius: 4px; text-transform: uppercase;">
+                ${run.status}
+              </span>
+            </td>
+            <td style="color: var(--text-muted); font-size: 0.75rem;">${run.operator}</td>
+          </tr>
+        `;
+      }).join('');
     }
   }
 
@@ -7545,6 +7842,10 @@ echo "[SUCCESS] Task completed."`
       if (headerUserFullname) headerUserFullname.textContent = newName;
       if (headerAvatarBadge) headerAvatarBadge.textContent = initials;
       if (profileAvatarLarge) profileAvatarLarge.textContent = initials;
+
+      // Update operator on existing commits to maintain accountability for current account holder
+      commitsHistory.forEach(c => c.operator = newName);
+      renderCommitsHistory();
 
       if (nameEditGroup) nameEditGroup.style.display = 'none';
       if (nameDisplayGroup) nameDisplayGroup.style.display = 'flex';
