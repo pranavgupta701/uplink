@@ -9384,6 +9384,275 @@ body.light-theme #run-details-drawer .runs-terminal-screen#run-drawer-output {
   color: #0f172a;
 }
 
+/* -------------------------------------------------------------
+   REDESIGNED DATA SOURCE CONNECTION DIALOG (CYBERPUNK CONSOLE)
+   ------------------------------------------------------------- */
+#add-source-modal .cyber-modal {
+  max-width: 620px !important;
+  background: radial-gradient(circle at top left, #0e172a, #070a13) !important;
+  border: 1.5px solid var(--cyber-cyan) !important;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 242, 254, 0.2) !important;
+  padding: 2rem !important;
+  border-radius: 14px !important;
+}
+
+#add-source-modal .modal-header-row {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding-bottom: 0.85rem !important;
+  margin-bottom: 1.5rem !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+#add-source-modal .modal-header-row h2 {
+  font-size: 1.35rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  background: linear-gradient(90deg, var(--text-primary) 0%, var(--cyber-cyan) 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  margin: 0 !important;
+}
+
+#add-source-modal .close-modal-x {
+  font-size: 1.6rem !important;
+  color: var(--text-muted) !important;
+  transition: all 0.25s !important;
+}
+
+#add-source-modal .close-modal-x:hover {
+  color: var(--cyber-cyan) !important;
+  transform: rotate(90deg);
+}
+
+/* Integration Provider Cards Grid */
+#add-source-modal .providers-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 0.8rem !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+#add-source-modal .provider-card {
+  background: rgba(15, 23, 42, 0.5) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 10px !important;
+  padding: 1rem 0.5rem !important;
+  cursor: pointer !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  height: 84px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+}
+
+#add-source-modal .provider-card:hover {
+  border-color: rgba(0, 242, 254, 0.45) !important;
+  background: rgba(15, 23, 42, 0.85) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 15px rgba(0, 242, 254, 0.15) !important;
+}
+
+#add-source-modal .provider-card.active {
+  border-color: var(--cyber-cyan) !important;
+  background: rgba(0, 242, 254, 0.08) !important;
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.2) !important;
+}
+
+#add-source-modal .provider-card-logo {
+  height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: var(--text-secondary) !important;
+  transition: all 0.25s !important;
+}
+
+#add-source-modal .provider-card-logo svg {
+  transition: all 0.25s !important;
+}
+
+#add-source-modal .provider-card:hover .provider-card-logo svg {
+  transform: scale(1.08) !important;
+}
+
+#add-source-modal .provider-card.active .provider-card-logo {
+  color: var(--cyber-cyan) !important;
+}
+
+#add-source-modal .provider-card-name {
+  font-size: 0.76rem !important;
+  font-weight: 700 !important;
+  color: var(--text-muted) !important;
+  transition: all 0.25s !important;
+}
+
+#add-source-modal .provider-card:hover .provider-card-name {
+  color: var(--text-primary) !important;
+}
+
+#add-source-modal .provider-card.active .provider-card-name {
+  color: var(--cyber-cyan) !important;
+}
+
+/* Form inputs & dropdown select elements */
+#add-source-modal .cyber-modal-input,
+#add-source-modal .cyber-modal-select,
+#add-source-modal .cyber-modal-textarea {
+  background: rgba(5, 8, 17, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  padding: 0.65rem 0.85rem !important;
+  font-size: 0.85rem !important;
+  color: var(--text-primary) !important;
+  transition: all 0.25s ease !important;
+}
+
+#add-source-modal .cyber-modal-input:focus,
+#add-source-modal .cyber-modal-select:focus,
+#add-source-modal .cyber-modal-textarea:focus {
+  border-color: var(--cyber-cyan) !important;
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.18) !important;
+  background: rgba(5, 8, 17, 0.95) !important;
+  outline: none !important;
+}
+
+#add-source-modal label {
+  font-size: 0.72rem !important;
+  font-family: var(--font-mono) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+  color: var(--text-muted) !important;
+  margin-bottom: 0.4rem !important;
+  font-weight: 700 !important;
+}
+
+#add-source-modal .modal-row-split {
+  display: flex !important;
+  gap: 1rem !important;
+}
+
+#add-source-modal .modal-footer-buttons {
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 0.75rem !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding-top: 1.25rem !important;
+  margin-top: 1.5rem !important;
+}
+
+#add-source-modal .secondary-btn {
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: var(--text-secondary) !important;
+  font-weight: 600 !important;
+  padding: 0.55rem 1.4rem !important;
+  border-radius: 8px !important;
+  transition: all 0.25s !important;
+  font-size: 0.82rem !important;
+  cursor: pointer !important;
+}
+
+#add-source-modal .secondary-btn:hover {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  color: var(--text-primary) !important;
+}
+
+#add-source-modal .primary-btn {
+  background: linear-gradient(135deg, var(--cyber-blue) 0%, var(--cyber-cyan) 100%) !important;
+  border: none !important;
+  color: #050811 !important;
+  font-weight: 700 !important;
+  padding: 0.55rem 1.6rem !important;
+  border-radius: 8px !important;
+  transition: all 0.25s !important;
+  font-size: 0.82rem !important;
+  box-shadow: 0 4px 12px rgba(0, 242, 254, 0.15) !important;
+  cursor: pointer !important;
+}
+
+#add-source-modal .primary-btn:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 18px rgba(0, 242, 254, 0.3) !important;
+  filter: brightness(1.15) !important;
+}
+
+/* Light Theme Overrides */
+body.light-theme #add-source-modal .cyber-modal {
+  background: #ffffff !important;
+  border-color: rgba(2, 132, 199, 0.3) !important;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1), 0 0 15px rgba(2, 132, 199, 0.05) !important;
+}
+
+body.light-theme #add-source-modal .modal-header-row h2 {
+  background: linear-gradient(90deg, #0f172a 0%, #0284c7 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+body.light-theme #add-source-modal .provider-card {
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+}
+
+body.light-theme #add-source-modal .provider-card:hover {
+  background: #f1f5f9 !important;
+  border-color: #94a3b8 !important;
+}
+
+body.light-theme #add-source-modal .provider-card.active {
+  background: rgba(2, 132, 199, 0.06) !important;
+  border-color: #0284c7 !important;
+  box-shadow: 0 0 12px rgba(2, 132, 199, 0.15) !important;
+}
+
+body.light-theme #add-source-modal .provider-card.active .provider-card-name,
+body.light-theme #add-source-modal .provider-card.active .provider-card-logo {
+  color: #0284c7 !important;
+}
+
+body.light-theme #add-source-modal .cyber-modal-input,
+body.light-theme #add-source-modal .cyber-modal-select,
+body.light-theme #add-source-modal .cyber-modal-textarea {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+body.light-theme #add-source-modal .cyber-modal-input:focus,
+body.light-theme #add-source-modal .cyber-modal-select:focus,
+body.light-theme #add-source-modal .cyber-modal-textarea:focus {
+  border-color: #0284c7 !important;
+  box-shadow: 0 0 8px rgba(2, 132, 199, 0.15) !important;
+}
+
+body.light-theme #add-source-modal .secondary-btn {
+  border-color: #cbd5e1 !important;
+  color: #475569 !important;
+}
+
+body.light-theme #add-source-modal .secondary-btn:hover {
+  background: #f1f5f9 !important;
+  border-color: #94a3b8 !important;
+  color: #0f172a !important;
+}
+
+body.light-theme #add-source-modal .primary-btn {
+  background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2) !important;
+}
+
+body.light-theme #add-source-modal .primary-btn:hover {
+  box-shadow: 0 4px 18px rgba(2, 132, 199, 0.35) !important;
+}
+
 
 
 
