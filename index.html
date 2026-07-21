@@ -5,11 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Uplink - Discovery</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon points='12,2 22,7 22,17 12,22 2,17 2,7' fill='%2300f2fe'/%3E%3Ctext x='12' y='16.5' font-family='sans-serif' font-weight='800' font-size='13' fill='%23050811' text-anchor='middle'%3EU%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css?v=2.1">
+  <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- html2pdf.js for exporting summary report to PDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
@@ -298,13 +297,13 @@
         <div id="sources-stack-container" class="sources-list hidden"></div>
 
         <!-- Initial Dotted Add Button -->
-        <button id="add-source-trigger-initial" class="add-source-card-btn">
+        <button id="add-source-trigger-initial" class="add-source-card-btn" onclick="const modal = document.getElementById('add-source-modal'); if (modal) { modal.classList.add('active'); modal.style.display = 'flex'; modal.style.opacity = '1'; modal.style.pointerEvents = 'auto'; }">
           <span class="plus-icon">+</span>
           <span>Click to connect cloud provider or database to track</span>
         </button>
 
         <!-- More Dotted Add Button (shown below stack when items exist) -->
-        <button id="add-source-trigger-more" class="add-source-card-btn hidden">
+        <button id="add-source-trigger-more" class="add-source-card-btn hidden" onclick="const modal = document.getElementById('add-source-modal'); if (modal) { modal.classList.add('active'); modal.style.display = 'flex'; modal.style.opacity = '1'; modal.style.pointerEvents = 'auto'; }">
           <span class="plus-icon">+</span>
           <span>Add more sources</span>
         </button>
@@ -2536,7 +2535,7 @@
           <div class="soc-metric-card">
             <span class="metric-lbl">Resolved (7D)</span>
             <div class="metric-value-row">
-              <span class="metric-val" style="color: var(--cyber-green);">90 Cases</span>
+              <span class="metric-val" id="soc-card-resolved-count" style="color: var(--cyber-green);">90 Cases</span>
               <span class="status-badge-soc soc-status-active" style="padding: 0.1rem 0.4rem; font-size: 0.7rem;">Active Playbooks</span>
             </div>
           </div>
@@ -2976,17 +2975,22 @@
             </table>
           </div>
         </div>
+      </div> <!-- Closes #soc-panel-analytics -->
 
-        <!-- Compliance Framework Alignment Grid -->
-        <div class="soc-card" style="background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem;">
-          <h3 style="font-size: 0.88rem; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1.25rem;">Compliance Framework Alignment</h3>
-          <div id="compliance-cards-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
-            <!-- JS Populate -->
-          </div>
+      <!-- Compliance Framework Alignment Grid -->
+      <div class="soc-card" style="background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem;">
+        <h3 style="font-size: 0.88rem; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1.25rem;">Compliance Framework Alignment</h3>
+        <div id="compliance-cards-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+          <!-- JS Populate -->
         </div>
+      </div>
 
-      <!-- Security Page View -->
-      <div id="security-view-wrapper" class="hidden" style="width: 100%; margin: -1.25rem auto 0 auto; padding-bottom: 3rem;">
+      </main> <!-- Closes .soc-main -->
+    </div> <!-- Closes #soc-dashboard-view -->
+  </div> <!-- Closes #soc-view-wrapper -->
+
+  <!-- Security Page View -->
+  <div id="security-view-wrapper" class="hidden" style="width: 100%; margin: -1.25rem auto 0 auto; padding-bottom: 3rem;">
         <div id="security-dashboard-view" class="security-dashboard-container">
     <div class="security-header-row" style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 2rem; border-bottom:1px solid var(--border-cyber); padding-bottom: 1.25rem;">
       <div class="security-header-left">
@@ -3672,7 +3676,7 @@ vizo361</textarea>
     <div class="cyber-modal edit-modal-container" style="max-width: 580px;">
       <div class="modal-header-row">
         <h2>Connect Data Source</h2>
-        <span class="close-modal-x" id="close-add-source-modal-x">&times;</span>
+        <span class="close-modal-x" id="close-add-source-modal-x" onclick="const modal = document.getElementById('add-source-modal'); if (modal) { modal.classList.remove('active'); modal.style.display = 'none'; modal.style.opacity = '0'; modal.style.pointerEvents = 'none'; }">&times;</span>
       </div>
 
       <!-- Provider Grid Selector -->
@@ -3894,7 +3898,7 @@ vizo361</textarea>
       </div>
 
       <div class="modal-footer-buttons">
-        <button class="secondary-btn" id="cancel-add-source-btn">Cancel</button>
+        <button class="secondary-btn" id="cancel-add-source-btn" onclick="const modal = document.getElementById('add-source-modal'); if (modal) { modal.classList.remove('active'); modal.style.display = 'none'; modal.style.opacity = '0'; modal.style.pointerEvents = 'none'; }">Cancel</button>
         <button class="primary-btn" id="save-source-btn">Save Connection</button>
       </div>
     </div>
@@ -4046,6 +4050,16 @@ vizo361</textarea>
         <ol class="remediation-steps-list" id="drawer-remediation-steps" style="margin-left: 1.2rem; font-size: 0.8rem; color: var(--text-primary); line-height: 1.6; display: flex; flex-direction: column; gap: 0.5rem; padding: 0; margin-top: 0; margin-bottom: 0;">
           <!-- Dynamic security steps -->
         </ol>
+      </div>
+      
+      <!-- AI Resolve Button -->
+      <div class="drawer-section" id="drawer-ai-action-section" style="margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem; display: flex; justify-content: flex-end;">
+        <button class="primary-btn" id="drawer-ai-resolve-btn" style="padding: 0.5rem 1.2rem; font-size: 0.78rem; background: #8b5cf6; color: #fff; font-weight: 700; border-radius: 4px; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; box-shadow: 0 0 10px rgba(139, 92, 246, 0.3); transition: all 0.2s;">
+          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Resolve via Ollama AI</span>
+        </button>
       </div>
     </div>
   </div>
@@ -4305,6 +4319,6 @@ vizo361</textarea>
   <!-- SOC Drawer Overlay -->
   <div id="soc-alert-overlay" style="position:fixed;inset:0;background:rgba(5,8,17,0.55);backdrop-filter:blur(3px);z-index:998;display:none;" onclick="document.getElementById('soc-alert-drawer').classList.remove('active');this.style.display='none';"></div>
 
-<script src="app.js?v=2.1"></script>
+<script src="app.js"></script>
 </body>
 </html>
