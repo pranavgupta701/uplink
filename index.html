@@ -1549,7 +1549,7 @@
                     <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">On — an authenticator code is required at sign-in.</p>
                   </div>
                 </div>
-                <button class="secondary-btn" style="padding: 0.4rem 1rem; font-size: 0.78rem; border-radius: 6px; display: flex; align-items: center; gap: 0.3rem;" onclick="showToast('2FA settings are locked by administrator policy.', false)">
+                <button class="secondary-btn" id="manage-2fa-btn" style="padding: 0.4rem 1rem; font-size: 0.78rem; border-radius: 6px; display: flex; align-items: center; gap: 0.3rem;">
                   <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2">
                     <rect x="3" y="11" width="18" height="11" rx="2" />
                     <path d="M7 11V7a5 5 0 0 1 10 0v4" />
@@ -1609,38 +1609,289 @@
               </div>
             </div>
             
-            <!-- Pane 3: Security -->
-            <div id="settings-pane-security" class="settings-pane hidden">
-              <div style="margin-bottom: 1.5rem;">
-                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
-                  <svg viewBox="0 0 24 24" width="24" height="24" stroke="var(--cyber-cyan)" fill="none" stroke-width="2.5" style="filter: drop-shadow(0 0 6px var(--border-cyber));">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                  </svg>
-                  <h2 style="font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin: 0;">Security</h2>
-                </div>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Manage how you sign in to Uplink.</p>
-              </div>
+            <!-- Pane 3: Security & Credentials -->
+            <div id="settings-pane-security" class="settings-pane hidden" style="display: flex; flex-direction: column; gap: 1.75rem;">
               
-              <div class="settings-card" style="border: 1px solid var(--border-cyber); border-radius: 8px; padding: 1.5rem; background: var(--bg-card); display: flex; flex-direction: column; gap: 1rem;">
-                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 1.25rem;">
-                  <div>
-                    <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.25rem 0;">Two-factor authentication</h4>
-                    <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0;">Add a one-time code from an authenticator app to your sign-in.</p>
+              <!-- Header Section -->
+              <div>
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.25rem;">
+                  <div style="display: flex; align-items: center; gap: 0.6rem;">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="var(--cyber-cyan)" fill="none" stroke-width="2.5" style="filter: drop-shadow(0 0 8px var(--border-cyber));">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                    <h2 style="font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin: 0;">Security & Access Controls</h2>
                   </div>
-                  <div style="display: flex; align-items: center; gap: 0.5rem; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 4px; padding: 0.25rem 0.6rem;">
-                    <span style="display: inline-block; width: 6px; height: 6px; background: #10b981; border-radius: 50%;"></span>
-                    <span style="font-size: 0.72rem; font-family: var(--font-mono); color: #10b981; font-weight: bold; text-transform: uppercase;">On</span>
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 0.72rem; font-family: var(--font-mono); color: #10b981; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 20px; padding: 0.25rem 0.75rem; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;">
+                      <span style="width: 6px; height: 6px; background: #10b981; border-radius: 50%; box-shadow: 0 0 6px #10b981;"></span>
+                      SYSTEM PROTECTED
+                    </span>
                   </div>
                 </div>
-                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="var(--text-muted)" fill="none" stroke-width="2">
-                    <circle cx="12" cy="12" r="10" />
-                    <line x1="12" y1="16" x2="12" y2="12" />
-                    <line x1="12" y1="8" x2="12.01" y2="8" />
-                  </svg>
-                  <p style="font-size: 0.78rem; color: var(--text-muted); margin: 0;">Two-factor authentication is on for your account. It is required for your role and can't be turned off.</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Manage your account authentication, hardware keys, active sessions, and personal access tokens.</p>
+              </div>
+
+              <!-- Security Overview & Health Score Banner -->
+              <div class="settings-card" style="padding: 1.25rem 1.5rem; background: linear-gradient(135deg, var(--bg-card), rgba(0, 242, 254, 0.03)); border: 1px solid var(--border-cyber); border-radius: 10px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.75rem;">
+                  <div>
+                    <div style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 0.2rem;">Account Security Posture</div>
+                    <div style="display: flex; align-items: baseline; gap: 0.6rem;">
+                      <span style="font-size: 1.5rem; font-weight: 800; color: var(--text-primary);">98%</span>
+                      <span style="font-size: 0.82rem; font-weight: 700; color: #10b981;">EXCELLENT</span>
+                    </div>
+                  </div>
+                  <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <span style="font-size: 0.72rem; padding: 0.25rem 0.6rem; border-radius: 4px; background: rgba(0, 242, 254, 0.08); border: 1px solid rgba(0, 242, 254, 0.2); color: var(--cyber-cyan); font-weight: 600;">2FA Active</span>
+                    <span style="font-size: 0.72rem; padding: 0.25rem 0.6rem; border-radius: 4px; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2); color: #10b981; font-weight: 600;">Hardware Key Bound</span>
+                    <span style="font-size: 0.72rem; padding: 0.25rem 0.6rem; border-radius: 4px; background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.2); color: #818cf8; font-weight: 600;">SSO Ready</span>
+                  </div>
+                </div>
+                <!-- Progress Meter -->
+                <div style="width: 100%; height: 6px; background: rgba(255, 255, 255, 0.08); border-radius: 3px; overflow: hidden;">
+                  <div style="width: 98%; height: 100%; background: linear-gradient(90deg, #10b981, var(--cyber-cyan)); border-radius: 3px;"></div>
                 </div>
               </div>
+
+              <!-- Section 1: Multi-Factor Authentication (MFA) -->
+              <div>
+                <h3 style="font-size: 0.9rem; font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.75rem;">Multi-Factor Authentication</h3>
+                <div class="settings-card" style="border: 1px solid var(--border-cyber); border-radius: 10px; overflow: hidden;">
+                  
+                  <!-- Item 1: Authenticator App -->
+                  <div class="settings-table-row" style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; gap: 1rem;">
+                    <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                      <div style="width: 38px; height: 38px; border-radius: 8px; background: rgba(0, 242, 254, 0.08); border: 1px solid rgba(0, 242, 254, 0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--cyber-cyan);">
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2">
+                          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                          <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                        </svg>
+                      </div>
+                      <div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.15rem;">
+                          <h4 style="font-size: 0.92rem; font-weight: 700; color: var(--text-primary); margin: 0;">Authenticator App (TOTP)</h4>
+                          <span style="font-size: 0.7rem; font-family: var(--font-mono); color: #10b981; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 4px; padding: 0.1rem 0.45rem; font-weight: bold;">ACTIVE</span>
+                        </div>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Use Google Authenticator, Authy, or 1Password to generate time-based 6-digit codes.</p>
+                      </div>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; flex-shrink: 0;">
+                      <button class="secondary-btn" id="sec-regen-backup-btn" style="padding: 0.35rem 0.85rem; font-size: 0.78rem; border-radius: 6px; display: flex; align-items: center; gap: 0.35rem;">
+                        <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                        Regenerate Codes
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Item 2: WebAuthn / Hardware Key -->
+                  <div class="settings-table-row" style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; gap: 1rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                      <div style="width: 38px; height: 38px; border-radius: 8px; background: rgba(251, 133, 0, 0.08); border: 1px solid rgba(251, 133, 0, 0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fb8500;">
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2">
+                          <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+                        </svg>
+                      </div>
+                      <div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.15rem;">
+                          <h4 style="font-size: 0.92rem; font-weight: 700; color: var(--text-primary); margin: 0;">Hardware Security Key (WebAuthn)</h4>
+                          <span style="font-size: 0.7rem; font-family: var(--font-mono); color: var(--cyber-cyan); background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.25); border-radius: 4px; padding: 0.1rem 0.45rem; font-weight: bold;">YUBIKEY 5 NFC</span>
+                        </div>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Hardware FIDO2 / YubiKey security key bound to account (Added Jul 14, 2026).</p>
+                      </div>
+                    </div>
+                    <button class="secondary-btn" id="sec-add-key-btn" style="padding: 0.35rem 0.85rem; font-size: 0.78rem; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; gap: 0.35rem;">
+                      <span style="font-weight: bold;">+</span> Add Key
+                    </button>
+                  </div>
+
+                  <!-- Item 3: Backup Recovery Codes -->
+                  <div class="settings-table-row" style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; gap: 1rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                      <div style="width: 38px; height: 38px; border-radius: 8px; background: rgba(168, 85, 247, 0.08); border: 1px solid rgba(168, 85, 247, 0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #a855f7;">
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2">
+                          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 style="font-size: 0.92rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.15rem 0;">Emergency Backup Codes</h4>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">10 one-time codes generated. Use these if you lose access to your primary authenticator.</p>
+                      </div>
+                    </div>
+                    <button class="secondary-btn" id="sec-download-codes-btn" style="padding: 0.35rem 0.85rem; font-size: 0.78rem; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; gap: 0.35rem;">
+                      <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                      Download Codes
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section 2: Password & Credentials -->
+              <div>
+                <h3 style="font-size: 0.9rem; font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.75rem;">Password & Credentials</h3>
+                <div class="settings-card" style="border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                  <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                    <div style="width: 38px; height: 38px; border-radius: 8px; background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #3b82f6;">
+                      <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.15rem;">
+                        <h4 style="font-size: 0.92rem; font-weight: 700; color: var(--text-primary); margin: 0;">Account Password</h4>
+                        <span style="font-size: 0.7rem; font-family: var(--font-mono); color: #10b981; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 4px; padding: 0.1rem 0.45rem;">STRONG (18 CHARS)</span>
+                      </div>
+                      <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Last changed 14 days ago. Enforces special characters and minimum length.</p>
+                    </div>
+                  </div>
+                  <button class="secondary-btn" id="sec-change-pass-btn" style="padding: 0.35rem 0.85rem; font-size: 0.78rem; border-radius: 6px; display: flex; align-items: center; gap: 0.35rem;">
+                    <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                    Update Password
+                  </button>
+                </div>
+              </div>
+
+              <!-- Section 3: Active Sessions -->
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                  <h3 style="font-size: 0.9rem; font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin: 0;">Active Sessions & Devices</h3>
+                  <button class="secondary-btn" id="sec-revoke-all-sessions-btn" style="padding: 0.25rem 0.65rem; font-size: 0.75rem; border-radius: 4px; color: #ef4444; border-color: rgba(239, 68, 68, 0.3);">
+                    Revoke Other Sessions
+                  </button>
+                </div>
+                <div class="settings-card" style="border: 1px solid var(--border-cyber); border-radius: 10px; overflow: hidden;" id="sec-sessions-list">
+                  
+                  <!-- Session 1: Current -->
+                  <div class="settings-table-row sec-session-item" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem;">
+                    <div style="display: flex; align-items: center; gap: 0.85rem;">
+                      <div style="width: 34px; height: 34px; border-radius: 6px; background: rgba(0, 242, 254, 0.08); border: 1px solid rgba(0, 242, 254, 0.2); display: flex; align-items: center; justify-content: center; color: var(--cyber-cyan);">
+                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                      </div>
+                      <div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                          <span style="font-size: 0.88rem; font-weight: 700; color: var(--text-primary);">Chrome 126 on Windows 11</span>
+                          <span style="font-size: 0.68rem; font-family: var(--font-mono); color: #10b981; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 4px; padding: 0.05rem 0.4rem; font-weight: bold;">THIS DEVICE</span>
+                        </div>
+                        <div style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono); margin-top: 0.1rem;">IP: 127.0.0.1 · San Francisco, US · Active now</div>
+                      </div>
+                    </div>
+                    <span style="font-size: 0.75rem; color: #10b981; font-weight: 600; display: flex; align-items: center; gap: 0.35rem;">
+                      <span style="width: 6px; height: 6px; background: #10b981; border-radius: 50%; box-shadow: 0 0 6px #10b981;"></span>
+                      Current Session
+                    </span>
+                  </div>
+
+                  <!-- Session 2: Mobile/Safari -->
+                  <div class="settings-table-row sec-session-item" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <div style="display: flex; align-items: center; gap: 0.85rem;">
+                      <div style="width: 34px; height: 34px; border-radius: 6px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                      </div>
+                      <div>
+                        <div style="font-size: 0.88rem; font-weight: 700; color: var(--text-primary);">Safari 17 on macOS Sonoma</div>
+                        <div style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono); margin-top: 0.1rem;">IP: 192.168.1.45 · New York, US · 3 hours ago</div>
+                      </div>
+                    </div>
+                    <button class="secondary-btn revoke-single-session-btn" style="padding: 0.25rem 0.65rem; font-size: 0.75rem; border-radius: 4px; color: var(--text-muted);">
+                      Revoke
+                    </button>
+                  </div>
+
+                  <!-- Session 3: CLI Server -->
+                  <div class="settings-table-row sec-session-item" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <div style="display: flex; align-items: center; gap: 0.85rem;">
+                      <div style="width: 34px; height: 34px; border-radius: 6px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                      </div>
+                      <div>
+                        <div style="font-size: 0.88rem; font-weight: 700; color: var(--text-primary);">Uplink CLI v2.4 (Headless)</div>
+                        <div style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono); margin-top: 0.1rem;">IP: 10.0.4.12 · AWS us-east-1 · 1 day ago</div>
+                      </div>
+                    </div>
+                    <button class="secondary-btn revoke-single-session-btn" style="padding: 0.25rem 0.65rem; font-size: 0.75rem; border-radius: 4px; color: var(--text-muted);">
+                      Revoke
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Section 4: Personal Access Tokens (API Keys) -->
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                  <h3 style="font-size: 0.9rem; font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin: 0;">Personal API Access Tokens</h3>
+                  <button class="secondary-btn" id="sec-generate-token-btn" style="padding: 0.25rem 0.65rem; font-size: 0.75rem; border-radius: 4px; color: var(--cyber-cyan); border-color: rgba(0, 242, 254, 0.3);">
+                    + Generate Token
+                  </button>
+                </div>
+                <div class="settings-card" style="border: 1px solid var(--border-cyber); border-radius: 10px; overflow: hidden;" id="sec-tokens-list">
+                  
+                  <div class="settings-table-row sec-token-item" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem;">
+                    <div>
+                      <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 0.88rem; font-weight: 700; color: var(--text-primary);">Production Audit Pipeline Token</span>
+                        <span style="font-size: 0.68rem; font-family: var(--font-mono); color: var(--cyber-cyan); background: rgba(0, 242, 254, 0.08); border: 1px solid rgba(0, 242, 254, 0.2); border-radius: 4px; padding: 0.05rem 0.4rem;">read:all</span>
+                      </div>
+                      <div style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono); margin-top: 0.15rem;">
+                        <span style="color: var(--text-primary);">up_live_98f2...4e3f</span> · Created Jul 10, 2026 · Last used 12 mins ago
+                      </div>
+                    </div>
+                    <button class="secondary-btn revoke-single-token-btn" style="padding: 0.25rem 0.65rem; font-size: 0.75rem; border-radius: 4px; color: var(--text-muted);">
+                      Revoke
+                    </button>
+                  </div>
+
+                  <div class="settings-table-row sec-token-item" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <div>
+                      <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 0.88rem; font-weight: 700; color: var(--text-primary);">CLI Local Development Key</span>
+                        <span style="font-size: 0.68rem; font-family: var(--font-mono); color: #818cf8; background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: 4px; padding: 0.05rem 0.4rem;">admin:full</span>
+                      </div>
+                      <div style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono); margin-top: 0.15rem;">
+                        <span style="color: var(--text-primary);">up_live_4a12...88b1</span> · Created Jun 28, 2026 · Last used 2 days ago
+                      </div>
+                    </div>
+                    <button class="secondary-btn revoke-single-token-btn" style="padding: 0.25rem 0.65rem; font-size: 0.75rem; border-radius: 4px; color: var(--text-muted);">
+                      Revoke
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Section 5: Security Activity Timeline -->
+              <div>
+                <h3 style="font-size: 0.9rem; font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.75rem;">Recent Security Activity</h3>
+                <div class="settings-card" style="border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1rem 1.5rem; display: flex; flex-direction: column; gap: 0.85rem;">
+                  
+                  <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem;">
+                    <div style="display: flex; align-items: center; gap: 0.6rem;">
+                      <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 6px #10b981;"></span>
+                      <span style="color: var(--text-primary); font-weight: 600;">Two-factor authentication verified</span>
+                    </div>
+                    <span style="color: var(--text-muted); font-family: var(--font-mono); font-size: 0.75rem;">Today, 17:29 · 127.0.0.1</span>
+                  </div>
+
+                  <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.04); padding-top: 0.75rem;">
+                    <div style="display: flex; align-items: center; gap: 0.6rem;">
+                      <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--cyber-cyan); box-shadow: 0 0 6px var(--cyber-cyan);"></span>
+                      <span style="color: var(--text-primary); font-weight: 600;">New API access token generated (Audit Pipeline)</span>
+                    </div>
+                    <span style="color: var(--text-muted); font-family: var(--font-mono); font-size: 0.75rem;">Jul 10, 2026 · 14:15</span>
+                  </div>
+
+                  <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.04); padding-top: 0.75rem;">
+                    <div style="display: flex; align-items: center; gap: 0.6rem;">
+                      <span style="width: 8px; height: 8px; border-radius: 50%; background: #fb8500; box-shadow: 0 0 6px #fb8500;"></span>
+                      <span style="color: var(--text-primary); font-weight: 600;">Hardware YubiKey 5 NFC registered</span>
+                    </div>
+                    <span style="color: var(--text-muted); font-family: var(--font-mono); font-size: 0.75rem;">Jul 07, 2026 · 09:30</span>
+                  </div>
+
+                </div>
+              </div>
+
             </div>
             
             <!-- Other Mock Panes -->
@@ -3255,6 +3506,96 @@
         <div class="modal-buttons" style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 0.5rem;" id="alert-action-buttons-container">
           <!-- Action Buttons (Acknowledge / Resolve) -->
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Security: Update Password Modal -->
+  <div class="cyber-modal-overlay" id="sec-update-password-modal">
+    <div class="cyber-modal" style="max-width: 480px; width: 90%;">
+      <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.75rem;">
+        <span class="modal-title" style="color: var(--text-primary); font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="var(--cyber-cyan)" fill="none" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          Update Account Password
+        </span>
+        <button class="modal-close" id="sec-pass-modal-close-btn" style="background: none; border: none; color: var(--text-muted); font-size: 1.4rem; cursor: pointer;">&times;</button>
+      </div>
+      
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 1rem; text-align: left;">
+        <div class="modal-form-group">
+          <label style="color: var(--text-secondary); font-size: 0.8rem; font-weight: 600; margin-bottom: 0.35rem; display: block;">Current Password</label>
+          <input type="password" class="cyber-modal-input" id="sec-current-pass-input" placeholder="••••••••••••••••" style="width: 100%; box-sizing: border-box;">
+        </div>
+
+        <div class="modal-form-group">
+          <label style="color: var(--text-secondary); font-size: 0.8rem; font-weight: 600; margin-bottom: 0.35rem; display: block;">New Strong Password</label>
+          <input type="password" class="cyber-modal-input" id="sec-new-pass-input" placeholder="Minimum 12 characters, numbers & symbols" style="width: 100%; box-sizing: border-box;">
+        </div>
+
+        <div class="modal-form-group">
+          <label style="color: var(--text-secondary); font-size: 0.8rem; font-weight: 600; margin-bottom: 0.35rem; display: block;">Confirm New Password</label>
+          <input type="password" class="cyber-modal-input" id="sec-confirm-pass-input" placeholder="Repeat new password" style="width: 100%; box-sizing: border-box;">
+        </div>
+
+        <!-- Password Strength Meter -->
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-cyber); border-radius: 6px; padding: 0.75rem;">
+          <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 0.35rem;">
+            <span style="color: var(--text-muted);">Password Strength</span>
+            <span style="color: #10b981; font-weight: bold;" id="sec-pass-strength-text">Very Strong</span>
+          </div>
+          <div style="width: 100%; height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px;">
+            <div style="width: 100%; height: 100%; background: #10b981; border-radius: 2px;" id="sec-pass-strength-bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-buttons" style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; padding-top: 0.85rem; border-top: 1px solid rgba(255,255,255,0.08);">
+        <button class="secondary-btn" id="sec-pass-modal-cancel-btn" style="padding: 0.45rem 1.1rem; font-size: 0.82rem; border-radius: 6px;">Cancel</button>
+        <button class="primary-btn" id="sec-pass-modal-save-btn" style="padding: 0.45rem 1.25rem; font-size: 0.82rem; font-weight: 700; border-radius: 6px; background: var(--cyber-cyan); color: #050811;">Update Password</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Security: Generate API Token Modal -->
+  <div class="cyber-modal-overlay" id="sec-generate-token-modal">
+    <div class="cyber-modal" style="max-width: 520px; width: 90%;">
+      <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.75rem;">
+        <span class="modal-title" style="color: var(--text-primary); font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="var(--cyber-cyan)" fill="none" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          Generate Personal API Access Token
+        </span>
+        <button class="modal-close" id="sec-token-modal-close-btn" style="background: none; border: none; color: var(--text-muted); font-size: 1.4rem; cursor: pointer;">&times;</button>
+      </div>
+      
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 1rem; text-align: left;">
+        <div class="modal-form-group">
+          <label style="color: var(--text-secondary); font-size: 0.8rem; font-weight: 600; margin-bottom: 0.35rem; display: block;">Token Description / Label</label>
+          <input type="text" class="cyber-modal-input" id="sec-token-name-input" placeholder="e.g. CI/CD Deployment Pipeline" style="width: 100%; box-sizing: border-box;">
+        </div>
+
+        <div class="modal-form-group">
+          <label style="color: var(--text-secondary); font-size: 0.8rem; font-weight: 600; margin-bottom: 0.35rem; display: block;">Token Scope Permissions</label>
+          <select class="cyber-modal-select" id="sec-token-scope-select" style="width: 100%; font-family: var(--font-mono); font-size: 0.82rem;">
+            <option value="read:all">read:all (Read-only access to entity graph)</option>
+            <option value="write:telemetry">write:telemetry (Ingest telemetry data)</option>
+            <option value="admin:full">admin:full (Full API administrative access)</option>
+          </select>
+        </div>
+
+        <div class="modal-form-group">
+          <label style="color: var(--text-secondary); font-size: 0.8rem; font-weight: 600; margin-bottom: 0.35rem; display: block;">Expiration</label>
+          <select class="cyber-modal-select" id="sec-token-expire-select" style="width: 100%; font-family: var(--font-mono); font-size: 0.82rem;">
+            <option value="30">30 Days</option>
+            <option value="90">90 Days</option>
+            <option value="365">1 Year</option>
+            <option value="never">No Expiration</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-buttons" style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; padding-top: 0.85rem; border-top: 1px solid rgba(255,255,255,0.08);">
+        <button class="secondary-btn" id="sec-token-modal-cancel-btn" style="padding: 0.45rem 1.1rem; font-size: 0.82rem; border-radius: 6px;">Cancel</button>
+        <button class="primary-btn" id="sec-token-modal-create-btn" style="padding: 0.45rem 1.25rem; font-size: 0.82rem; font-weight: 700; border-radius: 6px; background: var(--cyber-cyan); color: #050811;">Create Token</button>
       </div>
     </div>
   </div>
