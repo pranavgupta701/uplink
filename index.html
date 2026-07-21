@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Uplink - Discovery</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon points='12,2 22,7 22,17 12,22 2,17 2,7' fill='%2300f2fe'/%3E%3Ctext x='12' y='16.5' font-family='sans-serif' font-weight='800' font-size='13' fill='%23050811' text-anchor='middle'%3EU%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css?v=2.0">
+  <link rel="stylesheet" href="style.css?v=2.1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -2093,9 +2093,9 @@
       <!-- SOC Navigation Sub-tabs -->
       <div class="soc-sub-tabs">
         <button class="soc-sub-tab-btn active" data-soc-tab="overview">Overview</button>
-        <button class="soc-sub-tab-btn" data-soc-tab="heatmaps">Threat Heatmap</button>
-        <button class="soc-sub-tab-btn" data-soc-tab="wazuh">Wazuh Monitor</button>
-        <button class="soc-sub-tab-btn" data-soc-tab="analytics">Wazuh Analytics</button>
+        <button class="soc-sub-tab-btn" data-soc-tab="heatmaps">Threat Maps</button>
+        <button class="soc-sub-tab-btn" data-soc-tab="wazuh">Wazuh Analysis</button>
+        <button class="soc-sub-tab-btn" data-soc-tab="analytics">Analytics</button>
       </div>
 
       <!-- PANEL 1: SOC Overview Dashboard -->
@@ -2126,61 +2126,27 @@
 
           <!-- Left Column: Ingested Sources Card -->
           <div class="flow-col">
-            <div class="ingest-sources-card">
-              <div class="source-row">
-                <span class="source-bullet" style="background-color: var(--cyber-green);"></span>
-                <span class="source-name">19.2K Endpoints</span>
+            <div class="ingest-sources-card" id="soc-ingested-sources-card" style="padding: 1.25rem; min-height: 120px; display: flex; flex-direction: column; justify-content: center;">
+              <div class="source-row" style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span class="source-bullet" style="background-color: var(--cyber-green); box-shadow: 0 0 8px var(--cyber-green); width: 8px; height: 8px;"></span>
+                <span id="soc-active-endpoint-count">6 Active Wazuh Endpoints</span>
               </div>
-              <div class="source-row">
-                <span class="source-bullet" style="background-color: #fb923c;"></span>
-                <span class="source-name">NGFW</span>
-              </div>
-              <div class="source-row">
-                <span class="source-bullet" style="background-color: #f59e0b;"></span>
-                <span class="source-name">Amazon Web Services</span>
-              </div>
-              <div class="source-row">
-                <span class="source-bullet" style="background-color: #3b82f6;"></span>
-                <span class="source-name">Google Cloud</span>
-              </div>
-              <div class="source-row">
-                <span class="source-bullet" style="background-color: #0ea5e9;"></span>
-                <span class="source-name">Azure</span>
-              </div>
-              <div class="source-row">
-                <span class="source-bullet" style="background-color: #ea580c;"></span>
-                <span class="source-name">Office 365</span>
-              </div>
-              <div class="source-row">
-                <span class="source-bullet" style="background-color: #3b82f6;"></span>
-                <span class="source-name">Proofpoint</span>
-              </div>
-              <div class="source-row">
-                <span class="source-bullet" style="background-color: #06b6d4;"></span>
-                <span class="source-name">Prisma Cloud</span>
-              </div>
-              <div class="source-row">
-                <span class="source-bullet" style="background-color: #ef4444;"></span>
-                <span class="source-name">Apache</span>
-              </div>
-              <div class="source-row">
-                <span class="source-bullet" style="background-color: #8b5cf6;"></span>
-                <span class="source-name">Okta</span>
-              </div>
-              <div class="source-row-more">+68 DATA SOURCES</div>
+              <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.4; margin: 0; font-weight: 500;">
+                No additional cloud sources. Connect in Discovery.
+              </p>
             </div>
           </div>
 
           <!-- Center Column: Radar Visual Scanning -->
           <div class="flow-col flow-col-center">
             <div class="radar-visual-wrapper">
-              <span class="radar-val-left">19,258</span>
+              <span class="radar-val-left" id="radar-source-count">6</span>
               <div class="radar-ring-container">
                 <div class="radar-scanline"></div>
                 <div class="radar-pulse-ring"></div>
                 <div class="radar-core-dot"></div>
               </div>
-              <span class="radar-val-right">94</span>
+              <span class="radar-val-right" id="radar-output-count">96</span>
             </div>
           </div>
 
@@ -2203,8 +2169,8 @@
                 </svg>
               </div>
               <div class="node-meta">
-                <span class="node-val">78</span>
-                <span class="node-lbl">Automated</span>
+                <span class="node-val" id="soc-automated-count">70</span>
+                <span class="node-lbl">AUTOMATED</span>
               </div>
             </div>
             <!-- Resolved Cases -->
@@ -2215,8 +2181,8 @@
                 </svg>
               </div>
               <div class="node-meta">
-                <span class="node-val">84</span>
-                <span class="node-lbl">Resolved Cases</span>
+                <span class="node-val" id="soc-resolved-count">90</span>
+                <span class="node-lbl">RESOLVED CASES</span>
               </div>
             </div>
             <!-- Manual -->
@@ -2228,8 +2194,8 @@
                 </svg>
               </div>
               <div class="node-meta">
-                <span class="node-val">16</span>
-                <span class="node-lbl">Manual</span>
+                <span class="node-val" id="soc-manual-count">20</span>
+                <span class="node-lbl">MANUAL</span>
               </div>
             </div>
             <!-- Open Cases -->
@@ -2242,14 +2208,14 @@
                 </svg>
               </div>
               <div class="node-meta">
-                <span class="node-val">10</span>
-                <span class="node-lbl">Open Cases</span>
+                <span class="node-val" id="soc-open-cases-count">6</span>
+                <span class="node-lbl">OPEN CASES</span>
               </div>
               <div class="open-cases-split">
-                <span class="case-badge-c">C 3</span>
-                <span class="case-badge-h">H 2</span>
-                <span class="case-badge-m">M 5</span>
-                <span class="case-badge-l">L 0</span>
+                <span class="case-badge-c" id="soc-case-badge-c">C 1</span>
+                <span class="case-badge-h" id="soc-case-badge-h">H 0</span>
+                <span class="case-badge-m" id="soc-case-badge-m">M 5</span>
+                <span class="case-badge-l" id="soc-case-badge-l">L 0</span>
               </div>
             </div>
           </div>
@@ -2281,12 +2247,12 @@
           <div class="soc-metric-card">
             <span class="metric-lbl">Total Open Cases</span>
             <div class="metric-value-row">
-              <span class="metric-val">10</span>
+              <span class="metric-val" id="soc-metric-open-cases">6</span>
               <div class="metric-boxes-split">
-                <span class="box-split bg-crit">3</span>
-                <span class="box-split bg-high">2</span>
-                <span class="box-split bg-med">5</span>
-                <span class="box-split bg-low">0</span>
+                <span class="box-split bg-crit" id="soc-metric-crit">1</span>
+                <span class="box-split bg-high" id="soc-metric-high">0</span>
+                <span class="box-split bg-med" id="soc-metric-med">5</span>
+                <span class="box-split bg-low" id="soc-metric-low">0</span>
               </div>
             </div>
           </div>
@@ -2320,7 +2286,7 @@
           <div class="soc-metric-card">
             <span class="metric-lbl">Resolved (7D)</span>
             <div class="metric-value-row">
-              <span class="metric-val" style="color: var(--cyber-green);">84 Cases</span>
+              <span class="metric-val" style="color: var(--cyber-green);">90 Cases</span>
               <span class="status-badge-soc soc-status-active" style="padding: 0.1rem 0.4rem; font-size: 0.7rem;">Active Playbooks</span>
             </div>
           </div>
@@ -2328,7 +2294,7 @@
           <div class="soc-metric-card">
             <span class="metric-lbl">False Positive (7D)</span>
             <div class="metric-value-row">
-              <span class="metric-val" style="color: var(--text-secondary);">16 Cases</span>
+              <span class="metric-val" style="color: var(--text-secondary);">20 Cases</span>
               <span class="status-badge-soc soc-status-offline" style="padding: 0.1rem 0.4rem; font-size: 0.7rem;">Exceptions Added</span>
             </div>
           </div>
@@ -3972,22 +3938,36 @@ vizo361</textarea>
         <span class="drawer-lbl">Detection Timeline</span>
         <div class="drawer-val" id="drawer-time-val">seen 8 times · last 7/18/2026, 9:52:51 AM</div>
       </div>
-      <!-- Dynamic SOAR Playbooks & Automations Container -->
+
+      <!-- SOAR PLAYBOOKS Section -->
       <div class="drawer-section" style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-          <span class="drawer-lbl" style="margin-bottom: 0;">SOAR PLAYBOOKS & AUTOMATIONS</span>
-          <span style="font-size: 0.62rem; color: var(--cyber-cyan); font-family: var(--font-mono); border: 1px solid rgba(0, 242, 254, 0.3); padding: 0.15rem 0.4rem; border-radius: 4px; font-weight: bold; background: rgba(0, 242, 254, 0.08); letter-spacing: 0.5px;">ACTIVE SOAR</span>
+          <span style="font-size: 0.82rem; font-weight: 800; color: var(--cyber-cyan); display: flex; align-items: center; gap: 0.4rem;">
+            <span style="font-size: 0.9rem;">⚡</span> SOAR PLAYBOOKS
+          </span>
+          <div style="display: flex; gap: 0.35rem;">
+            <span class="soar-tab-pill active" data-soar-tab="automated" style="font-size: 0.62rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 4px; cursor: pointer; transition: all 0.2s; background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.3); color: var(--cyber-cyan);">Automated</span>
+            <span class="soar-tab-pill" data-soar-tab="response" style="font-size: 0.62rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 4px; cursor: pointer; transition: all 0.2s; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: var(--text-muted);">Response</span>
+          </div>
         </div>
         <div id="drawer-soar-playbooks" style="display: flex; flex-direction: column; gap: 0.6rem;">
           <!-- Dynamically populated playbooks based on alert source -->
         </div>
       </div>
-      
+
+      <!-- QUICK ACTIONS -->
+      <div class="drawer-section" style="margin-top: 0.5rem;">
+        <span class="drawer-lbl" style="margin-bottom: 0.5rem; font-size: 0.68rem; letter-spacing: 0.8px;">QUICK ACTIONS</span>
+        <div id="drawer-quick-actions" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <!-- Dynamically populated quick action buttons -->
+        </div>
+      </div>
+
       <!-- SUGGESTED REMEDIATION STEPS -->
-      <div class="drawer-section" style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-          <span class="drawer-lbl" style="margin-bottom: 0;">SUGGESTED REMEDIATION STEPS</span>
-          <span style="font-size: 0.62rem; color: #a78bfa; font-family: var(--font-mono); border: 1px solid rgba(139,92,246,0.3); padding: 0.15rem 0.35rem; border-radius: 4px; font-weight: bold; background: rgba(139,92,246,0.08);">OLLAMA AI CO-PILOT</span>
+      <div class="drawer-section" style="margin-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+          <span style="color: #f43f5e; font-size: 0.85rem;">⊙</span>
+          <span style="font-size: 0.78rem; font-weight: 800; color: #f43f5e; letter-spacing: 0.5px;">REMEDIATION STEPS</span>
         </div>
         <ol class="remediation-steps-list" id="drawer-remediation-steps" style="margin-left: 1.2rem; font-size: 0.8rem; color: var(--text-primary); line-height: 1.6; display: flex; flex-direction: column; gap: 0.5rem; padding: 0; margin-top: 0; margin-bottom: 0;">
           <!-- Dynamic security steps -->
@@ -4107,6 +4087,6 @@ vizo361</textarea>
   </div>
 
 
-<script src="app.js?v=2.0"></script>
+<script src="app.js?v=2.1"></script>
 </body>
 </html>
