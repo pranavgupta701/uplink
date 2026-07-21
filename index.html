@@ -3996,6 +3996,63 @@ vizo361</textarea>
     </div>
   </div>
 
+  <!-- Run Details Side Drawer -->
+  <div class="alert-drawer" id="run-details-drawer" style="width: 520px; max-width: 92vw;">
+    <div class="drawer-header">
+      <div class="drawer-title-row">
+        <span class="drawer-lbl" id="run-drawer-meta-lbl">REMEDIATION EXECUTION LOG</span>
+        <div class="drawer-title" id="run-drawer-title-val" style="font-family: var(--font-mono); color: var(--cyber-cyan);">RUN-2191</div>
+      </div>
+      <button class="drawer-close-btn" id="run-drawer-close-btn">&times;</button>
+    </div>
+    <div class="drawer-body">
+      <!-- Run Metadata Grid -->
+      <div class="drawer-section" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; background: var(--bg-dark); padding: 0.85rem 1rem; border-radius: 8px; border: 1px solid var(--border-cyber);">
+        <div>
+          <span class="drawer-lbl" style="font-size: 0.6rem; color: var(--text-muted); display: block; margin-bottom: 0.2rem;">STATUS</span>
+          <div id="run-drawer-status" style="font-weight: bold; font-family: var(--font-mono); font-size: 0.8rem;"></div>
+        </div>
+        <div>
+          <span class="drawer-lbl" style="font-size: 0.6rem; color: var(--text-muted); display: block; margin-bottom: 0.2rem;">TARGET NODE</span>
+          <div class="drawer-val highlight" id="run-drawer-target" style="font-family: var(--font-mono); font-weight: bold; font-size: 0.82rem;"></div>
+        </div>
+        <div>
+          <span class="drawer-lbl" style="font-size: 0.6rem; color: var(--text-muted); display: block; margin-bottom: 0.2rem;">TIMESTAMP</span>
+          <div class="drawer-val" id="run-drawer-time" style="font-size: 0.75rem; color: var(--text-secondary);"></div>
+        </div>
+        <div>
+          <span class="drawer-lbl" style="font-size: 0.6rem; color: var(--text-muted); display: block; margin-bottom: 0.2rem;">OPERATOR</span>
+          <div class="drawer-val" id="run-drawer-operator" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary);"></div>
+        </div>
+      </div>
+
+      <!-- Input Command / Script Section -->
+      <div class="drawer-section" style="margin-top: 0.75rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+          <span class="drawer-lbl" style="margin-bottom: 0;">INPUT COMMAND / SCRIPT</span>
+          <button id="copy-run-script-btn" style="background: rgba(0,242,254,0.06); border: 1px solid var(--border-cyber); color: var(--cyber-cyan); font-size: 0.68rem; font-weight: 600; padding: 0.2rem 0.5rem; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 0.25rem; transition: all 0.2s;">
+            <svg viewBox="0 0 24 24" width="11" height="11" stroke="currentColor" fill="none" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            <span>Copy Script</span>
+          </button>
+        </div>
+        <pre id="run-drawer-script" style="background: #020617; border: 1px solid var(--border-cyber); border-radius: 6px; padding: 0.85rem; font-family: var(--font-mono); font-size: 0.78rem; color: #38bdf8; white-space: pre-wrap; word-break: break-all; max-height: 170px; overflow-y: auto; line-height: 1.5; margin: 0;"></pre>
+      </div>
+
+      <!-- Execution Output (stdout / stderr) Section -->
+      <div class="drawer-section" style="margin-top: 0.75rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+          <span class="drawer-lbl" style="margin-bottom: 0;">COMMAND OUTPUT (STDOUT / STDERR)</span>
+          <button id="copy-run-output-btn" style="background: rgba(0,242,254,0.06); border: 1px solid var(--border-cyber); color: var(--cyber-cyan); font-size: 0.68rem; font-weight: 600; padding: 0.2rem 0.5rem; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 0.25rem; transition: all 0.2s;">
+            <svg viewBox="0 0 24 24" width="11" height="11" stroke="currentColor" fill="none" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            <span>Copy Output</span>
+          </button>
+        </div>
+        <div class="runs-terminal-screen" id="run-drawer-output" style="background: #020617; border: 1px solid #1e293b; border-radius: 6px; padding: 0.85rem; font-family: var(--font-mono); font-size: 0.76rem; color: #e2e8f0; line-height: 1.55; max-height: 240px; overflow-y: auto; white-space: pre-wrap; word-break: break-all;">
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- CSV Export Progress Modal -->
   
   <div class="csv-export-modal" id="csv-export-modal">
