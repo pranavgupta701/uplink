@@ -64,7 +64,7 @@
           </svg>
           Discovery
         </a>
-        <a href="#inventory" class="nav-item disabled">
+        <a href="#inventory" class="nav-item">
           <svg class="nav-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none">
             <rect x="3" y="3" width="18" height="18" rx="2" stroke-width="2" />
             <line x1="3" y1="9" x2="21" y2="9" stroke-width="2" />
@@ -72,32 +72,32 @@
           </svg>
           Inventory
         </a>
-        <a href="#state" class="nav-item disabled">
+        <a href="#state" class="nav-item">
           <svg class="nav-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none">
             <path d="M12,3 L12,8 M12,16 L12,21 M4,12 L9,12 M15,12 L20,12" stroke-width="2" stroke-linecap="round" />
             <circle cx="12" cy="12" r="4" stroke-width="2" />
           </svg>
           State
         </a>
-        <a href="#pulse" class="nav-item disabled">
+        <a href="#pulse" class="nav-item">
           <svg class="nav-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none">
             <path d="M3,12 L8,12 L10,6 L14,18 L16,12 L21,12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
           Pulse
         </a>
-        <a href="#client" class="nav-item disabled">
+        <a href="#client" class="nav-item">
           <svg class="nav-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none">
             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" stroke-width="2" stroke-linecap="round" />
           </svg>
           Client
         </a>
-        <a href="#project" class="nav-item disabled">
+        <a href="#project" class="nav-item">
           <svg class="nav-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none">
             <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" stroke-width="2" />
           </svg>
           Project
         </a>
-        <a href="#soc" class="nav-item disabled">
+        <a href="#soc" class="nav-item">
           <svg class="nav-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2" />
           </svg>
@@ -2090,12 +2090,11 @@
         <div id="soc-dashboard-view" class="soc-dashboard-container">
     <main class="soc-main">
 
-      <!-- SOC Navigation Sub-tabs -->
+      <!-- SOC Navigation Sub-tabs (3 Master Panels) -->
       <div class="soc-sub-tabs">
-        <button class="soc-sub-tab-btn active" data-soc-tab="overview">Overview</button>
-        <button class="soc-sub-tab-btn" data-soc-tab="heatmaps">Threat Maps</button>
-        <button class="soc-sub-tab-btn" data-soc-tab="wazuh">Wazuh Analysis</button>
-        <button class="soc-sub-tab-btn" data-soc-tab="analytics">Analytics</button>
+        <button class="soc-sub-tab-btn active" data-soc-tab="overview">Overview &amp; Incidents</button>
+        <button class="soc-sub-tab-btn" data-soc-tab="threatintel">Threat Intel &amp; MITRE</button>
+        <button class="soc-sub-tab-btn" data-soc-tab="analytics">Analytics &amp; Endpoint Health</button>
       </div>
 
       <!-- PANEL 1: SOC Overview Dashboard -->
@@ -2479,7 +2478,7 @@
               <div class="split-log-card border-left-green">
                 <span class="log-card-badge bg-green">P1</span>
                 <span class="log-card-source text-muted">github</span>
-                <span class="log-card-desc">Public code matches: .proeffico.com... <span class="resolved-by text-green">RESOLVED by Nishant · 3.9d ago</span></span>
+<span class="log-card-desc">Public code matches: .proeffico.com... <span class="resolved-by text-green">RESOLVED by Nishant · 3.9d ago</span></span>
               </div>
               <!-- card 2 -->
               <div class="split-log-card border-left-green">
@@ -2491,404 +2490,151 @@
           </div>
         </div>
       </div>
-
-      <!-- PANEL 3: Threat Maps & Heatmaps -->
-      <div id="soc-panel-heatmaps" class="soc-panel-content">
-        <div class="heatmap-split-row">
-          <div class="heatmap-map-card">
-            <h3>Geographic Telemetry Beacons</h3>
-            <p class="card-desc">Ingress telemetry traffic density mapping by source origins.</p>
-            
-            <div class="world-map-svg-container">
-              <svg class="world-map-vector" viewBox="0 0 1000 500" width="100%" height="100%">
-                <defs>
-                  <radialGradient id="heat-red" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="rgba(239, 68, 68, 0.45)" />
-                    <stop offset="100%" stop-color="rgba(239, 68, 68, 0)" />
-                  </radialGradient>
-                  <radialGradient id="heat-orange" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="rgba(245, 158, 11, 0.4)" />
-                    <stop offset="100%" stop-color="rgba(245, 158, 11, 0)" />
-                  </radialGradient>
-                  <radialGradient id="heat-blue" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="rgba(59, 130, 246, 0.35)" />
-                    <stop offset="100%" stop-color="rgba(59, 130, 246, 0)" />
-                  </radialGradient>
-                </defs>
-
-                 <!-- Detailed Cyber-Physical Continents Outline -->
-                 <!-- North America -->
-                 <path class="map-continent-path" d="M 50,80 C 70,60 120,50 180,60 C 230,70 260,60 280,80 C 290,90 280,110 300,120 C 320,130 350,110 360,130 C 370,150 350,180 340,200 C 330,220 340,240 330,250 C 320,260 300,240 290,260 C 280,280 270,300 250,310 C 240,310 230,300 230,280 C 235,260 240,240 220,230 C 200,220 180,240 160,230 C 140,220 130,190 120,180 C 110,170 90,170 80,150 C 70,130 40,110 50,80 Z" />
-                 
-                 <!-- South America -->
-                 <path class="map-continent-path" d="M 230,315 C 245,310 265,315 280,325 C 295,335 320,340 330,355 C 340,370 335,395 325,415 C 315,435 305,455 295,475 C 290,485 280,490 275,485 C 270,480 275,460 270,445 C 265,430 250,410 245,395 C 240,380 230,365 225,350 C 220,335 220,325 230,315 Z" />
-                 
-                 <!-- Greenland -->
-                 <path class="map-continent-path" d="M 330,45 C 350,35 385,30 395,40 C 405,50 395,80 375,90 C 355,100 340,90 335,80 C 330,70 320,55 330,45 Z" />
-                 
-                 <!-- Africa -->
-                 <path class="map-continent-path" d="M 465,185 C 495,180 525,185 540,195 C 555,205 570,200 580,215 C 590,230 600,240 595,255 C 590,270 615,270 625,280 C 635,290 625,310 615,330 C 605,350 590,375 580,390 C 575,395 565,395 560,385 C 555,375 555,360 550,345 C 545,330 535,320 525,310 C 515,300 485,295 470,285 C 455,275 440,260 445,240 C 450,220 445,200 465,185 Z" />
-                 
-                 <!-- Madagascar -->
-                 <path class="map-continent-path" d="M 605,340 C 610,335 615,345 615,355 C 615,365 610,385 605,385 C 600,385 595,375 595,360 C 595,345 600,345 605,340 Z" />
-                 
-                 <!-- Eurasia (with highly detailed outlines for Europe, India, and Southeast Asia) -->
-                 <path class="map-continent-path" d="M 450,110 C 465,95 485,90 500,105 C 515,120 525,95 535,85 C 545,75 565,70 580,85 C 590,95 595,115 605,120 C 615,125 635,100 665,95 C 695,90 745,75 805,80 C 865,85 905,95 925,105 C 945,115 965,100 975,115 C 985,130 975,150 965,160 C 955,170 945,185 930,195 C 915,205 895,190 880,200 C 865,210 850,180 840,190 C 830,200 815,225 805,230 C 795,235 785,250 770,245 C 755,240 750,265 745,285 C 740,295 736,295 735,285 C 734,275 730,250 720,245 C 710,240 705,255 700,265 C 695,275 688,278 685,270 C 682,262 675,250 670,245 C 665,240 650,240 640,230 C 630,220 620,240 610,250 C 600,260 595,250 590,235 C 585,220 575,215 565,215 C 555,215 545,205 530,205 C 515,205 485,200 475,190 C 465,180 455,170 450,150 C 445,130 435,125 450,110 Z" />
-                 
-                 <!-- Japan -->
-                 <path class="map-continent-path" d="M 830,150 C 835,145 842,150 845,158 C 848,166 845,175 838,180 C 833,180 828,172 826,164 C 824,156 826,152 830,150 Z" />
-                 
-                 <!-- Australia -->
-                 <path class="map-continent-path" d="M 770,390 C 785,370 810,365 825,355 C 830,350 835,335 840,340 C 845,345 845,360 855,360 C 865,360 875,370 880,385 C 885,400 870,415 860,420 C 850,425 835,420 825,430 C 815,440 795,435 785,425 C 775,415 760,405 770,390 Z" />
-                <!-- Heatmap Overlay Blobs -->
-                <circle cx="740" cy="280" r="50" fill="url(#heat-red)" />
-                <circle cx="160" cy="140" r="40" fill="url(#heat-orange)" />
-                <circle cx="520" cy="130" r="35" fill="url(#heat-blue)" />
-                <circle cx="840" cy="160" r="35" fill="url(#heat-blue)" />
-                <circle cx="860" cy="380" r="45" fill="url(#heat-blue)" />
-
-                <!-- Threat Ingress Arcs -->
-                <path d="M 160, 140 Q 450, 100 740, 280" stroke="#f59e0b" stroke-width="1.5" fill="none" stroke-dasharray="8,8" opacity="0.6">
-                  <animate attributeName="stroke-dashoffset" values="100;0" dur="2s" repeatCount="indefinite" />
-                </path>
-                <path d="M 520, 130 Q 630, 180 740, 280" stroke="#ef4444" stroke-width="1.5" fill="none" stroke-dasharray="8,8" opacity="0.6">
-                  <animate attributeName="stroke-dashoffset" values="100;0" dur="2.5s" repeatCount="indefinite" />
-                </path>
-                <path d="M 840, 160 Q 790, 220 740, 280" stroke="#ef4444" stroke-width="1.5" fill="none" stroke-dasharray="8,8" opacity="0.6">
-                  <animate attributeName="stroke-dashoffset" values="100;0" dur="1.8s" repeatCount="indefinite" />
-                </path>
-                <path d="M 860, 380 Q 800, 330 740, 280" stroke="#3b82f6" stroke-width="1.5" fill="none" stroke-dasharray="8,8" opacity="0.6">
-                  <animate attributeName="stroke-dashoffset" values="100;0" dur="2.2s" repeatCount="indefinite" />
-                </path>
-                
-                <!-- Beacons -->
-                <g class="map-beacon" data-city="Singapore" style="transform: translate(740px, 280px); cursor: pointer;">
-                  <circle class="beacon-pulse" r="10" fill="none" stroke="#ef4444" stroke-width="1.5"></circle>
-                  <circle class="beacon-dot" r="4" fill="#ef4444"></circle>
-                </g>
-                <g class="map-beacon" data-city="Seattle" style="transform: translate(160px, 140px); cursor: pointer;">
-                  <circle class="beacon-pulse" r="10" fill="none" stroke="#f59e0b" stroke-width="1.5"></circle>
-                  <circle class="beacon-dot" r="4" fill="#f59e0b"></circle>
-                </g>
-                <g class="map-beacon" data-city="Frankfurt" style="transform: translate(520px, 130px); cursor: pointer;">
-                  <circle class="beacon-pulse" r="10" fill="none" stroke="#3b82f6" stroke-width="1.5"></circle>
-                  <circle class="beacon-dot" r="4" fill="#3b82f6"></circle>
-                </g>
-                <g class="map-beacon" data-city="Tokyo" style="transform: translate(840px, 160px); cursor: pointer;">
-                  <circle class="beacon-pulse" r="10" fill="none" stroke="#3b82f6" stroke-width="1.5"></circle>
-                  <circle class="beacon-dot" r="4" fill="#3b82f6"></circle>
-                </g>
-                <g class="map-beacon" data-city="Sydney" style="transform: translate(860px, 380px); cursor: pointer;">
-                  <circle class="beacon-pulse" r="10" fill="none" stroke="#3b82f6" stroke-width="1.5"></circle>
-                  <circle class="beacon-dot" r="4" fill="#3b82f6"></circle>
-                </g>
-              </svg>
-
-              <div class="map-tooltip" id="map-beacon-tooltip">
-                <span class="tooltip-city">Singapore</span>
-                <span class="tooltip-alert">2 Critical Threats Active</span>
-              </div>
+      <!-- PANEL 2: Threat Intel & MITRE Dashboard -->
+      <div id="soc-panel-threatintel" class="soc-panel-content">
+        <!-- Geographic Telemetry Threat Map -->
+        <div class="soc-card" style="background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem; margin-top: 1rem; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <div>
+              <h3 style="font-size: 0.88rem; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin: 0;">Geographic Telemetry Threat Map</h3>
+              <p class="card-desc" style="margin-top: 2px;">Ingress telemetry traffic density &amp; live active threat beacons.</p>
             </div>
+            <span style="font-size: 0.68rem; color: #10b981; font-family: var(--font-mono); font-weight: 700;">● Live Geo Ingress Radar</span>
           </div>
 
-          <div class="heatmap-grid-card">
-            <h3>Alert Heatmap (Last 24 Hours)</h3>
-            <p class="card-desc">Hourly breakdown of security events categorized by severity levels.</p>
-            
-            <div class="heatmap-wrapper">
-              <div class="heatmap-labels-col">
-                <span>Critical</span>
-                <span>High</span>
-                <span>Medium</span>
-                <span>Low</span>
-              </div>
-              <div class="heatmap-grid-scroll">
-                <div class="heatmap-grid" id="alerts-heatmap-cells">
-                  <!-- JS Populate -->
-                </div>
-              </div>
-            </div>
-            
-            <div class="heatmap-legend">
-              <span>0 events</span>
-              <div class="legend-row">
-                <span class="legend-box scale-0"></span>
-                <span class="legend-box scale-1"></span>
-                <span class="legend-box scale-2"></span>
-                <span class="legend-box scale-3"></span>
-                <span class="legend-box scale-4"></span>
-              </div>
-              <span>15+ events</span>
+          <div class="world-map-svg-container" style="position: relative; width: 100%; height: 340px; background: rgba(5,8,17,0.6); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; overflow: hidden;">
+            <svg class="world-map-vector" viewBox="0 0 1000 500" width="100%" height="100%">
+              <defs>
+                <radialGradient id="heat-red" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="rgba(239, 68, 68, 0.45)" />
+                  <stop offset="100%" stop-color="rgba(239, 68, 68, 0)" />
+                </radialGradient>
+                <radialGradient id="heat-orange" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="rgba(245, 158, 11, 0.4)" />
+                  <stop offset="100%" stop-color="rgba(245, 158, 11, 0)" />
+                </radialGradient>
+                <radialGradient id="heat-blue" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="rgba(59, 130, 246, 0.35)" />
+                  <stop offset="100%" stop-color="rgba(59, 130, 246, 0)" />
+                </radialGradient>
+              </defs>
+
+               <path class="map-continent-path" d="M 50,80 C 70,60 120,50 180,60 C 230,70 260,60 280,80 C 290,90 280,110 300,120 C 320,130 350,110 360,130 C 370,150 350,180 340,200 C 330,220 340,240 330,250 C 320,260 300,240 290,260 C 280,280 270,300 250,310 C 240,310 230,300 230,280 C 235,260 240,240 220,230 C 200,220 180,240 160,230 C 140,220 130,190 120,180 C 110,170 90,170 80,150 C 70,130 40,110 50,80 Z" />
+               <path class="map-continent-path" d="M 230,315 C 245,310 265,315 280,325 C 295,335 320,340 330,355 C 340,370 335,395 325,415 C 315,435 305,455 295,475 C 290,485 280,490 275,485 C 270,480 275,460 270,445 C 265,430 250,410 245,395 C 240,380 230,365 225,350 C 220,335 220,325 230,315 Z" />
+               <path class="map-continent-path" d="M 330,45 C 350,35 385,30 395,40 C 405,50 395,80 375,90 C 355,100 340,90 335,80 C 330,70 320,55 330,45 Z" />
+               <path class="map-continent-path" d="M 465,185 C 495,180 525,185 540,195 C 555,205 570,200 580,215 C 590,230 600,240 595,255 C 590,270 615,270 625,280 C 635,290 625,310 615,330 C 605,350 590,375 580,390 C 575,395 565,395 560,385 C 555,375 555,360 550,345 C 545,330 535,320 525,310 C 515,300 485,295 470,285 C 455,275 440,260 445,240 C 450,220 445,200 465,185 Z" />
+               <path class="map-continent-path" d="M 450,110 C 465,95 485,90 500,105 C 515,120 525,95 535,85 C 545,75 565,70 580,85 C 590,95 595,115 605,120 C 615,125 635,100 665,95 C 695,90 745,75 805,80 C 865,85 905,95 925,105 C 945,115 965,100 975,115 C 985,130 975,150 965,160 C 955,170 945,185 930,195 C 915,205 895,190 880,200 C 865,210 850,180 840,190 C 830,200 815,225 805,230 C 795,235 785,250 770,245 C 755,240 750,265 745,285 C 740,295 736,295 735,285 C 734,275 730,250 720,245 C 710,240 705,255 700,265 C 695,275 688,278 685,270 C 682,262 675,250 670,245 C 665,240 650,240 640,230 C 630,220 620,240 610,250 C 600,260 595,250 590,235 C 585,220 575,215 565,215 C 555,215 545,205 530,205 C 515,205 485,200 475,190 C 465,180 455,170 450,150 C 445,130 435,125 450,110 Z" />
+               <path class="map-continent-path" d="M 770,390 C 785,370 810,365 825,355 C 830,350 835,335 840,340 C 845,345 845,360 855,360 C 865,360 875,370 880,385 C 885,400 870,415 860,420 C 850,425 835,420 825,430 C 815,440 795,435 785,425 C 775,415 760,405 770,390 Z" />
+              
+              <circle cx="740" cy="280" r="50" fill="url(#heat-red)" />
+              <circle cx="160" cy="140" r="40" fill="url(#heat-orange)" />
+              <circle cx="520" cy="130" r="35" fill="url(#heat-blue)" />
+              <circle cx="840" cy="160" r="35" fill="url(#heat-blue)" />
+
+              <path d="M 160, 140 Q 450, 100 740, 280" stroke="#f59e0b" stroke-width="1.5" fill="none" stroke-dasharray="8,8" opacity="0.6"><animate attributeName="stroke-dashoffset" values="100;0" dur="2s" repeatCount="indefinite" /></path>
+              <path d="M 520, 130 Q 630, 180 740, 280" stroke="#ef4444" stroke-width="1.5" fill="none" stroke-dasharray="8,8" opacity="0.6"><animate attributeName="stroke-dashoffset" values="100;0" dur="2.5s" repeatCount="indefinite" /></path>
+              
+              <g class="map-beacon" data-city="Singapore" style="transform: translate(740px, 280px); cursor: pointer;">
+                <circle class="beacon-pulse" r="10" fill="none" stroke="#ef4444" stroke-width="1.5"></circle>
+                <circle class="beacon-dot" r="4" fill="#ef4444"></circle>
+              </g>
+              <g class="map-beacon" data-city="Seattle" style="transform: translate(160px, 140px); cursor: pointer;">
+                <circle class="beacon-pulse" r="10" fill="none" stroke="#f59e0b" stroke-width="1.5"></circle>
+                <circle class="beacon-dot" r="4" fill="#f59e0b"></circle>
+              </g>
+              <g class="map-beacon" data-city="Frankfurt" style="transform: translate(520px, 130px); cursor: pointer;">
+                <circle class="beacon-pulse" r="10" fill="none" stroke="#3b82f6" stroke-width="1.5"></circle>
+                <circle class="beacon-dot" r="4" fill="#3b82f6"></circle>
+              </g>
+              <g class="map-beacon" data-city="Tokyo" style="transform: translate(840px, 160px); cursor: pointer;">
+                <circle class="beacon-pulse" r="10" fill="none" stroke="#3b82f6" stroke-width="1.5"></circle>
+                <circle class="beacon-dot" r="4" fill="#3b82f6"></circle>
+              </g>
+            </svg>
+
+            <div class="map-tooltip" id="map-beacon-tooltip" style="display: none;">
+              <span class="tooltip-city">Singapore</span>
+              <span class="tooltip-alert">2 Critical Threats Active</span>
             </div>
           </div>
         </div>
 
-        <div class="recent-events-card">
-          <div class="card-header-row">
-            <h3>Recent Security Events</h3>
-            <button class="secondary-btn-sm" id="clear-events-btn">Reset Event Log</button>
+        <!-- IOC Search Bar & Threat Intelligence Lookup -->
+        <div class="soc-card" style="background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem;">
+          <h3 style="font-size: 0.88rem; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">IOC Search &amp; Threat Intelligence Engine</h3>
+          <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem;">Query global threat intelligence repositories (VirusTotal, AlienVault OTX, MISP) for IPs, SHA256 hashes, or domains.</p>
+          
+          <div style="display: flex; gap: 0.75rem; max-width: 700px;">
+            <input type="text" id="ioc-search-input" placeholder="Enter IP (e.g. 185.220.101.5), Hash (e.g. 44d88612fe...), or Domain..." style="flex: 1; background: rgba(5,8,17,0.8); border: 1px solid var(--border-cyber); border-radius: 6px; padding: 0.6rem 0.9rem; font-size: 0.82rem; color: var(--text-primary); font-family: var(--font-mono); outline: none;">
+            <button id="ioc-search-btn" class="agent-action-btn btn-restart" style="padding: 0.6rem 1.2rem; font-weight: 700;">Search IOC</button>
           </div>
-          <div class="events-log-list" id="soc-events-log">
+
+          <div id="ioc-result-container" style="margin-top: 1.25rem; display: none; background: rgba(15,23,42,0.6); border: 1px solid rgba(0,242,254,0.2); border-radius: 6px; padding: 1rem;">
             <!-- JS Populate -->
           </div>
         </div>
-      </div>
 
-      <!-- PANEL 4: Wazuh Security Monitor -->
-      <div id="soc-panel-wazuh" class="soc-panel-content">
-        <div class="soc-metrics-grid" style="margin-bottom: 2rem;">
-          <!-- Card 1: Total Alerts -->
-          <div class="soc-metric-card">
-            <span class="metric-lbl">Wazuh Alerts</span>
-            <div class="metric-value-row">
-              <span class="metric-val">124.8K</span>
-              <span class="status-badge-soc soc-status-active" style="padding: 0.1rem 0.4rem; font-size: 0.7rem;">+12.4%</span>
-            </div>
+        <!-- MITRE ATT&CK Dashboard -->
+        <div class="soc-card" style="background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+            <h3 style="font-size: 0.88rem; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin: 0;">MITRE ATT&amp;CK Matrix Navigator</h3>
+            <span style="font-size: 0.68rem; color: var(--cyber-cyan); font-family: var(--font-mono);">v14.1 Enterprise Matrix</span>
           </div>
-          <!-- Card 2: FIM Events -->
-          <div class="soc-metric-card">
-            <span class="metric-lbl">FIM Violations</span>
-            <div class="metric-value-row">
-              <span class="metric-val">34</span>
-              <span class="status-badge-soc soc-status-alert" style="padding: 0.1rem 0.4rem; font-size: 0.7rem;">+3 Today</span>
-            </div>
-          </div>
-          <!-- Card 3: Vulnerabilities -->
-          <div class="soc-metric-card">
-            <span class="metric-lbl">Vulnerabilities</span>
-            <div class="metric-value-row">
-              <span class="metric-val">138</span>
-              <span class="status-badge-soc soc-status-quarantined" style="padding: 0.1rem 0.4rem; font-size: 0.7rem;">28 Critical</span>
-            </div>
-          </div>
-          <!-- Card 4: Compliance Audits -->
-          <div class="soc-metric-card">
-            <span class="metric-lbl">Compliance Score</span>
-            <div class="metric-value-row">
-              <span class="metric-val">91.2%</span>
-              <span class="status-badge-soc soc-status-active" style="padding: 0.1rem 0.4rem; font-size: 0.7rem;">PCI DSS</span>
-            </div>
+
+          <div id="mitre-matrix-container" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.6rem; overflow-x: auto; padding-bottom: 0.5rem;">
+            <!-- JS Populate MITRE Matrix -->
           </div>
         </div>
 
-        <div class="heatmap-split-row">
-          <!-- Left Column: Top Triggered Rules -->
-          <div class="heatmap-map-card">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
-              <h3 style="margin-bottom: 0;">Top Triggered Wazuh Rules</h3>
-              <input type="text" id="wazuh-rules-search" placeholder="Search rules..." style="background: rgba(5, 8, 17, 0.8); border: 1px solid var(--border-cyber); border-radius: 4px; padding: 0.3rem 0.6rem; font-size: 0.75rem; color: var(--text-primary); font-family: var(--font-sans); width: 160px; outline: none; transition: border-color 0.2s;">
-            </div>
-            <p class="card-desc">Most frequent rule IDs triggered by endpoint events.</p>
-            <div class="act-now-table-wrapper">
-              <table class="act-now-table">
-                <thead>
-                  <tr>
-                    <th>RULE ID</th>
-                    <th>DESCRIPTION</th>
-                    <th>LEVEL</th>
-                    <th>COUNT</th>
-                  </tr>
-                </thead>
-                <tbody id="wazuh-rules-table-body">
-                  <tr>
-                    <td>5710</td>
-                    <td>Attempt to login using a non-existent user</td>
-                    <td><span class="status-badge-soc soc-status-alert">5</span></td>
-                    <td>843</td>
-                  </tr>
-                  <tr>
-                    <td>5715</td>
-                    <td>SSHD authentication success</td>
-                    <td><span class="status-badge-soc soc-status-active">3</span></td>
-                    <td>420</td>
-                  </tr>
-                  <tr>
-                    <td>5720</td>
-                    <td>Multiple SSHD authentication failures</td>
-                    <td><span class="status-badge-soc soc-status-quarantined">10</span></td>
-                    <td>104</td>
-                  </tr>
-                  <tr>
-                    <td>554</td>
-                    <td>File integrity monitoring - File changed</td>
-                    <td><span class="status-badge-soc soc-status-alert">7</span></td>
-                    <td>45</td>
-                  </tr>
-                  <tr>
-                    <td>2301</td>
-                    <td>Host-based intrusion detection trigger</td>
-                    <td><span class="status-badge-soc soc-status-quarantined">12</span></td>
-                    <td>14</td>
-                  </tr>
-                  <tr>
-                    <td>9102</td>
-                    <td>Vulnerability scanner activity detected</td>
-                    <td><span class="status-badge-soc soc-status-alert">8</span></td>
-                    <td>6</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- Right Column: Vulnerability & FIM Log -->
-          <div class="heatmap-grid-card">
-            <h3>Vulnerability & File Auditing</h3>
-            <p class="card-desc">Real-time status of endpoint security posture and integrity logs.</p>
-            
-            <div style="margin-bottom: 1.5rem;">
-              <h4 style="font-size: 0.85rem; color: var(--text-primary); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">Vulnerability Posture</h4>
-              <div class="agent-progress-container" style="margin-bottom: 0.6rem;">
-                <span style="font-size: 0.75rem; width: 60px; color: var(--text-secondary);">Critical</span>
-                <div class="agent-progress-bar" style="flex-grow: 1;">
-                  <div class="agent-progress-fill progress-red" style="width: 15%"></div>
-                </div>
-                <span class="agent-progress-text" style="width: 25px;">3</span>
-              </div>
-              <div class="agent-progress-container" style="margin-bottom: 0.6rem;">
-                <span style="font-size: 0.75rem; width: 60px; color: var(--text-secondary);">High</span>
-                <div class="agent-progress-bar" style="flex-grow: 1;">
-                  <div class="agent-progress-fill progress-yellow" style="width: 35%"></div>
-                </div>
-                <span class="agent-progress-text" style="width: 25px;">12</span>
-              </div>
-              <div class="agent-progress-container" style="margin-bottom: 0.6rem;">
-                <span style="font-size: 0.75rem; width: 60px; color: var(--text-secondary);">Medium</span>
-                <div class="agent-progress-bar" style="flex-grow: 1;">
-                  <div class="agent-progress-fill progress-yellow" style="width: 65%"></div>
-                </div>
-                <span class="agent-progress-text" style="width: 25px;">45</span>
-              </div>
-              <div class="agent-progress-container">
-                <span style="font-size: 0.75rem; width: 60px; color: var(--text-secondary);">Low</span>
-                <div class="agent-progress-bar" style="flex-grow: 1;">
-                  <div class="agent-progress-fill progress-green" style="width: 85%"></div>
-                </div>
-                <span class="agent-progress-text" style="width: 25px;">120</span>
-              </div>
-            </div>
-
-            <div>
-              <h4 style="font-size: 0.85rem; color: var(--text-primary); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">File Integrity Log</h4>
-              <div class="events-log-list" style="max-height: 180px; overflow-y: auto;">
-                <div class="event-log-row severity-c" style="padding: 0.4rem 0.6rem; font-size: 0.75rem;">
-                  <span class="event-time" style="width: 60px;">17:08:12</span>
-                  <span class="event-host" style="width: 100px;">win-prod-db-01</span>
-                  <span class="event-desc">Checksum changed: /etc/pam.d/common-auth</span>
-                </div>
-                <div class="event-log-row severity-c" style="padding: 0.4rem 0.6rem; font-size: 0.75rem;">
-                  <span class="event-time" style="width: 60px;">16:52:45</span>
-                  <span class="event-host" style="width: 100px;">linux-bastion-ssh</span>
-                  <span class="event-desc">Executable checksum change: /usr/bin/sudo</span>
-                </div>
-                <div class="event-log-row severity-m" style="padding: 0.4rem 0.6rem; font-size: 0.75rem;">
-                  <span class="event-time" style="width: 60px;">16:11:02</span>
-                  <span class="event-host" style="width: 100px;">linux-api-node-03</span>
-                  <span class="event-desc">File created: /var/www/html/index.php</span>
-                </div>
-                <div class="event-log-row severity-h" style="padding: 0.4rem 0.6rem; font-size: 0.75rem;">
-                  <span class="event-time" style="width: 60px;">14:32:19</span>
-                  <span class="event-host" style="width: 100px;">win-corp-dc-02</span>
-                  <span class="event-desc">Permission change: /etc/ssh/sshd_config</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- New Section: Wazuh Server Health & Report Storage -->
-        <div class="heatmap-split-row" style="margin-top: 1.5rem;">
-          <!-- Card 1: Wazuh Cluster Server Health -->
-          <div class="heatmap-map-card">
-            <h3 style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-primary);">
-              <svg viewBox="0 0 24 24" width="16" height="16" stroke="var(--cyber-cyan)" fill="none" stroke-width="2.5" style="filter: drop-shadow(0 0 4px var(--border-cyber));">
-                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                <line x1="6" y1="18" x2="6.01" y2="18"></line>
-              </svg>
-              Wazuh Server Infrastructure Health
-            </h3>
-            <p class="card-desc">Active cluster nodes status and daemon telemetry tracking.</p>
-            
-            <div style="display: flex; flex-direction: column; gap: 0.8rem;">
-              <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); border-radius: 6px; padding: 0.75rem 1rem;">
-                <div>
-                  <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary);">wazuh-master-node-01</div>
-                  <div style="font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono); margin-top: 0.1rem;">IP: 10.100.1.15 · Leader</div>
-                </div>
-                <div style="text-align: right;">
-                  <span style="font-size: 0.65rem; font-weight: 800; padding: 0.15rem 0.45rem; border-radius: 4px; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.25); color: var(--cyber-green); text-transform: uppercase;">Active</span>
-                </div>
-              </div>
-
-              <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); border-radius: 6px; padding: 0.75rem 1rem;">
-                <div>
-                  <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary);">wazuh-worker-node-02</div>
-                  <div style="font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono); margin-top: 0.1rem;">IP: 10.100.1.16 · Worker</div>
-                </div>
-                <div style="text-align: right;">
-                  <span style="font-size: 0.65rem; font-weight: 800; padding: 0.15rem 0.45rem; border-radius: 4px; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.25); color: var(--cyber-green); text-transform: uppercase;">Active</span>
-                </div>
-              </div>
-
-              <!-- Cluster System Resources Grid -->
-              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-top: 0.5rem;">
-                <div style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); border-radius: 6px; padding: 0.75rem; text-align: center;">
-                  <span style="font-size: 0.65rem; text-transform: uppercase; color: var(--text-muted); font-family: var(--font-mono);">Cluster CPU</span>
-                  <div style="font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin-top: 0.25rem;">12.4%</div>
-                </div>
-                <div style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); border-radius: 6px; padding: 0.75rem; text-align: center;">
-                  <span style="font-size: 0.65rem; text-transform: uppercase; color: var(--text-muted); font-family: var(--font-mono);">Cluster RAM</span>
-                  <div style="font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin-top: 0.25rem;">42.8%</div>
-                </div>
-                <div style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); border-radius: 6px; padding: 0.75rem; text-align: center;">
-                  <span style="font-size: 0.65rem; text-transform: uppercase; color: var(--text-muted); font-family: var(--font-mono);">Indices Disk</span>
-                  <div style="font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin-top: 0.25rem;">2.1 TB free</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 2: Wazuh PDF & Compliance Reports Storage -->
-          <div class="heatmap-grid-card">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
-              <h3 style="margin-bottom: 0; display: flex; align-items: center; gap: 0.5rem; color: var(--text-primary);">
-                <svg viewBox="0 0 24 24" width="16" height="16" stroke="var(--cyber-cyan)" fill="none" stroke-width="2.5" style="filter: drop-shadow(0 0 4px var(--border-cyber));">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                  <polyline points="14 2 14 8 20 8"></polyline>
-                  <line x1="16" y1="13" x2="8" y2="13"></line>
-                  <line x1="16" y1="17" x2="8" y2="17"></line>
-                  <polyline points="10 9 9 9 8 9"></polyline>
-                </svg>
-                Wazuh Compliance Reports Storage
-              </h3>
-              <button class="primary-btn" id="generate-wazuh-report-btn" style="font-size: 0.72rem; padding: 0.3rem 0.65rem;">Generate Report</button>
-            </div>
-            <p class="card-desc">Download or generate PCI-DSS, GDPR, FIM, and system audit logs reports.</p>
-
-            <!-- Report Generator Progress bar (hidden by default) -->
-            <div id="wazuh-report-progress-container" style="display: none; background: rgba(0, 242, 254, 0.05); border: 1px solid rgba(0, 242, 254, 0.2); border-radius: 6px; padding: 0.75rem 1rem; margin-bottom: 1rem;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
-                <span id="wazuh-report-progress-status" style="font-size: 0.72rem; font-weight: 700; color: var(--text-primary);">Compiling compliance datasets...</span>
-                <span id="wazuh-report-progress-pct" style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--cyber-cyan);">0%</span>
-              </div>
-              <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; width: 100%;">
-                <div id="wazuh-report-progress-bar" style="width: 0%; height: 100%; background: var(--cyber-cyan); box-shadow: 0 0 8px var(--cyber-cyan); transition: width 0.1s;"></div>
-              </div>
-            </div>
-            
-            <div id="wazuh-reports-list" class="events-log-list" style="display: flex; flex-direction: column; gap: 0.6rem; max-height: 235px; overflow-y: auto; padding-right: 0.25rem;">
-              <!-- Dynamic reports row entries -->
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- PANEL 4: Wazuh Analytics Dashboard -->
-      <div id="soc-panel-analytics" class="soc-panel-content">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem;">
+        <!-- Automated SOAR Response Playbooks -->
+        <div class="soc-card" style="background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem;">
+          <h3 style="font-size: 0.88rem; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1.25rem;">Automated SOAR Response Playbooks</h3>
           
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+            <div style="background: rgba(15,23,42,0.6); border: 1px solid rgba(0,242,254,0.2); border-radius: 8px; padding: 1.2rem;">
+              <div style="font-size: 0.85rem; font-weight: 700; color: var(--cyber-cyan); margin-bottom: 0.4rem;">🛡️ Host Isolation Playbook</div>
+              <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem;">Isolates compromised host network interfaces using EDR active response agent.</p>
+              <button class="agent-action-btn btn-quarantine btn-soar-trigger" data-playbook="isolate" style="width: 100%;">Execute Isolation</button>
+            </div>
+            
+            <div style="background: rgba(15,23,42,0.6); border: 1px solid rgba(244,63,94,0.2); border-radius: 8px; padding: 1.2rem;">
+              <div style="font-size: 0.85rem; font-weight: 700; color: #f43f5e; margin-bottom: 0.4rem;">🚫 Edge IP Blacklist Playbook</div>
+              <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem;">Pushes automated ipset rule to edge firewall to block malicious C2 IP.</p>
+              <button class="agent-action-btn btn-quarantine btn-soar-trigger" data-playbook="block-ip" style="width: 100%;">Block Malicious IP</button>
+            </div>
+
+            <div style="background: rgba(15,23,42,0.6); border: 1px solid rgba(234,179,8,0.2); border-radius: 8px; padding: 1.2rem;">
+              <div style="font-size: 0.85rem; font-weight: 700; color: #eab308; margin-bottom: 0.4rem;">🔑 Revoke AD Session Playbook</div>
+              <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem;">Invalidates active OAuth2/Active Directory tokens for compromised user account.</p>
+              <button class="agent-action-btn btn-restart btn-soar-trigger" data-playbook="revoke-session" style="width: 100%;">Revoke Tokens</button>
+            </div>
+
+            <div style="background: rgba(15,23,42,0.6); border: 1px solid rgba(16,185,129,0.2); border-radius: 8px; padding: 1.2rem;">
+              <div style="font-size: 0.85rem; font-weight: 700; color: #10b981; margin-bottom: 0.4rem;">🧹 Process Tree Kill Playbook</div>
+              <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem;">Terminates malware process tree and purges temporary execution payload.</p>
+              <button class="agent-action-btn btn-unquarantine btn-soar-trigger" data-playbook="kill-proc" style="width: 100%;">Kill Process Tree</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL 3: Analytics & Endpoint Health Dashboard -->
+      <div id="soc-panel-analytics" class="soc-panel-content">
+        
+        <!-- ENDPOINT AGENTS SECTION (Exact card matching user screenshot) -->
+        <div class="soc-card" style="background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem; margin-top: 1rem; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+            <h3 style="font-size: 0.88rem; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin: 0;">ENDPOINT AGENTS</h3>
+            <span id="endpoint-agents-count-badge" style="font-size: 0.65rem; color: var(--text-muted); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.5px;">6 REGISTERED AGENTS</span>
+          </div>
+
+          <div id="endpoint-agents-list-container" style="display: flex; flex-direction: column; gap: 0.65rem;">
+            <!-- Agent items rendered dynamically via real logic -->
+          </div>
+        </div>
+
+        <!-- Charts Grid: Severity Donut & Most Targeted Agents -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
           <!-- Alert Severity Donut -->
           <div class="soc-card" style="background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem; display: flex; flex-direction: column;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
@@ -2897,48 +2643,17 @@
             </div>
             
             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; flex: 1;">
-              <!-- Centered, Bigger Chart -->
               <div style="position: relative; width: 220px; height: 220px; flex-shrink: 0;">
                 <svg viewBox="0 0 36 36" style="width: 220px; height: 220px; transform: rotate(-90deg);">
                   <circle cx="18" cy="18" r="15.5" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="3" />
-                  
-                  <!-- Level >= 3 (70% Green) -->
                   <circle class="severity-segment" data-level="3" cx="18" cy="18" r="15.5" fill="none" stroke="var(--cyber-green)" stroke-width="3" stroke-dasharray="70 30" stroke-dashoffset="0" stroke-linecap="round" style="cursor: pointer; transition: stroke-width 0.2s, filter 0.2s;" />
-                  
-                  <!-- Level >= 7 (20% Blue) -->
                   <circle class="severity-segment" data-level="7" cx="18" cy="18" r="15.5" fill="none" stroke="#3b82f6" stroke-width="3" stroke-dasharray="20 80" stroke-dashoffset="-70" stroke-linecap="round" style="cursor: pointer; transition: stroke-width 0.2s, filter 0.2s;" />
-                  
-                  <!-- Level >= 12 (8% Orange) -->
                   <circle class="severity-segment" data-level="12" cx="18" cy="18" r="15.5" fill="none" stroke="#fb923c" stroke-width="3" stroke-dasharray="8 92" stroke-dashoffset="-90" stroke-linecap="round" style="cursor: pointer; transition: stroke-width 0.2s, filter 0.2s;" />
-                  
-                  <!-- Level >= 15 (2% Red) -->
                   <circle class="severity-segment" data-level="15" cx="18" cy="18" r="15.5" fill="none" stroke="#ef4444" stroke-width="3" stroke-dasharray="2 98" stroke-dashoffset="-98" stroke-linecap="round" style="cursor: pointer; transition: stroke-width 0.2s, filter 0.2s;" />
                 </svg>
-                
-                <!-- Dynamic Centered Info Display -->
                 <div id="severity-chart-info" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; pointer-events: none; width: 150px;">
-                  <div id="chart-info-title" style="font-size: 0.68rem; color: var(--text-muted); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.5px; transition: color 0.2s;">Wazuh Level</div>
-                  <div id="chart-info-val" style="font-size: 1.15rem; font-weight: 800; color: var(--text-primary); margin-top: 0.2rem; transition: color 0.2s;">Select Segment</div>
-                </div>
-              </div>
-              
-              <!-- Color Legend (NO percentages) -->
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; width: 100%; max-width: 320px;">
-                <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.76rem;">
-                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #ef4444; display: inline-block; flex-shrink: 0;"></span>
-                  <span style="color: var(--text-secondary); font-family: var(--font-mono);">rule.level >= 15</span>
-                </div>
-                <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.76rem;">
-                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #fb923c; display: inline-block; flex-shrink: 0;"></span>
-                  <span style="color: var(--text-secondary); font-family: var(--font-mono);">rule.level >= 12</span>
-                </div>
-                <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.76rem;">
-                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #3b82f6; display: inline-block; flex-shrink: 0;"></span>
-                  <span style="color: var(--text-secondary); font-family: var(--font-mono);">rule.level >= 7</span>
-                </div>
-                <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.76rem;">
-                  <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--cyber-green); display: inline-block; flex-shrink: 0;"></span>
-                  <span style="color: var(--text-secondary); font-family: var(--font-mono);">rule.level >= 3</span>
+                  <div id="chart-info-title" style="font-size: 0.68rem; color: var(--text-muted); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.5px;">Wazuh Level</div>
+                  <div id="chart-info-val" style="font-size: 1.15rem; font-weight: 800; color: var(--text-primary); margin-top: 0.2rem;">Select Segment</div>
                 </div>
               </div>
             </div>
@@ -2950,56 +2665,74 @@
               <h3 style="font-size: 0.88rem; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin: 0;">Most Targeted Agents</h3>
               <span style="font-size: 0.65rem; color: var(--text-muted); font-family: var(--font-mono); text-transform: uppercase;">Agent Name: Descending</span>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 130px; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-secondary); text-align: right; flex-shrink: 0;">FLUTTERGIS</span><div style="flex: 1; height: 18px; background: rgba(255,255,255,0.03); border-radius: 3px; overflow: hidden;"><div style="width: 100%; height: 100%; background: linear-gradient(90deg, var(--cyber-cyan), var(--cyber-green)); border-radius: 3px;"></div></div><span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-primary); width: 40px;">1,650</span></div>
-              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 130px; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-secondary); text-align: right; flex-shrink: 0;">BRIEFGATES-SERVICE</span><div style="flex: 1; height: 18px; background: rgba(255,255,255,0.03); border-radius: 3px; overflow: hidden;"><div style="width: 94%; height: 100%; background: linear-gradient(90deg, var(--cyber-cyan), var(--cyber-green)); border-radius: 3px;"></div></div><span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-primary); width: 40px;">1,550</span></div>
-              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 130px; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-secondary); text-align: right; flex-shrink: 0;">GiteaVaultDevops</span><div style="flex: 1; height: 18px; background: rgba(255,255,255,0.03); border-radius: 3px; overflow: hidden;"><div style="width: 88%; height: 100%; background: linear-gradient(90deg, var(--cyber-cyan), var(--cyber-green)); border-radius: 3px;"></div></div><span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-primary); width: 40px;">1,500</span></div>
-              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 130px; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-secondary); text-align: right; flex-shrink: 0;">Android-IOS</span><div style="flex: 1; height: 18px; background: rgba(255,255,255,0.03); border-radius: 3px; overflow: hidden;"><div style="width: 82%; height: 100%; background: linear-gradient(90deg, var(--cyber-cyan), var(--cyber-green)); border-radius: 3px;"></div></div><span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-primary); width: 40px;">1,450</span></div>
-              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 130px; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-secondary); text-align: right; flex-shrink: 0;">INFINITI-HOTEL</span><div style="flex: 1; height: 18px; background: rgba(255,255,255,0.03); border-radius: 3px; overflow: hidden;"><div style="width: 78%; height: 100%; background: linear-gradient(90deg, var(--cyber-cyan), var(--cyber-green)); border-radius: 3px;"></div></div><span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-primary); width: 40px;">1,400</span></div>
-              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 130px; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-secondary); text-align: right; flex-shrink: 0;">api-uat</span><div style="flex: 1; height: 18px; background: rgba(255,255,255,0.03); border-radius: 3px; overflow: hidden;"><div style="width: 74%; height: 100%; background: linear-gradient(90deg, var(--cyber-cyan), var(--cyber-green)); border-radius: 3px;"></div></div><span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-primary); width: 40px;">1,350</span></div>
-              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 130px; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-secondary); text-align: right; flex-shrink: 0;">ZIVUX-INVOICING</span><div style="flex: 1; height: 18px; background: rgba(255,255,255,0.03); border-radius: 3px; overflow: hidden;"><div style="width: 72%; height: 100%; background: linear-gradient(90deg, var(--cyber-cyan), var(--cyber-green)); border-radius: 3px;"></div></div><span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-primary); width: 40px;">1,350</span></div>
-              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 130px; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-secondary); text-align: right; flex-shrink: 0;">KAYSITCRM</span><div style="flex: 1; height: 18px; background: rgba(255,255,255,0.03); border-radius: 3px; overflow: hidden;"><div style="width: 68%; height: 100%; background: linear-gradient(90deg, var(--cyber-cyan), var(--cyber-green)); border-radius: 3px;"></div></div><span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-primary); width: 40px;">1,300</span></div>
-              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 130px; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-secondary); text-align: right; flex-shrink: 0;">ui-uat</span><div style="flex: 1; height: 18px; background: rgba(255,255,255,0.03); border-radius: 3px; overflow: hidden;"><div style="width: 68%; height: 100%; background: linear-gradient(90deg, var(--cyber-cyan), var(--cyber-green)); border-radius: 3px;"></div></div><span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-primary); width: 40px;">1,300</span></div>
+            <div id="analytics-targeted-agents-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <!-- JS Populate -->
             </div>
           </div>
-          
-          <!-- Top Rule Groups Triggered -->
-          <div class="soc-card" style="background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
-              <h3 style="font-size: 0.88rem; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin: 0;">Top Rule Groups Triggered</h3>
-              <span style="font-size: 0.65rem; color: var(--text-muted); font-family: var(--font-mono); text-transform: uppercase;">Rule Groups: Descending</span>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 140px; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-secondary); text-align: right; flex-shrink: 0;">vulnerability-detect..</span><div style="flex: 1; height: 18px; background: rgba(255,255,255,0.03); border-radius: 3px; overflow: hidden;"><div style="width: 100%; height: 100%; background: linear-gradient(90deg, #4facfe, var(--cyber-cyan)); border-radius: 3px;"></div></div><span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-primary); width: 40px;">1,509</span></div>
-              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 140px; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-secondary); text-align: right; flex-shrink: 0;">web</span><div style="flex: 1; height: 18px; background: rgba(255,255,255,0.03); border-radius: 3px; overflow: hidden;"><div style="width: 20%; height: 100%; background: linear-gradient(90deg, #4facfe, var(--cyber-cyan)); border-radius: 3px;"></div></div><span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-primary); width: 40px;">305</span></div>
-              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 140px; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-secondary); text-align: right; flex-shrink: 0;">accesslog</span><div style="flex: 1; height: 18px; background: rgba(255,255,255,0.03); border-radius: 3px; overflow: hidden;"><div style="width: 18%; height: 100%; background: linear-gradient(90deg, #4facfe, var(--cyber-cyan)); border-radius: 3px;"></div></div><span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-primary); width: 40px;">282</span></div>
-              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 140px; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-secondary); text-align: right; flex-shrink: 0;">recon</span><div style="flex: 1; height: 18px; background: rgba(255,255,255,0.03); border-radius: 3px; overflow: hidden;"><div style="width: 17%; height: 100%; background: linear-gradient(90deg, #4facfe, var(--cyber-cyan)); border-radius: 3px;"></div></div><span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-primary); width: 40px;">261</span></div>
-              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 140px; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-secondary); text-align: right; flex-shrink: 0;">web_scan</span><div style="flex: 1; height: 18px; background: rgba(255,255,255,0.03); border-radius: 3px; overflow: hidden;"><div style="width: 16%; height: 100%; background: linear-gradient(90deg, #4facfe, var(--cyber-cyan)); border-radius: 3px;"></div></div><span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-primary); width: 40px;">250</span></div>
-            </div>
-          </div>
-          
-          <!-- Top MITRE ATT&CK Techniques -->
-          <div class="soc-card" style="background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
-              <h3 style="font-size: 0.88rem; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin: 0;">Top MITRE ATT&amp;CK Techniques</h3>
-              <span style="font-size: 0.65rem; color: var(--text-muted); font-family: var(--font-mono); text-transform: uppercase;">Rule.MITRE.Technique: Descending</span>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 140px; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-secondary); text-align: right; flex-shrink: 0;">Stored Data Manipula..</span><div style="flex: 1; height: 18px; background: rgba(255,255,255,0.03); border-radius: 3px; overflow: hidden;"><div style="width: 100%; height: 100%; background: linear-gradient(90deg, var(--cyber-cyan), #4facfe); border-radius: 3px;"></div></div><span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-primary); width: 40px;">1,180</span></div>
-              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 140px; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-secondary); text-align: right; flex-shrink: 0;">Valid Accounts</span><div style="flex: 1; height: 18px; background: rgba(255,255,255,0.03); border-radius: 3px; overflow: hidden;"><div style="width: 28%; height: 100%; background: linear-gradient(90deg, var(--cyber-cyan), #4facfe); border-radius: 3px;"></div></div><span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-primary); width: 40px;">340</span></div>
-              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 140px; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-secondary); text-align: right; flex-shrink: 0;">Sudo and Sudo Caching</span><div style="flex: 1; height: 18px; background: rgba(255,255,255,0.03); border-radius: 3px; overflow: hidden;"><div style="width: 22%; height: 100%; background: linear-gradient(90deg, var(--cyber-cyan), #4facfe); border-radius: 3px;"></div></div><span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-primary); width: 40px;">265</span></div>
-              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 140px; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-secondary); text-align: right; flex-shrink: 0;">Vulnerability Scanning</span><div style="flex: 1; height: 18px; background: rgba(255,255,255,0.03); border-radius: 3px; overflow: hidden;"><div style="width: 18%; height: 100%; background: linear-gradient(90deg, var(--cyber-cyan), #4facfe); border-radius: 3px;"></div></div><span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-primary); width: 40px;">215</span></div>
-              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 140px; font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-secondary); text-align: right; flex-shrink: 0;">Active Scanning</span><div style="flex: 1; height: 18px; background: rgba(255,255,255,0.03); border-radius: 3px; overflow: hidden;"><div style="width: 3%; height: 100%; background: linear-gradient(90deg, var(--cyber-cyan), #4facfe); border-radius: 3px;"></div></div><span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-primary); width: 40px;">39</span></div>
-            </div>
-          </div>
-          
         </div>
-      </div>
 
+        <!-- Top Triggered Rules & File Auditing (FIM) -->
+        <div class="heatmap-split-row" style="margin-bottom: 1.5rem;">
+          <div class="heatmap-map-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+              <h3 style="margin-bottom: 0;">Top Triggered Wazuh Rules</h3>
+              <input type="text" id="wazuh-rules-search" placeholder="Search rules..." style="background: rgba(5, 8, 17, 0.8); border: 1px solid var(--border-cyber); border-radius: 4px; padding: 0.3rem 0.6rem; font-size: 0.75rem; color: var(--text-primary); font-family: var(--font-sans); width: 160px; outline: none;">
+            </div>
+            <div class="act-now-table-wrapper">
+              <table class="act-now-table">
+                <thead>
+                  <tr>
+                    <th>RULE ID</th>
+                    <th>DESCRIPTION</th>
+                    <th>LEVEL</th>
+                    <th>COUNT</th>
+                  </tr>
+                </thead>
+                <tbody id="wazuh-rules-table-body">
+                  <!-- JS Populate -->
+                </tbody>
+              </table>
+            </div>
+          </div>
 
-    </main>
-  </div>
-      </div>
+          <div class="heatmap-grid-card">
+            <h3 style="font-size: 0.88rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.75rem;">Vulnerability Posture</h3>
+            <div id="wazuh-vuln-posture-container">
+              <!-- JS Populate -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Asset Risk Matrix & Wazuh Agent Health -->
+        <div class="soc-card" style="background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem;">
+          <h3 style="font-size: 0.88rem; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1.25rem;">Asset Risk Exposure Matrix</h3>
+          <div class="act-now-table-wrapper">
+            <table class="act-now-table">
+              <thead>
+                <tr>
+                  <th>ASSET HOST</th>
+                  <th>IP ADDRESS</th>
+                  <th>CRITICALITY</th>
+                  <th>VULNERABILITIES</th>
+                  <th>RISK SCORE</th>
+                  <th>SECURITY STATUS</th>
+                  <th>ACTION</th>
+                </tr>
+              </thead>
+              <tbody id="asset-risk-table-body">
+                <!-- JS Populate -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Compliance Framework Alignment Grid -->
+        <div class="soc-card" style="background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem;">
+          <h3 style="font-size: 0.88rem; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1.25rem;">Compliance Framework Alignment</h3>
+          <div id="compliance-cards-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+            <!-- JS Populate -->
+          </div>
+        </div>
 
       <!-- Security Page View -->
       <div id="security-view-wrapper" class="hidden" style="width: 100%; margin: -1.25rem auto 0 auto; padding-bottom: 3rem;">
@@ -4033,6 +3766,48 @@ vizo361</textarea>
     </div>
   </div>
 
+  <!-- AI Incident Summary & Investigation Timeline Side Drawer -->
+  <div class="alert-drawer" id="soc-incident-drawer" style="width: 580px; max-width: 92vw;">
+    <div class="drawer-header">
+      <div class="drawer-title-row">
+        <span class="drawer-lbl" id="inc-drawer-meta-lbl">INC-8492 · CORRELATED CASE</span>
+        <div class="drawer-title" id="inc-drawer-title-val" style="font-family: var(--font-sans); color: var(--text-primary); font-weight: 800;">APT29 Credential Dumping &amp; Lateral Movement</div>
+      </div>
+      <button class="drawer-close-btn" id="inc-drawer-close-btn">&times;</button>
+    </div>
+    <div class="drawer-body">
+      <!-- AI Executive Summary Card -->
+      <div class="drawer-section" style="background: linear-gradient(135deg, rgba(124, 58, 237, 0.12), rgba(0, 242, 254, 0.08)); border: 1px solid var(--cyber-cyan); border-radius: 8px; padding: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <span style="font-size: 0.78rem; font-weight: 800; color: var(--cyber-cyan); display: flex; align-items: center; gap: 0.4rem;">
+            ✨ AI INCIDENT EXECUTIVE SUMMARY (GEMINI SOC)
+          </span>
+          <span class="status-badge-soc soc-status-quarantined" style="padding: 0.15rem 0.5rem; font-size: 0.65rem;">HIGH CONFIDENCE</span>
+        </div>
+        <p id="inc-drawer-ai-summary" style="font-size: 0.78rem; color: var(--text-primary); line-height: 1.55; margin: 0;">
+          An adversary leveraged spear-phishing to gain initial execution on <code>win-corp-dc-02</code>, subsequently executing Mimikatz via obfuscated PowerShell scripts. The threat actor attempted lateral movement to <code>win-prod-db-01</code> using stolen LSASS credentials.
+        </p>
+      </div>
+
+      <!-- Investigation Timeline -->
+      <div class="drawer-section" style="margin-top: 1rem;">
+        <span class="drawer-lbl" style="font-size: 0.72rem; letter-spacing: 0.8px; margin-bottom: 0.75rem;">CHRONOLOGICAL INVESTIGATION TIMELINE</span>
+        <div id="inc-drawer-timeline" style="display: flex; flex-direction: column; gap: 0.75rem; border-left: 2px stroke var(--cyber-cyan); padding-left: 0.5rem;">
+          <!-- JS Populate Timeline Nodes -->
+        </div>
+      </div>
+
+      <!-- SOAR Action Trigger -->
+      <div class="drawer-section" style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1rem;">
+        <span class="drawer-lbl" style="font-size: 0.72rem; letter-spacing: 0.8px; margin-bottom: 0.5rem;">RECOMMENDED CONTAINMENT ACTION</span>
+        <div style="display: flex; gap: 0.6rem;">
+          <button id="inc-drawer-isolate-btn" class="agent-action-btn btn-quarantine" style="flex: 1; padding: 0.5rem; font-weight: 700;">🛡️ Isolate Compromised Host</button>
+          <button id="inc-drawer-revoke-btn" class="agent-action-btn btn-restart" style="flex: 1; padding: 0.5rem; font-weight: 700;">🔑 Revoke AD Sessions</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- CSV Export Progress Modal -->
   
   <div class="csv-export-modal" id="csv-export-modal">
@@ -4085,7 +3860,109 @@ vizo361</textarea>
       </div>
     </div>
   </div>
+  <!-- SOC Alert Detail Drawer -->
+  <div class="alert-drawer" id="soc-alert-drawer" style="width: 560px; max-width: 92vw;">
+    <!-- Overlay -->
+    <div id="soc-alert-drawer-overlay" style="position:fixed;inset:0;background:rgba(5,8,17,0.6);backdrop-filter:blur(4px);z-index:999;display:none;" id="soc-alert-drawer-overlay"></div>
+    <div class="drawer-header" style="background: linear-gradient(135deg, rgba(244,63,94,0.15) 0%, rgba(5,8,17,0.9) 100%); border-bottom: 1px solid rgba(244,63,94,0.3);">
+      <div class="drawer-title-row" style="gap: 0.75rem;">
+        <div style="display:flex;flex-direction:column;gap:0.3rem;flex:1;min-width:0;">
+          <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+            <span id="soc-ad-sev-badge" class="severity-badge bg-red" style="font-size:0.65rem;padding:0.2rem 0.55rem;">P0</span>
+            <span id="soc-ad-source-badge" style="font-size:0.62rem;font-weight:800;padding:0.18rem 0.5rem;border-radius:4px;background:rgba(0,242,254,0.12);border:1px solid rgba(0,242,254,0.3);color:var(--cyber-cyan);text-transform:uppercase;letter-spacing:0.5px;">WAZUH</span>
+            <span id="soc-ad-id-badge" style="font-size:0.62rem;font-weight:700;color:var(--text-muted);font-family:var(--font-mono);">#16829</span>
+          </div>
+          <div id="soc-ad-title" class="drawer-title" style="font-size:1rem;font-weight:800;color:var(--text-primary);line-height:1.35;margin:0;">Alert Title</div>
+        </div>
+        <button class="drawer-close-btn" id="soc-alert-drawer-close">&#x2715;</button>
+      </div>
+    </div>
 
+    <div class="drawer-body" style="padding: 1.25rem; display:flex;flex-direction:column;gap:1rem;overflow-y:auto;max-height:calc(100vh - 120px);">
+
+      <!-- Asset & Tactic Row -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.75rem;">
+          <div style="font-size:0.6rem;font-weight:800;color:var(--text-muted);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:0.3rem;">Affected Host</div>
+          <div id="soc-ad-host" style="font-family:var(--font-mono);font-weight:700;font-size:0.85rem;color:var(--cyber-cyan);">linux-bastion-ssh</div>
+          <div id="soc-ad-ip" style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-muted);margin-top:0.1rem;">10.100.1.5</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.75rem;">
+          <div style="font-size:0.6rem;font-weight:800;color:var(--text-muted);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:0.3rem;">MITRE Tactic</div>
+          <div id="soc-ad-tactic" style="font-size:0.8rem;font-weight:700;color:#a78bfa;">Initial Access</div>
+          <div id="soc-ad-technique" style="font-size:0.7rem;color:var(--text-muted);margin-top:0.1rem;">T1190 · Exploit Public App</div>
+        </div>
+      </div>
+
+      <!-- Detection Timeline -->
+      <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.85rem;">
+        <div style="font-size:0.6rem;font-weight:800;color:var(--text-muted);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:0.6rem;">Detection Context</div>
+        <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+          <div>
+            <div style="font-size:0.65rem;color:var(--text-muted);">First Seen</div>
+            <div id="soc-ad-first-seen" style="font-family:var(--font-mono);font-size:0.78rem;font-weight:700;color:var(--text-primary);">—</div>
+          </div>
+          <div>
+            <div style="font-size:0.65rem;color:var(--text-muted);">Occurrences</div>
+            <div id="soc-ad-seen" style="font-family:var(--font-mono);font-size:0.78rem;font-weight:700;color:#fb923c;">1x</div>
+          </div>
+          <div>
+            <div style="font-size:0.65rem;color:var(--text-muted);">Status</div>
+            <div id="soc-ad-status" style="font-family:var(--font-mono);font-size:0.78rem;font-weight:700;color:#f43f5e;">OPEN</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.85rem;">
+        <div style="font-size:0.6rem;font-weight:800;color:var(--text-muted);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:0.5rem;">Finding Detail</div>
+        <div id="soc-ad-desc" style="font-size:0.82rem;color:var(--text-primary);line-height:1.6;">—</div>
+      </div>
+
+      <!-- Attack Timeline (step dots) -->
+      <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.85rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+          <div style="font-size:0.6rem;font-weight:800;color:var(--text-muted);letter-spacing:0.8px;text-transform:uppercase;">Attack Timeline</div>
+          <span id="soc-ad-timeline-live" style="font-size:0.6rem;font-weight:700;padding:0.15rem 0.45rem;border-radius:4px;background:rgba(244,63,94,0.12);border:1px solid rgba(244,63,94,0.3);color:#f43f5e;animation:pulse-glow 2s infinite;">● LIVE</span>
+        </div>
+        <div id="soc-ad-timeline" style="display:flex;flex-direction:column;gap:0;position:relative;">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- SOAR Quick Actions -->
+      <div style="background:linear-gradient(135deg, rgba(0,242,254,0.06), rgba(0,242,254,0.02));border:1px solid rgba(0,242,254,0.2);border-radius:8px;padding:0.85rem;">
+        <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.75rem;">
+          <span style="color:var(--cyber-cyan);font-size:0.85rem;">⚡</span>
+          <span style="font-size:0.6rem;font-weight:800;color:var(--cyber-cyan);letter-spacing:0.8px;text-transform:uppercase;">SOAR Response Playbooks</span>
+        </div>
+        <div id="soc-ad-soar-actions" style="display:flex;flex-direction:column;gap:0.5rem;">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- Remediation Steps -->
+      <div style="background:rgba(244,63,94,0.04);border:1px solid rgba(244,63,94,0.2);border-radius:8px;padding:0.85rem;">
+        <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.6rem;">
+          <span style="color:#f43f5e;font-size:0.85rem;">⊙</span>
+          <span style="font-size:0.6rem;font-weight:800;color:#f43f5e;letter-spacing:0.8px;text-transform:uppercase;">Remediation Steps</span>
+        </div>
+        <ol id="soc-ad-remediation" style="margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:0.55rem;font-size:0.8rem;color:var(--text-primary);line-height:1.6;">
+          <!-- Dynamically populated -->
+        </ol>
+      </div>
+
+      <!-- Disposition Buttons -->
+      <div style="display:flex;gap:0.65rem;padding-top:0.25rem;border-top:1px solid rgba(255,255,255,0.06);">
+        <button id="soc-ad-btn-tp" style="flex:1;padding:0.6rem;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.3);color:#22c55e;border-radius:7px;font-size:0.8rem;font-weight:800;cursor:pointer;transition:all 0.2s;letter-spacing:0.5px;">✓ True Positive</button>
+        <button id="soc-ad-btn-fp" style="flex:1;padding:0.6rem;background:rgba(100,116,139,0.1);border:1px solid rgba(100,116,139,0.2);color:var(--text-muted);border-radius:7px;font-size:0.8rem;font-weight:800;cursor:pointer;transition:all 0.2s;letter-spacing:0.5px;">✗ False Positive</button>
+        <button id="soc-ad-btn-escalate" style="flex:1;padding:0.6rem;background:rgba(251,146,60,0.12);border:1px solid rgba(251,146,60,0.3);color:#fb923c;border-radius:7px;font-size:0.8rem;font-weight:800;cursor:pointer;transition:all 0.2s;letter-spacing:0.5px;">↑ Escalate</button>
+      </div>
+
+    </div>
+  </div>
+  <!-- SOC Drawer Overlay -->
+  <div id="soc-alert-overlay" style="position:fixed;inset:0;background:rgba(5,8,17,0.55);backdrop-filter:blur(3px);z-index:998;display:none;" onclick="document.getElementById('soc-alert-drawer').classList.remove('active');this.style.display='none';"></div>
 
 <script src="app.js?v=2.1"></script>
 </body>
