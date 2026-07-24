@@ -725,30 +725,63 @@
           </div>
           <div class="instances-search-row">
             <div class="search-input-wrapper">
-              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5">
+              <svg class="search-icon" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5">
                 <circle cx="11" cy="11" r="8" />
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
-              <input type="text" placeholder="Search by name or ID..." class="cyber-search-input">
+              <input type="text" placeholder="Search by name, host, or ID..." class="cyber-search-input">
             </div>
-            <span class="accepted-ratio">0/30 accepted</span>
+            <div class="accepted-ratio-badge">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span class="accepted-ratio">0/30 accepted</span>
+            </div>
           </div>
         </div>
 
         <!-- Guidance Alert Boxes -->
         <div class="instances-notice-box">
-          <div class="notice-box-row">
-            <span><strong>5 high-confidence instances</strong> — preview before accepting (shared-DB / shared-infra are flagged).</span>
-            <button class="notice-action-btn primary-btn-sm">Preview & auto-accept</button>
-          </div>
-          <div class="notice-box-row outlined">
-            <span><strong>139 apps not yet in an instance</strong> — inference over-split or couldn't fold them. Hand-group the real ones into a named instance.</span>
-            <button class="notice-action-btn secondary-btn-sm">
-              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" style="display:inline; vertical-align:middle; margin-right:3px;">
-                <circle cx="12" cy="12" r="3" />
-                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z" stroke-dasharray="3 3"/>
+          <div class="notice-box-card glow-emerald">
+            <div class="notice-card-left">
+              <div class="notice-icon-pill emerald">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+              </div>
+              <div class="notice-text-content">
+                <span class="notice-heading">5 High-Confidence Instances</span>
+                <span class="notice-desc">Inferred from shared infrastructure topology. Preview before accepting (shared-DB & shared-infra flagged).</span>
+              </div>
+            </div>
+            <button class="notice-action-btn primary-btn-sm">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
-              Group manually
+              <span>Preview & Auto-Accept</span>
+            </button>
+          </div>
+
+          <div class="notice-box-card glow-amber">
+            <div class="notice-card-left">
+              <div class="notice-icon-pill amber">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+              </div>
+              <div class="notice-text-content">
+                <span class="notice-heading">139 Unmapped Applications</span>
+                <span class="notice-desc">Inference over-split or couldn't fold these workloads. Hand-group components into a named instance.</span>
+              </div>
+            </div>
+            <button class="notice-action-btn secondary-btn-sm">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3" opacity="0.4"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span>Group Manually</span>
             </button>
           </div>
         </div>
