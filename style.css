@@ -465,56 +465,80 @@ body::after {
 }
 
 .ingested-card {
-  background: var(--bg-card);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--border-cyber);
-  border-radius: 8px;
-  padding: 0.8rem 1rem;
-  display: flex;
-  flex-direction: column;
-  transition: all var(--transition-speed) cubic-bezier(0.25, 0.8, 0.25, 1);
-  position: relative;
-  overflow: hidden;
+  background: rgba(10, 18, 34, 0.75) !important;
+  backdrop-filter: blur(14px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-top: 3px solid var(--cyber-cyan) !important;
+  border-radius: 12px !important;
+  padding: 1.1rem 1.25rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative !important;
+  overflow: hidden !important;
 }
 
-/* Hover effects: cyber grid animation glow */
+.ingested-card.provider-linode { border-top-color: #0ea5e9 !important; }
+.ingested-card.provider-endpoints { border-top-color: #3b82f6 !important; }
+.ingested-card.provider-mysql { border-top-color: #10b981 !important; }
+.ingested-card.provider-blackbox { border-top-color: #8b5cf6 !important; }
+.ingested-card.provider-ansible { border-top-color: #64748b !important; }
+
 .ingested-card:hover {
-  border-color: rgba(0, 242, 254, 0.35);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 242, 254, 0.1);
-  transform: translateY(-2px);
+  border-color: rgba(14, 165, 233, 0.4) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(14, 165, 233, 0.2) !important;
+  transform: translateY(-4px) !important;
+}
+
+.card-header-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 0.6rem !important;
+}
+
+.provider-icon-badge {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 8px !important;
+  background: rgba(14, 165, 233, 0.12) !important;
+  border: 1px solid rgba(14, 165, 233, 0.3) !important;
+  color: #38bdf8 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .card-count {
-  font-family: var(--font-mono);
-  font-size: 2.6rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  line-height: 1;
-  margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-family: var(--font-mono) !important;
+  font-size: 2.4rem !important;
+  font-weight: 800 !important;
+  color: var(--cyber-cyan) !important;
+  line-height: 1 !important;
+  text-shadow: 0 0 16px rgba(0, 242, 254, 0.35) !important;
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
 }
 
 .card-count.ansible-dash {
-  font-weight: 300;
-  color: var(--text-muted);
-  background: none;
-  -webkit-text-fill-color: initial;
+  font-weight: 300 !important;
+  color: var(--text-muted) !important;
+  text-shadow: none !important;
 }
 
 .card-label {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--cyber-cyan);
-  margin-bottom: 0.3rem;
-  letter-spacing: 0.5px;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  color: var(--text-primary) !important;
+  margin-bottom: 0.25rem !important;
+  letter-spacing: 0.5px !important;
 }
 
 .card-sub {
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-  line-height: 1.4;
+  font-size: 0.76rem !important;
+  color: var(--text-secondary) !important;
+  line-height: 1.4 !important;
 }
 
 /* Recent Commits Log Section styling */
@@ -916,9 +940,9 @@ body.light-theme .cyber-modal-overlay {
 }
 
 body.light-theme .cyber-modal {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 12px 36px rgba(14, 165, 233, 0.08), 0 4px 16px rgba(15, 23, 42, 0.04) !important;
 }
 
 .modal-header-row {
@@ -2595,28 +2619,28 @@ body.light-theme {
   --bg-darker: #f8fafc;
   --bg-dark: #f1f5f9;
   --bg-card: #ffffff;
-  --border-color: #cbd5e1;
+  --border-color: #94a3b8;
   --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-muted: #64748b;
+  --text-secondary: #1e293b;
+  --text-muted: #475569;
   --border-cyber: #cbd5e1;
   --border-active: #0284c7;
   --border-success: #10b981;
-  --text-highlight: #2563eb;
-  --cyber-blue: #2563eb;
+  --text-highlight: #0284c7;
+  --cyber-blue: #0284c7;
   --cyber-cyan: #0284c7;
   --cyber-green: #059669;
   --glow-cyan: rgba(2, 132, 199, 0.15);
   --glow-green: rgba(16, 185, 129, 0.15);
   
   background-color: #f8fafc !important;
-  color: #334155;
+  color: #1e293b !important;
 }
 
 body.light-theme::before {
   background-image: 
-    linear-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
 }
 
 body.light-theme::after {
@@ -2624,9 +2648,9 @@ body.light-theme::after {
 }
 
 body.light-theme .app-header {
-  background-color: rgba(255, 255, 255, 0.95);
-  border-bottom: 1px solid #cbd5e1;
-  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+  background-color: rgba(255, 255, 255, 0.98) !important;
+  border-bottom: 1px solid #cbd5e1 !important;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06) !important;
 }
 
 body.light-theme .header-right {
@@ -2638,27 +2662,36 @@ body.light-theme .logo-svg {
 }
 
 body.light-theme .logo-text {
-  background: linear-gradient(135deg, #2563eb 0%, #0ea5e9 100%);
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
+body.light-theme .nav-link,
 body.light-theme .nav-item {
-  color: #334155;
-  font-weight: 500;
+  color: #1e293b !important;
+  font-weight: 600 !important;
 }
 
+body.light-theme .nav-link:hover,
+body.light-theme .nav-item:hover {
+  color: #0284c7 !important;
+  background: #f1f5f9 !important;
+}
+
+body.light-theme .nav-link.active,
 body.light-theme .nav-item.active {
-  color: #0284c7;
-  background: rgba(14, 165, 233, 0.12);
-  border-color: rgba(14, 165, 233, 0.35);
-  box-shadow: 0 0 10px rgba(14, 165, 233, 0.08);
-  font-weight: 700;
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%) !important;
+  border-color: #0284c7 !important;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3) !important;
+  font-weight: 800 !important;
 }
 
+body.light-theme .nav-link.disabled,
 body.light-theme .nav-item.disabled {
-  color: #64748b;
-  opacity: 0.85;
+  color: #94a3b8 !important;
+  opacity: 0.7 !important;
 }
 
 body.light-theme .darkmode-toggle:hover {
@@ -10591,58 +10624,122 @@ body.light-theme #add-source-modal .header-icon-badge {
   color: #0284c7 !important;
 }
 
-body.light-theme #add-source-modal .close-modal-x {
+body.light-theme #add-source-modal .close-modal-x,
+body.light-theme .close-modal-x {
   background: #f1f5f9 !important;
   border-color: #cbd5e1 !important;
-  color: #64748b !important;
+  color: #475569 !important;
 }
 
-body.light-theme #add-source-modal .close-modal-x:hover {
-  background: #e2e8f0 !important;
+body.light-theme #add-source-modal .close-modal-x:hover,
+body.light-theme .close-modal-x:hover {
+  background: #fee2e2 !important;
+  border-color: #fca5a5 !important;
+  color: #dc2626 !important;
+}
+
+body.light-theme #add-source-modal .modal-form-section-title,
+body.light-theme .cyber-modal-label,
+body.light-theme .modal-label,
+body.light-theme .input-label {
   color: #0f172a !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.8px !important;
 }
 
-body.light-theme #add-source-modal .provider-card {
+body.light-theme #add-source-modal .provider-card,
+body.light-theme .provider-card {
   background: #f8fafc !important;
-  border-color: #e2e8f0 !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: none !important;
 }
 
-body.light-theme #add-source-modal .provider-card:hover {
-  background: #ffffff !important;
+body.light-theme #add-source-modal .provider-card:hover,
+body.light-theme .provider-card:hover {
+  background: #f0f9ff !important;
   border-color: #0284c7 !important;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08) !important;
 }
 
-body.light-theme #add-source-modal .provider-card.active {
-  background: linear-gradient(135deg, rgba(2, 132, 199, 0.08) 0%, #ffffff 100%) !important;
-  border-color: #0284c7 !important;
-  box-shadow: 0 0 15px rgba(2, 132, 199, 0.15) !important;
+body.light-theme #add-source-modal .provider-card.active,
+body.light-theme .provider-card.active {
+  background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%) !important;
+  border: 2px solid #0284c7 !important;
+  box-shadow: 0 2px 10px rgba(2, 132, 199, 0.12) !important;
 }
 
-body.light-theme #add-source-modal .provider-check-badge {
+body.light-theme #add-source-modal .provider-check-badge,
+body.light-theme .provider-check-badge {
   background: #0284c7 !important;
   color: #ffffff !important;
 }
 
-body.light-theme #add-source-modal .provider-card-name {
-  color: #475569 !important;
+body.light-theme #add-source-modal .provider-card-name,
+body.light-theme .provider-card-name {
+  color: #0f172a !important;
+  font-weight: 700 !important;
 }
 
-body.light-theme #add-source-modal .provider-card.active .provider-card-name {
+body.light-theme #add-source-modal .provider-card.active .provider-card-name,
+body.light-theme .provider-card.active .provider-card-name {
+  color: #0284c7 !important;
+  font-weight: 800 !important;
+}
+
+body.light-theme .provider-card-logo {
+  color: #334155 !important;
+  opacity: 1 !important;
+}
+
+body.light-theme .provider-card-logo svg {
+  stroke: #334155 !important;
+  color: #334155 !important;
+  opacity: 1 !important;
+}
+
+body.light-theme .provider-card:hover .provider-card-logo svg,
+body.light-theme .provider-card.active .provider-card-logo svg {
+  stroke: #0284c7 !important;
+  color: #0284c7 !important;
+}
+
+body.light-theme .provider-card[data-provider="ssh"] .provider-card-logo svg {
+  stroke: #0284c7 !important;
+  color: #0284c7 !important;
+}
+
+body.light-theme .provider-card[data-provider="db"] .provider-card-logo svg {
+  stroke: #0284c7 !important;
   color: #0284c7 !important;
 }
 
 body.light-theme #add-source-modal .cyber-modal-input,
 body.light-theme #add-source-modal .cyber-modal-select,
-body.light-theme #add-source-modal .cyber-modal-textarea {
+body.light-theme #add-source-modal .cyber-modal-textarea,
+body.light-theme .modal-input-wrapper input,
+body.light-theme .modal-input-wrapper select,
+body.light-theme .cyber-modal-input,
+body.light-theme .cyber-modal-select {
   background: #ffffff !important;
-  border-color: #cbd5e1 !important;
+  border: 1px solid #cbd5e1 !important;
   color: #0f172a !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}
+
+body.light-theme #add-source-modal .cyber-modal-input::placeholder,
+body.light-theme #add-source-modal .cyber-modal-textarea::placeholder,
+body.light-theme .modal-input-wrapper input::placeholder,
+body.light-theme .cyber-modal-input::placeholder {
+  color: #64748b !important;
+  opacity: 1 !important;
+  font-weight: 500 !important;
 }
 
 body.light-theme #add-source-modal .input-with-icon .field-icon,
-body.light-theme #add-source-modal .select-wrapper .select-arrow-icon {
-  color: #94a3b8 !important;
+body.light-theme #add-source-modal .select-wrapper .select-arrow-icon,
+body.light-theme .modal-input-wrapper .input-field-icon {
+  color: #0284c7 !important;
 }
 
 body.light-theme #add-source-modal .input-with-icon:focus-within .field-icon {
@@ -10651,40 +10748,54 @@ body.light-theme #add-source-modal .input-with-icon:focus-within .field-icon {
 
 body.light-theme #add-source-modal .cyber-modal-input:focus,
 body.light-theme #add-source-modal .cyber-modal-select:focus,
-body.light-theme #add-source-modal .cyber-modal-textarea:focus {
+body.light-theme #add-source-modal .cyber-modal-textarea:focus,
+body.light-theme .modal-input-wrapper input:focus,
+body.light-theme .modal-input-wrapper select:focus {
   border-color: #0284c7 !important;
-  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15) !important;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12) !important;
 }
 
 body.light-theme #add-source-modal .modal-security-note {
-  background: #f8fafc !important;
-  border-color: #e2e8f0 !important;
-  color: #64748b !important;
+  background: #f0f9ff !important;
+  border: 1px solid #bae6fd !important;
+  color: #0369a1 !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
 }
 
 body.light-theme #add-source-modal .modal-security-note svg {
   color: #0284c7 !important;
 }
 
-body.light-theme #add-source-modal .secondary-btn {
+body.light-theme #add-source-modal .secondary-btn,
+body.light-theme .modal-cancel-btn {
   background: #ffffff !important;
-  border-color: #cbd5e1 !important;
-  color: #475569 !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #1e293b !important;
+  font-weight: 700 !important;
+  box-shadow: none !important;
 }
 
-body.light-theme #add-source-modal .secondary-btn:hover {
+body.light-theme #add-source-modal .secondary-btn:hover,
+body.light-theme .modal-cancel-btn:hover {
   background: #f1f5f9 !important;
+  border-color: #94a3b8 !important;
   color: #0f172a !important;
 }
 
-body.light-theme #add-source-modal .primary-btn {
-  background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%) !important;
+body.light-theme #add-source-modal .primary-btn,
+body.light-theme .create-project-btn-styled,
+body.light-theme .modal-save-btn {
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%) !important;
   color: #ffffff !important;
-  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2) !important;
+  font-weight: 800 !important;
+  box-shadow: 0 3px 10px rgba(2, 132, 199, 0.25) !important;
 }
 
-body.light-theme #add-source-modal .primary-btn:hover {
-  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.35) !important;
+body.light-theme #add-source-modal .primary-btn:hover,
+body.light-theme .create-project-btn-styled:hover,
+body.light-theme .modal-save-btn:hover {
+  box-shadow: 0 5px 14px rgba(2, 132, 199, 0.35) !important;
 }
 
 /* Step 3 Light Theme Overrides */
@@ -11491,6 +11602,247 @@ body.light-theme .tooltip-tag {
   background: #dcfce7 !important;
   border-color: #86efac !important;
   color: #166534 !important;
+}
+
+/* Start New Commit Session Button Cyber Styling */
+.start-commit-btn-cyber {
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.14) 0%, rgba(14, 165, 233, 0.25) 100%) !important;
+  border: 1px solid #38bdf8 !important;
+  color: #38bdf8 !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  padding: 0.5rem 1.25rem !important;
+  border-radius: 30px !important;
+  cursor: pointer !important;
+  transition: all 0.25s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.55rem !important;
+  box-shadow: 0 4px 16px rgba(14, 165, 233, 0.25) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+.start-commit-btn-cyber:hover {
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.25) 0%, rgba(14, 165, 233, 0.4) 100%) !important;
+  border-color: #7dd3fc !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 22px rgba(14, 165, 233, 0.45) !important;
+  transform: translateY(-1px) !important;
+}
+
+.start-commit-btn-cyber:hover .refresh-icon-spin {
+  transform: rotate(180deg) !important;
+  transition: transform 0.4s ease !important;
+}
+
+body.light-theme .start-commit-btn-cyber {
+  background: #e0f2fe !important;
+  border-color: #0284c7 !important;
+  color: #0284c7 !important;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.15) !important;
+}
+
+body.light-theme .start-commit-btn-cyber:hover {
+  background: #0284c7 !important;
+  color: #ffffff !important;
+}
+
+/* Committed Graph Badge & Locked Buttons */
+.status-pill.committed-graph-badge {
+  background: rgba(16, 185, 129, 0.15) !important;
+  border: 1px solid #10b981 !important;
+  color: #34d399 !important;
+  font-weight: 700 !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.5px !important;
+  padding: 0.25rem 0.65rem !important;
+  border-radius: 4px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+body.light-theme .status-pill.committed-graph-badge {
+  background: #dcfce7 !important;
+  border-color: #86efac !important;
+  color: #166534 !important;
+}
+
+/* Modern Cyber Client Assignment Section */
+.client-row {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-cyber) !important;
+  border-radius: 12px !important;
+  padding: 1.2rem 1.5rem !important;
+  margin-bottom: 1rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 1.5rem !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.client-row::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--cyber-cyan) 0%, #3b82f6 100%);
+  opacity: 0.8;
+}
+
+.client-row:hover {
+  border-color: var(--cyber-cyan) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(0, 242, 254, 0.12) !important;
+}
+
+.client-card-left {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1rem !important;
+}
+
+.client-project-icon-pill {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 10px !important;
+  background: rgba(0, 242, 254, 0.08) !important;
+  border: 1px solid rgba(0, 242, 254, 0.2) !important;
+  color: var(--cyber-cyan) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+
+.client-project-meta {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.35rem !important;
+}
+
+.client-project-title-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+}
+
+.client-project-name {
+  font-family: var(--font-sans) !important;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  color: var(--text-primary) !important;
+}
+
+.client-domain-tag {
+  font-family: var(--font-mono) !important;
+  font-size: 0.72rem !important;
+  color: var(--cyber-cyan) !important;
+  background: rgba(0, 242, 254, 0.06) !important;
+  border: 1px solid rgba(0, 242, 254, 0.15) !important;
+  padding: 0.15rem 0.5rem !important;
+  border-radius: 4px !important;
+}
+
+.client-project-status-pill {
+  font-family: var(--font-mono) !important;
+  font-size: 0.73rem !important;
+  font-weight: 600 !important;
+  padding: 0.2rem 0.6rem !important;
+  border-radius: 20px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  width: fit-content !important;
+}
+
+.client-project-status-pill.assigned {
+  background: rgba(16, 185, 129, 0.12) !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+  color: #10b981 !important;
+}
+
+.client-project-status-pill.unassigned {
+  background: rgba(245, 158, 11, 0.1) !important;
+  border: 1px solid rgba(245, 158, 11, 0.25) !important;
+  color: #f59e0b !important;
+}
+
+.client-selector-container {
+  min-width: 320px !important;
+  flex-shrink: 0 !important;
+}
+
+.cyber-select-wrapper {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+.cyber-select-wrapper .select-lead-icon {
+  position: absolute !important;
+  left: 1.1rem !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  color: var(--cyber-cyan) !important;
+  pointer-events: none !important;
+  z-index: 5 !important;
+}
+
+.client-select-cyber {
+  width: 100% !important;
+  padding: 0.75rem 2.5rem 0.75rem 3.2rem !important;
+  text-indent: 0px !important;
+  background: var(--bg-darker) !important;
+  border: 1px solid var(--border-cyber) !important;
+  border-radius: 8px !important;
+  color: var(--text-primary) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300f2fe' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 1rem center !important;
+  background-size: 12px 12px !important;
+}
+
+.client-select-cyber:hover,
+.client-select-cyber:focus {
+  border-color: var(--cyber-cyan) !important;
+  box-shadow: 0 0 12px rgba(0, 242, 254, 0.2) !important;
+  outline: none !important;
+}
+
+body.light-theme .client-row {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04) !important;
+}
+
+body.light-theme .client-select-cyber {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230284c7' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+}
+
+body.light-theme .client-stat-card {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04) !important;
 }
 
 
