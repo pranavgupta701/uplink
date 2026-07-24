@@ -532,6 +532,51 @@ body::after {
   overflow: visible !important;
 }
 
+.mapped-instance-tag.unaccepted {
+  background: rgba(245, 158, 11, 0.12) !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  color: #fbbf24 !important;
+}
+
+.project-actions-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 1rem;
+}
+
+.project-accept-btn {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  color: #34d399;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.45rem 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.25s ease;
+}
+
+.project-accept-btn.locked {
+  background: rgba(100, 116, 139, 0.15) !important;
+  border: 1px solid rgba(100, 116, 139, 0.35) !important;
+  color: #94a3b8 !important;
+  cursor: not-allowed !important;
+  opacity: 0.65 !important;
+  box-shadow: none !important;
+}
+
+.project-accept-btn.locked:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  background: rgba(100, 116, 139, 0.15) !important;
+  border-color: rgba(100, 116, 139, 0.35) !important;
+}
+
 .commit-report-dropdown-menu {
   position: absolute;
   right: 0;
@@ -11087,6 +11132,18 @@ body.light-theme #group-manually-modal #cancel-group-modal-btn {
 body.light-theme #group-manually-modal #cancel-group-modal-btn:hover {
   background: #f1f5f9 !important;
   border-color: #94a3b8 !important;
+}
+
+body.light-theme .project-accept-btn.locked {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #64748b !important;
+}
+
+body.light-theme .project-accept-btn.locked:hover {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #64748b !important;
 }
 
 
