@@ -5025,6 +5025,88 @@ body.light-theme .map-continent-path:hover {
   }
 }
 
+/* Success Modal Specific Styling */
+.success-hero-badge {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  box-shadow: 0 0 35px rgba(16, 185, 129, 0.25), inset 0 0 15px rgba(16, 185, 129, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+}
+
+.success-hero-badge .success-animation {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.success-hero-badge .checkmark-svg {
+  width: 54px !important;
+  height: 54px !important;
+  margin: 0 !important;
+}
+
+body.light-theme .success-hero-badge {
+  background: #dcfce7 !important;
+  border-color: #86efac !important;
+  box-shadow: 0 4px 20px rgba(22, 163, 74, 0.18) !important;
+}
+
+.success-modal-title {
+  font-family: var(--font-sans) !important;
+  font-size: 1.4rem !important;
+  font-weight: 800 !important;
+  color: var(--text-primary) !important;
+  margin-bottom: 0.6rem !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+
+body.light-theme .success-modal-title {
+  color: #0f172a !important;
+}
+
+.success-modal-desc {
+  font-size: 0.88rem !important;
+  color: var(--text-secondary) !important;
+  line-height: 1.55 !important;
+  margin-bottom: 0 !important;
+}
+
+body.light-theme .success-modal-desc {
+  color: #475569 !important;
+}
+
+.success-action-btn {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  color: #ffffff !important;
+  font-family: var(--font-sans) !important;
+  font-size: 0.88rem !important;
+  font-weight: 800 !important;
+  padding: 0.65rem 1.6rem !important;
+  border-radius: 24px !important;
+  border: none !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.45) !important;
+  transition: all 0.25s ease !important;
+}
+
+.success-action-btn:hover {
+  transform: translateY(-1px) !important;
+  background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+  box-shadow: 0 6px 25px rgba(16, 185, 129, 0.6) !important;
+}
+
 /* Real-time Grafana Telemetry Styles */
 .grafana-panel {
   background: var(--bg-card);

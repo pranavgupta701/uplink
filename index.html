@@ -3910,17 +3910,25 @@ vizo361</textarea>
 
   <!-- Cyber Success Modal -->
   <div class="cyber-modal-overlay" id="success-modal">
-    <div class="cyber-modal">
-      <div class="success-animation">
-        <svg class="checkmark-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-          <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
-          <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
-        </svg>
+    <div class="cyber-modal success-modal-container" style="max-width: 480px; text-align: center; padding: 2.2rem 2rem;">
+      <div class="success-hero-badge">
+        <div class="success-animation">
+          <svg class="checkmark-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+            <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
+            <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+          </svg>
+        </div>
       </div>
-      <h2>Commit Successful</h2>
-      <p>The entity graph has been successfully produced and synchronized with the Security Operations Center (SOC). All discovery nodes are now online.</p>
-      <div class="modal-buttons" style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem;">
-        <button id="close-modal-btn">Access Dashboard</button>
+      <h2 class="success-modal-title">Commit Successful</h2>
+      <p class="success-modal-desc">The entity graph has been successfully produced and synchronized with the Security Operations Center (SOC). All discovery nodes are now online.</p>
+      <div class="modal-buttons" style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.8rem;">
+        <button id="close-modal-btn" class="primary-btn success-action-btn">
+          <span>Access Dashboard</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-left:6px;">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
       </div>
     </div>
   </div>
