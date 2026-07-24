@@ -1665,16 +1665,16 @@ body.light-theme .subdomains-header-title {
 }
 
 .confirm-all-subs-btn.undo-state {
-  background: rgba(239, 68, 68, 0.1) !important;
-  border: 1px solid rgba(239, 68, 68, 0.4) !important;
-  color: #f87171 !important;
+  background: rgba(245, 158, 11, 0.08) !important;
+  border: 1px solid rgba(245, 158, 11, 0.45) !important;
+  color: #fbbf24 !important;
 }
 
 .confirm-all-subs-btn.undo-state:hover {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
-  border-color: #fca5a5 !important;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(217, 119, 6, 0.25) 100%) !important;
+  border-color: #fbbf24 !important;
   color: #ffffff !important;
-  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4) !important;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.35) !important;
   transform: translateY(-1px) !important;
 }
 
@@ -1745,9 +1745,9 @@ body.light-theme .subdomains-header-title {
 }
 
 .action-undo-btn {
-  border: 1px solid rgba(0, 242, 254, 0.4);
-  color: var(--cyber-cyan);
-  background: transparent;
+  border: 1px solid rgba(245, 158, 11, 0.45) !important;
+  color: #fbbf24 !important;
+  background: rgba(245, 158, 11, 0.08) !important;
   font-family: var(--font-sans);
   font-size: 0.8rem;
   font-weight: 700;
@@ -1758,11 +1758,15 @@ body.light-theme .subdomains-header-title {
   align-items: center;
   gap: 0.4rem;
   transition: all var(--transition-speed);
+  backdrop-filter: blur(8px);
 }
 
 .action-undo-btn:hover {
-  background: rgba(0, 242, 254, 0.12);
-  box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(217, 119, 6, 0.25) 100%) !important;
+  border-color: #fbbf24 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.35) !important;
+  transform: translateY(-1px);
 }
 
 /* Step 3 Instances Top Bar & Controls */
@@ -3400,7 +3404,6 @@ body.light-theme .runs-history-table tr:hover td {
   }
 }
 
-.client-stat-card,
 .project-stat-card {
   background: var(--bg-card);
   border: 1px solid var(--border-cyber);
@@ -3413,13 +3416,11 @@ body.light-theme .runs-history-table tr:hover td {
   transition: all 0.25s ease;
 }
 
-.client-stat-card:hover,
 .project-stat-card:hover {
   border-color: rgba(0, 242, 254, 0.2);
   transform: translateY(-2px);
 }
 
-.client-stat-label,
 .project-stat-label {
   font-size: 0.68rem;
   font-family: var(--font-mono);
@@ -3428,7 +3429,6 @@ body.light-theme .runs-history-table tr:hover td {
   letter-spacing: 0.5px;
 }
 
-.client-stat-value,
 .project-stat-value {
   font-size: 1.8rem;
   font-weight: 800;
@@ -11841,10 +11841,114 @@ body.light-theme .client-select-cyber {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230284c7' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
 }
 
+/* Client Telemetry Overview Bar Grid & Centered Alignment */
+.client-overview-bar {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+  gap: 1.25rem !important;
+  margin-bottom: 1.75rem !important;
+}
+
+.client-stat-card {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-cyber) !important;
+  border-radius: 12px !important;
+  padding: 1.4rem 1.2rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  gap: 0.55rem !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25) !important;
+  transition: all 0.25s ease !important;
+}
+
+.client-stat-card:hover {
+  border-color: rgba(0, 242, 254, 0.4) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(0, 242, 254, 0.12) !important;
+}
+
+.client-stat-icon {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 auto 0.25rem auto !important;
+  flex-shrink: 0 !important;
+}
+
+.client-stat-icon.cyan {
+  background: rgba(0, 242, 254, 0.1) !important;
+  border: 1px solid rgba(0, 242, 254, 0.25) !important;
+  color: var(--cyber-cyan) !important;
+}
+
+.client-stat-icon.emerald {
+  background: rgba(16, 185, 129, 0.1) !important;
+  border: 1px solid rgba(16, 185, 129, 0.25) !important;
+  color: #10b981 !important;
+}
+
+.client-stat-icon.amber {
+  background: rgba(245, 158, 11, 0.1) !important;
+  border: 1px solid rgba(245, 158, 11, 0.25) !important;
+  color: #f59e0b !important;
+}
+
+.client-stat-label {
+  font-family: var(--font-mono) !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  color: var(--text-secondary) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+  text-align: center !important;
+  width: 100% !important;
+  line-height: 1.2 !important;
+  margin: 0 auto !important;
+}
+
+.client-stat-number {
+  font-family: var(--font-mono) !important;
+  font-size: 1.45rem !important;
+  font-weight: 800 !important;
+  text-align: center !important;
+  width: 100% !important;
+  line-height: 1.1 !important;
+  margin: 0 auto !important;
+}
+
+.client-stat-number.cyan { color: var(--cyber-cyan) !important; }
+.client-stat-number.emerald { color: #10b981 !important; }
+.client-stat-number.amber { color: #f59e0b !important; }
+
 body.light-theme .client-stat-card {
   background: #ffffff !important;
   border-color: #cbd5e1 !important;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04) !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04) !important;
+}
+
+body.light-theme .client-stat-label {
+  color: #64748b !important;
+}
+
+body.light-theme .action-undo-btn,
+body.light-theme .confirm-all-subs-btn.undo-state {
+  background: rgba(217, 119, 6, 0.08) !important;
+  border: 1px solid rgba(217, 119, 6, 0.45) !important;
+  color: #d97706 !important;
+}
+
+body.light-theme .action-undo-btn:hover,
+body.light-theme .confirm-all-subs-btn.undo-state:hover {
+  background: rgba(217, 119, 6, 0.16) !important;
+  border-color: #d97706 !important;
+  color: #b45309 !important;
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.18) !important;
 }
 
 
