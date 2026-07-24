@@ -904,32 +904,32 @@
         </div>
 
         <!-- Modern Client Telemetry Overview Bar -->
-        <div class="client-overview-bar">
-          <div class="client-stat-card client-overview-card">
-            <div class="client-overview-icon icon-cyan">
+        <div class="client-overview-bar" style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+          <div class="client-stat-card" style="flex: 1; min-width: 180px; background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 12px; padding: 1rem 1.2rem; display: flex; align-items: center; gap: 1rem;">
+            <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.2); color: var(--cyber-cyan); display: flex; align-items: center; justify-content: center; flex-shrink:0;">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
             </div>
-            <div class="client-overview-content">
-              <div class="client-overview-label">Assigned Projects</div>
-              <div class="client-overview-value val-cyan" id="stat-client-assigned-projects">0 / 0</div>
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Assigned Projects</div>
+              <div style="font-family: var(--font-mono); font-size: 1.25rem; font-weight: 800; color: var(--cyber-cyan);" id="stat-client-assigned-projects">0 / 0</div>
             </div>
           </div>
-          <div class="client-stat-card client-overview-card">
-            <div class="client-overview-icon icon-green">
+          <div class="client-stat-card" style="flex: 1; min-width: 180px; background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 12px; padding: 1rem 1.2rem; display: flex; align-items: center; gap: 1rem;">
+            <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); color: #10b981; display: flex; align-items: center; justify-content: center; flex-shrink:0;">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
             </div>
-            <div class="client-overview-content">
-              <div class="client-overview-label">Active Client Tenants</div>
-              <div class="client-overview-value val-green" id="stat-client-total-tenants">0</div>
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Active Client Tenants</div>
+              <div style="font-family: var(--font-mono); font-size: 1.25rem; font-weight: 800; color: #10b981;" id="stat-client-total-tenants">0</div>
             </div>
           </div>
-          <div class="client-stat-card client-overview-card">
-            <div class="client-overview-icon icon-amber">
+          <div class="client-stat-card" style="flex: 1; min-width: 180px; background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 12px; padding: 1rem 1.2rem; display: flex; align-items: center; gap: 1rem;">
+            <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); color: #f59e0b; display: flex; align-items: center; justify-content: center; flex-shrink:0;">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
             </div>
-            <div class="client-overview-content">
-              <div class="client-overview-label">Gold SLA Coverage</div>
-              <div class="client-overview-value val-amber" id="stat-client-sla-gold">100%</div>
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Gold SLA Coverage</div>
+              <div style="font-family: var(--font-mono); font-size: 1.25rem; font-weight: 800; color: #f59e0b;" id="stat-client-sla-gold">100%</div>
             </div>
           </div>
         </div>
