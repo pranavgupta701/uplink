@@ -11146,6 +11146,39 @@ body.light-theme .project-accept-btn.locked:hover {
   color: #64748b !important;
 }
 
+/* Client Modal Light Theme Overrides */
+body.light-theme #client-modal .cyber-modal {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15) !important;
+}
+
+body.light-theme #client-modal .modal-subtitle {
+  color: #475569 !important;
+}
+
+body.light-theme #client-modal .modal-input-label {
+  color: #334155 !important;
+}
+
+body.light-theme #client-modal .cyber-modal-input,
+body.light-theme #client-modal .cyber-modal-select {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+body.light-theme #client-modal #cancel-client-btn {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #1e293b !important;
+}
+
+body.light-theme #client-modal #cancel-client-btn:hover {
+  background: #f1f5f9 !important;
+  border-color: #94a3b8 !important;
+}
+
 
 
 

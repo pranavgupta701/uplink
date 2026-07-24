@@ -4594,44 +4594,83 @@ vizo361</textarea>
     </div>
   </div>
 
-  <!-- Cyber Client Modal (Create Client) -->
+  <!-- Cyber Client Modal (Create / Edit Client) -->
   <div class="cyber-modal-overlay" id="client-modal">
     <div class="cyber-modal edit-modal-container" style="max-width: 520px;">
       <div class="modal-header-row">
-        <h2>Create Client</h2>
-        <span class="close-modal-x" id="close-client-modal-x">&times;</span>
+        <div class="modal-title-wrapper">
+          <div class="modal-header-icon-pill">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <div class="modal-title-text-group">
+            <h2 id="client-modal-title">Create Client</h2>
+            <span class="modal-subtitle">Configure tenant parameters, SLA commitments & contact information</span>
+          </div>
+        </div>
+        <span class="close-modal-x" id="close-client-modal-x" title="Close">&times;</span>
       </div>
       
       <div class="modal-form-group">
-        <label for="client-name-input">Client Name</label>
-        <input type="text" id="client-name-input" class="cyber-modal-input" placeholder="e.g. Acme Corp">
+        <label for="client-name-input" class="modal-input-label">Client Name</label>
+        <div class="modal-input-wrapper">
+          <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+          </svg>
+          <input type="text" id="client-name-input" class="cyber-modal-input" placeholder="e.g. Acme Corp">
+        </div>
       </div>
       
       <div class="modal-form-group">
-        <label for="client-email-input">Contact Email</label>
-        <input type="email" id="client-email-input" class="cyber-modal-input" placeholder="e.g. billing@acme.com">
+        <label for="client-email-input" class="modal-input-label">Contact Email</label>
+        <div class="modal-input-wrapper">
+          <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          <input type="email" id="client-email-input" class="cyber-modal-input" placeholder="e.g. billing@acme.com">
+        </div>
       </div>
       
       <div class="modal-row-split">
         <div class="modal-form-group">
-          <label for="client-type-select">Client Type</label>
-          <select id="client-type-select" class="cyber-modal-select">
-            <option value="External Tenant">External Tenant</option>
-            <option value="Internal Department">Internal Department</option>
-            <option value="Partner">Partner</option>
-          </select>
+          <label for="client-type-select" class="modal-input-label">Client Type</label>
+          <div class="modal-input-wrapper">
+            <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+            <select id="client-type-select" class="cyber-modal-select">
+              <option value="External Tenant">External Tenant</option>
+              <option value="Internal Department">Internal Department</option>
+              <option value="Partner">Partner</option>
+            </select>
+          </div>
         </div>
+        
         <div class="modal-form-group">
-          <label for="client-sla-select">SLA Tier</label>
-          <select id="client-sla-select" class="cyber-modal-select">
-            <option value="Gold">Gold</option>
-            <option value="Silver">Silver</option>
-            <option value="Bronze">Bronze</option>
-          </select>
+          <label for="client-sla-select" class="modal-input-label">SLA Tier</label>
+          <div class="modal-input-wrapper">
+            <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <select id="client-sla-select" class="cyber-modal-select">
+              <option value="Gold">Gold</option>
+              <option value="Silver">Silver</option>
+              <option value="Bronze">Bronze</option>
+            </select>
+          </div>
         </div>
       </div>
       
-      <div class="modal-footer-buttons" style="margin-top: 1.5rem;">
+      <div class="modal-footer-buttons" style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.8rem;">
         <button class="secondary-btn modal-cancel-btn" id="cancel-client-btn">Cancel</button>
         <button class="primary-btn create-project-btn-styled" id="save-client-btn">
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-right:4px;">
