@@ -1217,67 +1217,52 @@ body.light-theme .modal-cancel-btn:hover {
 }
 
 /* Horizontal tabs navigation */
-.infra-tabs {
+.infra-tabs-container {
   display: flex;
-  gap: 1rem;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 0.8rem;
-  margin-bottom: 2rem;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px solid var(--border-cyber);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.infra-tab-btn {
-  background: rgba(11, 19, 36, 0.4);
-  border: 1px solid rgba(0, 242, 254, 0.15);
+.infra-tabs-row {
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(15, 23, 42, 0.6);
+  padding: 0.3rem;
+  border-radius: 24px;
+  border: 1px solid var(--border-cyber);
+  backdrop-filter: blur(12px);
+}
+
+.infra-tab-pill {
+  background: transparent;
+  border: 1px solid transparent;
   color: var(--text-secondary);
-  padding: 0.65rem 1.4rem;
-  border-radius: 6px;
+  padding: 0.45rem 1.1rem;
+  border-radius: 20px;
   font-family: var(--font-sans);
-  font-size: 0.9rem;
+  font-size: 0.84rem;
   font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  cursor: pointer;
-  transition: all var(--transition-speed);
+  gap: 0.5rem;
 }
 
-.infra-tab-btn .tab-icon {
-  opacity: 0.7;
-  transition: opacity var(--transition-speed);
-}
-
-.infra-tab-btn:hover {
-  background: rgba(0, 242, 254, 0.04);
-  border-color: rgba(0, 242, 254, 0.35);
+.infra-tab-pill:hover {
   color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
 }
 
-.infra-tab-btn.active {
-  background: rgba(0, 242, 254, 0.07);
-  border-color: var(--border-active);
+.infra-tab-pill.active {
+  background: rgba(0, 242, 254, 0.12);
+  border-color: var(--cyber-cyan);
   color: var(--cyber-cyan);
-  box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
-  text-shadow: 0 0 8px rgba(0, 242, 254, 0.3);
+  box-shadow: 0 0 16px rgba(0, 242, 254, 0.2);
 }
-
-.infra-tab-btn.active .tab-icon {
-  opacity: 1;
-  color: var(--cyber-cyan);
-}
-
-.badge-count {
-  font-family: var(--font-mono);
-  background: rgba(5, 8, 17, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  color: var(--text-secondary);
-  padding: 0.1rem 0.4rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-}
-
-.infra-tab-btn.active .badge-count {
-  border-color: rgba(0, 242, 254, 0.2);
-  color: var(--cyber-cyan);
 }
 
 /* Infrastructure Lists & Rows */
@@ -1477,25 +1462,67 @@ body.light-theme .instances-list::-webkit-scrollbar-thumb:hover {
 }
 
 .action-confirm-btn {
-  border: 1px solid rgba(16, 185, 129, 0.5);
-  color: #10b981;
+  background: rgba(16, 185, 129, 0.12) !important;
+  border: 1px solid rgba(16, 185, 129, 0.5) !important;
+  color: #34d399 !important;
+  font-family: var(--font-sans) !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  padding: 0.45rem 1.1rem !important;
+  border-radius: 20px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  transition: all 0.25s ease !important;
 }
 
 .action-confirm-btn:hover {
-  background: rgba(16, 185, 129, 0.12);
-  border-color: #10b981;
-  box-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  border-color: #34d399 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4) !important;
+  transform: translateY(-1px) !important;
+}
+
+.action-confirm-btn.active,
+.action-confirm-btn.confirmed {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  border-color: #34d399 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 18px rgba(16, 185, 129, 0.45) !important;
 }
 
 .action-quarantine-btn {
-  border: 1px solid rgba(239, 68, 68, 0.4);
-  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1) !important;
+  border: 1px solid rgba(239, 68, 68, 0.4) !important;
+  color: #f87171 !important;
+  font-family: var(--font-sans) !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  padding: 0.45rem 1.1rem !important;
+  border-radius: 20px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  transition: all 0.25s ease !important;
 }
 
 .action-quarantine-btn:hover {
-  background: rgba(239, 68, 68, 0.12);
-  border-color: #ef4444;
-  box-shadow: 0 0 10px rgba(239, 68, 68, 0.15);
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+  border-color: #fca5a5 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4) !important;
+  transform: translateY(-1px) !important;
+}
+
+.action-quarantine-btn.active,
+.action-quarantine-btn.quarantined {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+  border-color: #fca5a5 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 18px rgba(239, 68, 68, 0.45) !important;
 }
 
 .confirm-all-subs-btn {
@@ -10851,6 +10878,105 @@ body.light-theme .projects-accepted-ratio-badge {
   background: #dcfce7 !important;
   border-color: #86efac !important;
   color: #15803d !important;
+}
+
+/* Step 2 Infrastructure Light Theme Overrides */
+body.light-theme .infra-notice-box .notice-box-card {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05) !important;
+}
+
+body.light-theme .infra-notice-box .notice-icon-pill.cyan {
+  background: #e0f2fe !important;
+  color: #0284c7 !important;
+  border-color: #bae6fd !important;
+}
+
+body.light-theme .infra-notice-box .notice-heading {
+  color: #0f172a !important;
+}
+
+body.light-theme .infra-notice-box .notice-desc {
+  color: #475569 !important;
+}
+
+body.light-theme .infra-tabs-row {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+}
+
+body.light-theme .infra-tab-pill {
+  color: #64748b !important;
+}
+
+body.light-theme .infra-tab-pill:hover {
+  color: #0f172a !important;
+  background: #e2e8f0 !important;
+}
+
+body.light-theme .infra-tab-pill.active {
+  background: rgba(14, 165, 233, 0.12) !important;
+  border-color: #0ea5e9 !important;
+  color: #0284c7 !important;
+  box-shadow: 0 2px 10px rgba(14, 165, 233, 0.15) !important;
+}
+
+body.light-theme .infra-row {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04) !important;
+}
+
+body.light-theme .infra-row:hover {
+  border-color: #0284c7 !important;
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08) !important;
+}
+
+body.light-theme .row-name {
+  color: #0f172a !important;
+}
+
+body.light-theme .row-sub {
+  color: #64748b !important;
+}
+
+body.light-theme .action-confirm-btn {
+  background: #dcfce7 !important;
+  border-color: #86efac !important;
+  color: #15803d !important;
+}
+
+body.light-theme .action-confirm-btn:hover {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%) !important;
+  color: #ffffff !important;
+}
+
+body.light-theme .action-confirm-btn.active,
+body.light-theme .action-confirm-btn.confirmed {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%) !important;
+  border-color: #15803d !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(22, 163, 74, 0.3) !important;
+}
+
+body.light-theme .action-quarantine-btn {
+  background: #fee2e2 !important;
+  border-color: #fca5a5 !important;
+  color: #b91c1c !important;
+}
+
+body.light-theme .action-quarantine-btn:hover {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+  color: #ffffff !important;
+}
+
+body.light-theme .action-quarantine-btn.active,
+body.light-theme .action-quarantine-btn.quarantined {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+  border-color: #b91c1c !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3) !important;
 }
 
 

@@ -312,39 +312,59 @@
 
       <!-- Step 2 View: Infrastructure Design -->
       <div id="step-view-2" class="step-view hidden">
-        <div class="infra-desc">
-          The estate's <strong class="notice-highlight">raw building blocks</strong> — every <strong>server</strong>, <strong>app / URL</strong>, <strong>database</strong> and <strong>domain</strong> the ingest found. Confirm what's real; <strong class="notice-highlight">quarantine</strong> noise (archived server-side, reversible). Confirmed apps get grouped into instances next.
+        <!-- Guidance Notice Banner -->
+        <div class="infra-notice-box" style="margin-bottom: 1.5rem;">
+          <div class="notice-box-card glow-cyan">
+            <div class="notice-card-left">
+              <div class="notice-icon-pill cyan">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                  <polyline points="2 17 12 22 22 17"></polyline>
+                  <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+              </div>
+              <div class="notice-text-content">
+                <span class="notice-heading">Discovered Infrastructure Estate</span>
+                <span class="notice-desc">The estate's <strong class="notice-highlight">raw building blocks</strong> — every server, app / URL, database and domain the ingest found. Confirm active assets; <strong class="notice-highlight">quarantine</strong> noise endpoints.</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Infrastructure Dropdown Navigation Tabs -->
-        <div class="infra-tabs">
-          <button class="infra-tab-btn active" data-tab="servers">
-            <svg class="tab-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2">
-              <rect x="2" y="2" width="20" height="8" rx="2" />
-              <rect x="2" y="14" width="20" height="8" rx="2" />
-              <line x1="6" y1="6" x2="6.01" y2="6" stroke-linecap="round" />
-              <line x1="6" y1="18" x2="6.01" y2="18" stroke-linecap="round" />
-            </svg>
-            Servers <span class="badge-count" id="count-servers">85</span>
-          </button>
-          
-          <button class="infra-tab-btn" data-tab="domains">
-            <svg class="tab-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2">
-              <circle cx="12" cy="12" r="10" />
-              <line x1="2" y1="12" x2="22" y2="12" />
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-            </svg>
-            Domains & Apps <span class="badge-count" id="count-domains">9</span>
-          </button>
-          
-          <button class="infra-tab-btn" data-tab="databases">
-            <svg class="tab-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2">
-              <ellipse cx="12" cy="5" rx="9" ry="3" />
-              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-              <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
-            </svg>
-            Databases <span class="badge-count" id="count-databases">3</span>
-          </button>
+        <div class="infra-tabs-container">
+          <div class="infra-tabs-row">
+            <button class="infra-tab-pill active" data-tab="servers">
+              <svg class="tab-icon" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" stroke-width="2">
+                <rect x="2" y="2" width="20" height="8" rx="2" />
+                <rect x="2" y="14" width="20" height="8" rx="2" />
+                <line x1="6" y1="6" x2="6.01" y2="6" stroke-linecap="round" />
+                <line x1="6" y1="18" x2="6.01" y2="18" stroke-linecap="round" />
+              </svg>
+              <span>Servers</span>
+              <span class="tab-count-pill" id="count-servers">85</span>
+            </button>
+            
+            <button class="infra-tab-pill" data-tab="domains">
+              <svg class="tab-icon" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg>
+              <span>Domains & Apps</span>
+              <span class="tab-count-pill" id="count-domains">9</span>
+            </button>
+            
+            <button class="infra-tab-pill" data-tab="databases">
+              <svg class="tab-icon" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" stroke-width="2">
+                <ellipse cx="12" cy="5" rx="9" ry="3" />
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
+              </svg>
+              <span>Databases</span>
+              <span class="tab-count-pill" id="count-databases">3</span>
+            </button>
+          </div>
         </div>
 
         <!-- Infrastructure Panel Contents -->
