@@ -11179,6 +11179,215 @@ body.light-theme #client-modal #cancel-client-btn:hover {
   border-color: #94a3b8 !important;
 }
 
+/* ==========================================================================
+   CYBER TOAST NOTIFICATION CONTAINER & CARDS
+   ========================================================================== */
+.uplink-toast-container {
+  position: fixed;
+  top: 84px;
+  right: 1.5rem;
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  pointer-events: none;
+  max-width: 440px;
+  width: calc(100vw - 3rem);
+}
+
+.uplink-toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 1.1rem;
+  border-radius: 12px;
+  background: rgba(6, 11, 23, 0.92);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(14, 165, 233, 0.15);
+  transform: translateX(120%);
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+}
+
+.uplink-toast.visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.uplink-toast.hide {
+  transform: translateY(-10px) scale(0.96);
+  opacity: 0;
+}
+
+.toast-status-icon {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.uplink-toast.success {
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(16, 185, 129, 0.25);
+}
+
+.uplink-toast.success .toast-status-icon {
+  background: rgba(16, 185, 129, 0.18);
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  color: #10b981;
+}
+
+.uplink-toast.info {
+  border-color: rgba(14, 165, 233, 0.4);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(14, 165, 233, 0.25);
+}
+
+.uplink-toast.info .toast-status-icon {
+  background: rgba(14, 165, 233, 0.18);
+  border: 1px solid rgba(14, 165, 233, 0.5);
+  color: #0ea5e9;
+}
+
+.toast-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.toast-title-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.uplink-toast.success .toast-title-badge {
+  color: #34d399;
+}
+
+.uplink-toast.info .toast-title-badge {
+  color: #38bdf8;
+}
+
+.toast-message-text {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.35;
+}
+
+body.light-theme .uplink-toast {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.15) !important;
+}
+
+body.light-theme .toast-message-text {
+  color: #0f172a !important;
+}
+
+/* Download Report Button & Step 6 Review & Commit Enhancements */
+.download-report-btn-cyber {
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%) !important;
+  border: 1px solid #38bdf8 !important;
+  color: #ffffff !important;
+  font-size: 0.8rem !important;
+  font-weight: 700 !important;
+  font-family: var(--font-mono) !important;
+  padding: 0.55rem 1.3rem !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.55rem !important;
+  transition: all 0.25s ease !important;
+  box-shadow: 0 4px 16px rgba(14, 165, 233, 0.35) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+.download-report-btn-cyber:hover {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+  border-color: #7dd3fc !important;
+  box-shadow: 0 6px 22px rgba(14, 165, 233, 0.5) !important;
+  transform: translateY(-1px) !important;
+}
+
+.review-report-card {
+  background: rgba(10, 18, 34, 0.75) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-top: 3px solid var(--cyber-cyan) !important;
+  border-radius: 16px !important;
+  padding: 2.5rem !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(14, 165, 233, 0.12) !important;
+}
+
+.report-section {
+  background: rgba(15, 23, 42, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px !important;
+  padding: 1.5rem !important;
+  transition: all 0.25s ease !important;
+}
+
+.report-section:hover {
+  border-color: rgba(14, 165, 233, 0.3) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+}
+
+.metric-box {
+  background: rgba(6, 11, 23, 0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 10px !important;
+  padding: 1.1rem !important;
+  transition: all 0.2s ease !important;
+}
+
+.metric-box:hover {
+  border-color: rgba(14, 165, 233, 0.4) !important;
+  background: rgba(14, 165, 233, 0.05) !important;
+}
+
+.metric-val {
+  color: var(--cyber-cyan) !important;
+  font-weight: 800 !important;
+  font-size: 2rem !important;
+  text-shadow: 0 0 12px rgba(0, 242, 254, 0.4) !important;
+}
+
+body.light-theme .review-report-card {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  border-top-color: #0284c7 !important;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08) !important;
+}
+
+body.light-theme .report-section {
+  background: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+body.light-theme .metric-box {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+body.light-theme .metric-val {
+  color: #0284c7 !important;
+  text-shadow: none !important;
+}
+
 
 
 
