@@ -792,40 +792,66 @@
 
       <!-- Step 4 View: Projects -->
       <div id="step-view-4" class="step-view hidden">
-        <div class="seeded-notice" style="margin-top: 0; margin-bottom: 1.5rem;">
-          Inference groups accepted instances into <strong class="notice-highlight">projects</strong> by shared apex/product. Accept the real ones — each writes the project + links its instances. Clients come next (you assign them).
+        <!-- Guidance Banner -->
+        <div class="projects-notice-box" style="margin-bottom: 1.5rem;">
+          <div class="notice-box-card glow-purple">
+            <div class="notice-card-left">
+              <div class="notice-icon-pill purple">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+              </div>
+              <div class="notice-text-content">
+                <span class="notice-heading">Automatic Project Grouping</span>
+                <span class="notice-desc">Inference groups accepted instances into <strong class="notice-highlight">projects</strong> by shared apex/domain topology. Accept valid projects — each writes the project and links its instances.</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="projects-top-bar" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-cyber); padding-bottom: 0.8rem; margin-bottom: 1.5rem; gap: 1.5rem; flex-wrap: wrap;">
-          <div class="projects-left-controls" style="display: flex; align-items: center; gap: 1.5rem;">
-            <span class="projects-section-title" style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 800; color: var(--cyber-blue); letter-spacing: 2px;">PROJECTS</span>
-            <div class="projects-tabs-row" style="display: flex; gap: 0.5rem;">
+        <!-- Top bar controls: Title, Tabs, Search, Create -->
+        <div class="projects-top-bar">
+          <div class="projects-left-controls">
+            <span class="projects-section-title">PROJECTS</span>
+            <div class="projects-tabs-row">
               <button class="projects-tab-pill active" id="projects-tab-pending">pending <span class="tab-count-pill" id="projects-count-pending">2</span></button>
               <button class="projects-tab-pill" id="projects-tab-accepted">accepted <span class="tab-count-pill" id="projects-count-accepted">0</span></button>
             </div>
           </div>
-          <div class="projects-right-controls" style="display: flex; align-items: center; gap: 1rem;">
+          <div class="projects-right-controls">
             <div class="search-input-wrapper">
-              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5">
+              <svg class="search-icon" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5">
                 <circle cx="11" cy="11" r="8" />
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
-              <input type="text" placeholder="Search projects..." class="cyber-search-input" id="projects-search-input" style="width: 200px;">
+              <input type="text" placeholder="Search projects..." class="cyber-search-input" id="projects-search-input">
             </div>
-            <button class="primary-btn" id="create-project-btn" style="padding: 0.45rem 1rem; border-radius: 20px; font-size: 0.85rem;">
-              <span style="font-weight: 800; margin-right: 2px;">+</span> Create Project
+            <button class="primary-btn create-project-btn-styled" id="create-project-btn">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" style="display:inline-block; vertical-align:middle; margin-right:3px;">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              <span>Create Project</span>
             </button>
           </div>
         </div>
 
-        <div class="infra-list-title" id="projects-subheadline" style="margin-bottom: 0.75rem;">SUGGESTED PROJECTS</div>
+        <div class="infra-list-title" id="projects-subheadline">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:-1px; margin-right:5px; color:var(--cyber-cyan);">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+          </svg>
+          SUGGESTED PROJECTS
+        </div>
 
-        <div class="projects-list" id="projects-list" style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem;">
+        <div class="projects-list" id="projects-list">
           <!-- Dynamic Project cards will go here -->
         </div>
 
-        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;" id="projects-accepted-summary">
-          0 projects accepted
+        <div class="projects-accepted-ratio-badge" id="projects-accepted-summary">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>0 projects accepted</span>
         </div>
       </div>
 
