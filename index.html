@@ -4458,43 +4458,88 @@ vizo361</textarea>
   <div class="cyber-modal-overlay" id="project-modal">
     <div class="cyber-modal edit-modal-container" style="max-width: 520px;">
       <div class="modal-header-row">
-        <h2 id="project-modal-title">Create Project</h2>
-        <span class="close-modal-x" id="close-project-modal-x">&times;</span>
+        <div class="modal-title-wrapper">
+          <div class="modal-header-icon-pill">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <div class="modal-title-text-group">
+            <h2 id="project-modal-title">Create Project</h2>
+            <span class="modal-subtitle">Configure domain apex and map server workloads</span>
+          </div>
+        </div>
+        <span class="close-modal-x" id="close-project-modal-x" title="Close">&times;</span>
       </div>
       
       <div class="modal-form-group">
-        <label for="project-name-input">Project Name</label>
-        <input type="text" id="project-name-input" class="cyber-modal-input" placeholder="e.g. vizo361">
+        <label for="project-name-input" class="modal-input-label">Project Name</label>
+        <div class="modal-input-wrapper">
+          <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <input type="text" id="project-name-input" class="cyber-modal-input" placeholder="e.g. vizo361">
+        </div>
       </div>
       
       <div class="modal-row-split">
         <div class="modal-form-group">
-          <label for="project-domain-input">Apex / Domain</label>
-          <input type="text" id="project-domain-input" class="cyber-modal-input" placeholder="e.g. vizo361.ai">
+          <label for="project-domain-input" class="modal-input-label">Apex / Domain</label>
+          <div class="modal-input-wrapper">
+            <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <input type="text" id="project-domain-input" class="cyber-modal-input" placeholder="e.g. vizo361.ai">
+          </div>
         </div>
         <div class="modal-form-group">
-          <label for="project-type-select">Infra Type</label>
-          <select id="project-type-select" class="cyber-modal-select">
-            <option value="dedicated">dedicated</option>
-            <option value="shared">shared</option>
-            <option value="isolated">isolated</option>
-          </select>
+          <label for="project-type-select" class="modal-input-label">Infra Type</label>
+          <div class="modal-input-wrapper">
+            <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="8" rx="2"></rect>
+              <rect x="2" y="14" width="20" height="8" rx="2"></rect>
+            </svg>
+            <select id="project-type-select" class="cyber-modal-select">
+              <option value="dedicated">dedicated</option>
+              <option value="shared">shared</option>
+              <option value="isolated">isolated</option>
+            </select>
+          </div>
         </div>
       </div>
       
 
       <div class="modal-form-group scroll-group" style="margin-top: 1rem;">
-        <label>🔗 Mapped Instances — select instances for this project</label>
-        <input type="text" id="filter-project-instances-input" placeholder="filter instances..." class="cyber-modal-input-sm">
+        <label class="modal-input-label">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:-1px; margin-right:4px; color:var(--cyber-cyan);">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+          </svg>
+          Mapped Instances — Select workloads for this project
+        </label>
+        <div class="modal-input-wrapper" style="margin-bottom: 0.6rem;">
+          <svg class="input-field-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="filter-project-instances-input" placeholder="Search workloads..." class="cyber-modal-input-sm">
+        </div>
         
-        <div class="servers-checkbox-list" id="project-instances-checkbox-list" style="max-height: 150px; overflow-y: auto;">
-          <!-- Will be filled dynamically by Javascript with checkboxes for each instance -->
+        <div class="servers-checkbox-list custom-checkbox-scroll" id="project-instances-checkbox-list" style="max-height: 160px; overflow-y: auto;">
+          <!-- Will be filled dynamically by Javascript with custom checkboxes for each instance -->
         </div>
       </div>
       
-      <div class="modal-footer-buttons" style="margin-top: 1.5rem;">
-        <button class="secondary-btn" id="cancel-project-btn">Cancel</button>
-        <button class="primary-btn" id="save-project-btn">Save Project</button>
+      <div class="modal-footer-buttons" style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.8rem;">
+        <button class="secondary-btn modal-cancel-btn" id="cancel-project-btn">Cancel</button>
+        <button class="primary-btn create-project-btn-styled" id="save-project-btn">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-right:4px;">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Save Project</span>
+        </button>
       </div>
     </div>
   </div>
