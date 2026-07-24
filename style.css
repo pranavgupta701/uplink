@@ -1663,16 +1663,16 @@ body.light-theme .subdomains-header-title {
 }
 
 .confirm-all-subs-btn.undo-state {
-  background: rgba(239, 68, 68, 0.1) !important;
-  border: 1px solid rgba(239, 68, 68, 0.4) !important;
-  color: #f87171 !important;
+  background: rgba(0, 242, 254, 0.08) !important;
+  border: 1px solid rgba(0, 242, 254, 0.4) !important;
+  color: var(--cyber-cyan) !important;
 }
 
 .confirm-all-subs-btn.undo-state:hover {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
-  border-color: #fca5a5 !important;
+  background: rgba(0, 242, 254, 0.18) !important;
+  border-color: var(--cyber-cyan) !important;
   color: #ffffff !important;
-  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4) !important;
+  box-shadow: 0 0 12px rgba(0, 242, 254, 0.3) !important;
   transform: translateY(-1px) !important;
 }
 
