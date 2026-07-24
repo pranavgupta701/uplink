@@ -11388,6 +11388,111 @@ body.light-theme .metric-val {
   text-shadow: none !important;
 }
 
+/* Commit Scope Badge Interactive Glass Hover Tooltip */
+.commit-scope-badge.has-tooltip {
+  position: relative !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.commit-scope-badge.has-tooltip:hover {
+  background: rgba(14, 165, 233, 0.2) !important;
+  border-color: #38bdf8 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 12px rgba(14, 165, 233, 0.35) !important;
+}
+
+.commit-badge-tooltip {
+  position: absolute !important;
+  bottom: calc(100% + 10px) !important;
+  left: 50% !important;
+  transform: translateX(-50%) translateY(6px) !important;
+  background: rgba(6, 11, 23, 0.95) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border: 1px solid rgba(14, 165, 233, 0.4) !important;
+  border-radius: 10px !important;
+  padding: 0.75rem 0.9rem !important;
+  min-width: 220px !important;
+  max-width: 320px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(14, 165, 233, 0.25) !important;
+  z-index: 99999 !important;
+}
+
+.commit-badge-tooltip::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  border-width: 6px !important;
+  border-style: solid !important;
+  border-color: rgba(14, 165, 233, 0.4) transparent transparent transparent !important;
+}
+
+.commit-scope-badge.has-tooltip:hover .commit-badge-tooltip {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: translateX(-50%) translateY(0) !important;
+}
+
+.tooltip-header {
+  font-family: var(--font-mono) !important;
+  font-size: 0.68rem !important;
+  font-weight: 800 !important;
+  color: #38bdf8 !important;
+  letter-spacing: 0.8px !important;
+  margin-bottom: 0.45rem !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding-bottom: 0.3rem !important;
+  text-transform: uppercase !important;
+}
+
+.tooltip-items {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.35rem !important;
+  max-height: 140px !important;
+  overflow-y: auto !important;
+}
+
+.tooltip-tag {
+  font-family: var(--font-sans) !important;
+  font-size: 0.74rem !important;
+  font-weight: 600 !important;
+  background: rgba(16, 185, 129, 0.15) !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+  color: #34d399 !important;
+  padding: 0.2rem 0.55rem !important;
+  border-radius: 4px !important;
+  word-break: break-all !important;
+}
+
+.tooltip-empty {
+  font-size: 0.74rem !important;
+  color: var(--text-muted) !important;
+  font-style: italic !important;
+}
+
+body.light-theme .commit-badge-tooltip {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.15) !important;
+}
+
+body.light-theme .tooltip-header {
+  color: #0284c7 !important;
+}
+
+body.light-theme .tooltip-tag {
+  background: #dcfce7 !important;
+  border-color: #86efac !important;
+  color: #166534 !important;
+}
+
 
 
 
