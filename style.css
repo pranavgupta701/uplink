@@ -3411,6 +3411,106 @@ body.light-theme .runs-history-table tr:hover td {
   transition: all 0.25s ease;
 }
 
+/* Client Overview Telemetry Bar */
+.client-overview-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.client-overview-bar .client-overview-card {
+  flex: 1;
+  min-width: 180px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cyber);
+  border-radius: 12px;
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.6rem;
+  min-height: 120px;
+  transition: all 0.25s ease;
+}
+
+.client-overview-bar .client-overview-card:hover {
+  border-color: rgba(0, 242, 254, 0.25);
+  transform: translateY(-2px);
+}
+
+.client-overview-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin: 0 auto;
+}
+
+.client-overview-icon.icon-cyan {
+  background: rgba(0, 242, 254, 0.1);
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  color: var(--cyber-cyan);
+}
+
+.client-overview-icon.icon-green {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: #10b981;
+}
+
+.client-overview-icon.icon-amber {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  color: #f59e0b;
+}
+
+.client-overview-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.client-overview-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 0.25rem;
+}
+
+.client-overview-value {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-align: center;
+  width: 100%;
+  line-height: 1.2;
+}
+
+.client-overview-value.val-cyan {
+  color: var(--cyber-cyan);
+}
+
+.client-overview-value.val-green {
+  color: #10b981;
+}
+
+.client-overview-value.val-amber {
+  color: #f59e0b;
+}
+
 .client-stat-card:hover,
 .project-stat-card:hover {
   border-color: rgba(0, 242, 254, 0.2);
