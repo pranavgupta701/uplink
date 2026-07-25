@@ -4160,70 +4160,155 @@ vizo361</textarea>
     </div>
   </div>
 
-  <!-- Cyber Edit Modal -->
+  <!-- Cyber Edit Instance Modal -->
   <div class="cyber-modal-overlay" id="edit-modal">
-    <div class="cyber-modal edit-modal-container">
+    <div class="cyber-modal edit-modal-container" style="max-width: 540px;">
       <div class="modal-header-row">
-        <h2>Edit instance</h2>
-        <span class="close-modal-x" id="close-edit-modal-x">&times;</span>
-      </div>
-      
-      <div class="modal-form-group">
-        <label for="edit-instance-name">Name</label>
-        <input type="text" id="edit-instance-name" class="cyber-modal-input">
-      </div>
-      
-      <div class="modal-row-split">
-        <div class="modal-form-group">
-          <label for="edit-instance-env">Env</label>
-          <select id="edit-instance-env" class="cyber-modal-select">
-            <option value="PROD">PROD</option>
-            <option value="TEST">TEST</option>
-            <option value="UAT">UAT</option>
-            <option value="DEMO">DEMO</option>
-          </select>
+        <div class="modal-title-wrapper">
+          <div class="modal-header-icon-pill">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--cyber-cyan)" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <div class="modal-title-text-group">
+            <h2>Edit Workload Instance</h2>
+            <span class="modal-subtitle">Re-configure instance metadata, environment tier, workload type, and underlying host server associations</span>
+          </div>
         </div>
-        <div class="modal-form-group">
-          <label for="edit-instance-type">Type</label>
-          <select id="edit-instance-type" class="cyber-modal-select">
-            <option value="shared">shared</option>
-            <option value="dedicated">dedicated</option>
-            <option value="isolated">isolated</option>
-          </select>
-        </div>
+        <button class="modal-close-icon-btn" id="close-edit-modal-x" title="Close">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
       </div>
-      
-      <div class="modal-form-group scroll-group">
-        <label>📁 Servers (M:N) — 52 known</label>
-        <input type="text" id="filter-servers-input" placeholder="filter servers..." class="cyber-modal-input-sm">
+
+      <div class="modal-body" style="padding: 1.2rem 0; display: flex; flex-direction: column; gap: 1.1rem; text-align: left;">
         
-        <div class="servers-checkbox-list">
-          <div class="checkbox-row" data-server-name="bbb">
-            <input type="checkbox" id="chk-bbb" value="bbb">
-            <label for="chk-bbb">bbb</label>
-          </div>
-          <div class="checkbox-row" data-server-name="bpe-server">
-            <input type="checkbox" id="chk-bpe" value="bpe-server">
-            <label for="chk-bpe">bpe-server</label>
-          </div>
-          <div class="checkbox-row" data-server-name="brief_gates_app_server">
-            <input type="checkbox" id="chk-brief-gates" value="brief_gates_app_server">
-            <label for="chk-brief-gates">brief_gates_app_server</label>
-          </div>
-          <div class="checkbox-row" data-server-name="briefgates-zivux">
-            <input type="checkbox" id="chk-bg-zivux" value="briefgates-zivux">
-            <label for="chk-bg-zivux">briefgates-zivux</label>
-          </div>
-          <div class="checkbox-row" data-server-name="cadbird-api">
-            <input type="checkbox" id="chk-cadbird" value="cadbird-api">
-            <label for="chk-cadbird">cadbird-api</label>
+        <div class="modal-form-group">
+          <label for="edit-instance-name" class="modal-input-label">
+            Instance Name <span style="color: #ef4444;">*</span>
+          </label>
+          <div class="modal-input-wrapper">
+            <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            <input type="text" id="edit-instance-name" class="cyber-modal-input" placeholder="e.g. vizo361-prod" style="font-family: var(--font-mono); font-weight: 700; color: var(--cyber-cyan);">
           </div>
         </div>
+
+        <div class="modal-row-split">
+          <div class="modal-form-group">
+            <label for="edit-instance-env" class="modal-input-label">
+              Env Tier
+            </label>
+            <div class="modal-input-wrapper">
+              <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+              </svg>
+              <select id="edit-instance-env" class="cyber-modal-select" style="width: 100%; font-size: 0.8rem; font-weight: 700;">
+                <option value="PROD">PROD</option>
+                <option value="TEST">TEST</option>
+                <option value="UAT">UAT</option>
+                <option value="DEMO">DEMO</option>
+                <option value="STAGING">STAGING</option>
+                <option value="DEV">DEV</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="modal-form-group">
+            <label for="edit-instance-type" class="modal-input-label">
+              Workload Type
+            </label>
+            <div class="modal-input-wrapper">
+              <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                <rect x="9" y="9" width="6" height="6"></rect>
+                <line x1="9" y1="1" x2="9" y2="4"></line>
+                <line x1="15" y1="1" x2="15" y2="4"></line>
+                <line x1="9" y1="20" x2="9" y2="23"></line>
+                <line x1="15" y1="20" x2="15" y2="23"></line>
+                <line x1="20" y1="9" x2="23" y2="9"></line>
+                <line x1="20" y1="15" x2="23" y2="15"></line>
+                <line x1="1" y1="9" x2="4" y2="9"></line>
+                <line x1="1" y1="15" x2="4" y2="15"></line>
+              </svg>
+              <select id="edit-instance-type" class="cyber-modal-select" style="width: 100%; font-size: 0.8rem; font-weight: 700;">
+                <option value="shared">shared</option>
+                <option value="dedicated">dedicated</option>
+                <option value="isolated">isolated</option>
+                <option value="multi-tenant">multi-tenant</option>
+                <option value="serverless">serverless</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-form-group scroll-group" style="margin-top: 0.5rem;">
+          <label class="modal-input-label" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:-2px; margin-right:5px; color:var(--cyber-cyan);">
+                <rect x="2" y="2" width="20" height="8" rx="2"></rect>
+                <rect x="2" y="14" width="20" height="8" rx="2"></rect>
+                <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                <line x1="6" y1="18" x2="6.01" y2="18"></line>
+              </svg>
+              Associated Host Servers (M:N)
+            </span>
+            <span style="font-size: 0.7rem; color: var(--cyber-cyan); font-family: var(--font-mono); font-weight: 700;" id="edit-instance-known-servers-count">52 KNOWN</span>
+          </label>
+          <div class="modal-input-wrapper" style="margin-bottom: 0.6rem;">
+            <svg class="input-field-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="filter-servers-input" class="cyber-modal-input-sm" placeholder="Filter servers by hostname...">
+          </div>
+          
+          <div class="servers-checkbox-list custom-checkbox-scroll" style="max-height: 170px; overflow-y: auto;">
+            <div class="checkbox-row" data-server-name="bbb">
+              <input type="checkbox" id="chk-bbb" value="bbb">
+              <label for="chk-bbb">bbb</label>
+            </div>
+            <div class="checkbox-row" data-server-name="bpe-server">
+              <input type="checkbox" id="chk-bpe" value="bpe-server">
+              <label for="chk-bpe">bpe-server</label>
+            </div>
+            <div class="checkbox-row" data-server-name="brief_gates_app_server">
+              <input type="checkbox" id="chk-brief-gates" value="brief_gates_app_server">
+              <label for="chk-brief-gates">brief_gates_app_server</label>
+            </div>
+            <div class="checkbox-row" data-server-name="briefgates-zivux">
+              <input type="checkbox" id="chk-bg-zivux" value="briefgates-zivux">
+              <label for="chk-bg-zivux">briefgates-zivux</label>
+            </div>
+            <div class="checkbox-row" data-server-name="cadbird-api">
+              <input type="checkbox" id="chk-cadbird" value="cadbird-api">
+              <label for="chk-cadbird">cadbird-api</label>
+            </div>
+          </div>
+        </div>
+
+        <div style="background: rgba(0, 242, 254, 0.05); border: 1px solid rgba(0, 242, 254, 0.2); border-radius: 6px; padding: 0.6rem 0.8rem; font-size: 0.72rem; color: var(--cyber-cyan); display: flex; align-items: center; gap: 0.55rem;">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          <span>Modifying server associations updates real-time topology mapping across all parent projects and client tenants.</span>
+        </div>
+
       </div>
-      
-      <div class="modal-footer-buttons">
-        <button class="secondary-btn" id="cancel-edit-btn">Cancel</button>
-        <button class="primary-btn" id="save-edit-btn">Save</button>
+
+      <div class="modal-footer-buttons" style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 0.8rem;">
+        <button class="secondary-btn modal-cancel-btn" id="cancel-edit-btn">Cancel</button>
+        <button class="primary-btn create-project-btn-styled" id="save-edit-btn" style="display: flex; align-items: center; gap: 0.45rem;">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Save Changes</span>
+        </button>
       </div>
     </div>
   </div>
