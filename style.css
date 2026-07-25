@@ -3920,11 +3920,25 @@ body.light-theme .field-helper-text {
 }
 
 body.light-theme .cyber-modal-input,
-body.light-theme .cyber-modal-select,
 body.light-theme .cyber-modal-input-sm {
-  background: #ffffff;
-  border-color: #cbd5e1;
-  color: #0f172a;
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+body.light-theme select,
+body.light-theme .cyber-modal-select,
+body.light-theme .client-select-cyber {
+  background-color: #ffffff !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230284c7' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 1rem center !important;
+  background-size: 12px 12px !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
 }
 
 body.light-theme .servers-checkbox-list {
@@ -11979,6 +11993,46 @@ body.light-theme .client-select-cyber {
   border-color: #cbd5e1 !important;
   color: #0f172a !important;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230284c7' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 1rem center !important;
+  background-size: 12px 12px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+body.light-theme .client-select-cyber option,
+body.light-theme select.cyber-modal-select option,
+body.light-theme select option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+body.light-theme .client-project-name {
+  color: #0f172a !important;
+  font-weight: 800 !important;
+}
+
+body.light-theme .client-domain-tag {
+  background: rgba(2, 132, 199, 0.08) !important;
+  border-color: rgba(2, 132, 199, 0.25) !important;
+  color: #0284c7 !important;
+}
+
+body.light-theme .client-project-icon-pill {
+  background: rgba(2, 132, 199, 0.08) !important;
+  border-color: rgba(2, 132, 199, 0.25) !important;
+  color: #0284c7 !important;
+}
+
+body.light-theme .client-project-status-pill.unassigned {
+  background: rgba(245, 158, 11, 0.12) !important;
+  border-color: rgba(245, 158, 11, 0.4) !important;
+  color: #d97706 !important;
+}
+
+body.light-theme .client-project-status-pill.assigned {
+  background: rgba(16, 185, 129, 0.12) !important;
+  border-color: rgba(16, 185, 129, 0.4) !important;
+  color: #059669 !important;
 }
 
 /* Client Telemetry Overview Bar Grid & Centered Alignment */
