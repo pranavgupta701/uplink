@@ -10292,7 +10292,20 @@ body.light-theme #add-source-modal .primary-btn {
 }
 
 body.light-theme #add-source-modal .primary-btn:hover {
-  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.35) !important;
+/* VirusTotal Modal Custom Scrollbar */
+.vt-modal-scrollable::-webkit-scrollbar {
+  width: 6px;
+}
+.vt-modal-scrollable::-webkit-scrollbar-track {
+  background: rgba(5, 8, 17, 0.4);
+  border-radius: 4px;
+}
+.vt-modal-scrollable::-webkit-scrollbar-thumb {
+  background: rgba(244, 63, 94, 0.4);
+  border-radius: 4px;
+}
+.vt-modal-scrollable::-webkit-scrollbar-thumb:hover {
+  background: rgba(244, 63, 94, 0.8);
 }
 
 
