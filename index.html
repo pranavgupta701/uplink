@@ -2718,7 +2718,7 @@
           <div class="soc-metric-card">
             <span class="metric-lbl">Data Ingestion</span>
             <div class="metric-value-row">
-              <span class="metric-val">65 TB/24H</span>
+              <span class="metric-val" id="soc-data-ingestion">65.00 TB/24H</span>
               <svg class="sparkline-svg" width="80" height="20" viewBox="0 0 80 20">
                 <path d="M 0,18 Q 10,8 20,14 T 40,5 T 60,16 T 80,8" fill="none" stroke="var(--cyber-cyan)" stroke-width="2"></path>
               </svg>
@@ -2751,7 +2751,7 @@
           <div class="soc-metric-card">
             <span class="metric-lbl">Oldest Open Case</span>
             <div class="metric-value-row">
-              <span class="metric-val" style="color: var(--cyber-cyan);">1.5 Days</span>
+              <span class="metric-val" id="soc-oldest-case" style="color: var(--cyber-cyan);">1.50 Days</span>
               <span style="font-size: 0.72rem; color: var(--text-muted);">P95 Age: 8.4 Hours</span>
             </div>
           </div>
@@ -2759,7 +2759,7 @@
           <div class="soc-metric-card">
             <span class="metric-lbl">P50 Response Time</span>
             <div class="metric-value-row">
-              <span class="metric-val" style="color: var(--cyber-green);">2.1 Hours</span>
+              <span class="metric-val" id="soc-p50-response" style="color: var(--cyber-green);">2.10 Hours</span>
               <span style="font-size: 0.72rem; color: var(--text-muted);">Goal: &lt; 4.0 Hours</span>
             </div>
           </div>
@@ -2775,7 +2775,7 @@
           <div class="soc-metric-card">
             <span class="metric-lbl">False Positive (7D)</span>
             <div class="metric-value-row">
-              <span class="metric-val" style="color: var(--text-secondary);">20 Cases</span>
+              <span class="metric-val" id="soc-false-positive" style="color: var(--text-secondary);">20 Cases</span>
               <span class="status-badge-soc soc-status-offline" style="padding: 0.1rem 0.4rem; font-size: 0.7rem;">Exceptions Added</span>
             </div>
           </div>
@@ -2974,6 +2974,48 @@
       </div>
       <!-- PANEL 2: Threat Intel & MITRE Dashboard -->
       <div id="soc-panel-threatintel" class="soc-panel-content">
+        
+        <!-- Active SOC Incidents & Analyst Workload -->
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-top: 1rem;">
+          <!-- Active SOC Incidents Card -->
+          <div class="soc-card" style="background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.8rem;">
+              <h3 style="font-size: 0.88rem; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin: 0;">ACTIVE SOC INCIDENTS</h3>
+              <span id="active-soc-count" style="font-size: 0.68rem; color: var(--text-muted); font-family: var(--font-mono); font-weight: 700; text-transform: uppercase;">0 ACTIVE CASES</span>
+            </div>
+            
+            <!-- Table Header -->
+            <div style="display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr; gap: 1rem; padding-bottom: 0.5rem; font-size: 0.65rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 0.5rem;">
+              <div>INCIDENT</div>
+              <div>ASSIGNED ANALYST</div>
+              <div>STATUS</div>
+              <div style="text-align: right;">SOAR PLAYBOOK</div>
+            </div>
+            
+            <div id="active-soc-incidents-list" style="display: flex; flex-direction: column; gap: 0.2rem;">
+              <!-- JS Populate -->
+            </div>
+          </div>
+          
+          <!-- Analyst Workload Card -->
+          <div class="soc-card" style="background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem;">
+             <h3 style="font-size: 0.88rem; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin: 0; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.8rem;">ANALYST WORKLOAD &amp; CASES</h3>
+             
+             <div id="analyst-workload-list" style="display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 1.5rem;">
+               <!-- JS Populate -->
+             </div>
+             
+             <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.6rem;">
+               <span>Open Investigations:</span>
+               <span id="total-open-inv" style="color: #f43f5e; font-family: var(--font-mono); font-weight: 700;">0</span>
+             </div>
+             <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--text-muted);">
+               <span>Closed Investigations:</span>
+               <span style="color: #10b981; font-family: var(--font-mono); font-weight: 700;">86</span>
+             </div>
+          </div>
+        </div>
+
         <!-- Geographic Telemetry Threat Map -->
         <div class="soc-card" style="background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem; margin-top: 1rem; margin-bottom: 1.5rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
@@ -3218,7 +3260,13 @@
         <div id="security-dashboard-view" class="security-dashboard-container">
     <div class="security-header-row" style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 2rem; border-bottom:1px solid var(--border-cyber); padding-bottom: 1.25rem;">
       <div class="security-header-left">
-        <h1 class="security-title" style="font-size: 2rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.25rem;">Security</h1>
+        <h1 class="security-title" style="font-size: 2rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.6rem;">
+          <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--cyber-cyan);">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          Security
+        </h1>
         <p class="security-subtitle" style="font-size: 0.85rem; color: var(--text-muted);">SIEM findings across the estate — leakage, breaches, IDS.</p>
       </div>
       <div class="security-header-right" style="display: flex; align-items: center; gap: 0.5rem;">
@@ -3652,20 +3700,39 @@
             </div>
             
             <!-- VIRUSTOTAL API KEY CONFIGURATION CARD -->
-            <div style="background: rgba(244, 63, 94, 0.05); border: 1px solid rgba(244, 63, 94, 0.3); border-radius: 8px; padding: 1rem;" class="settings-integration-item">
+            <div style="background: rgba(244, 63, 94, 0.05); border: 1px solid rgba(244, 63, 94, 0.3); border-radius: 8px; padding: 1rem; margin-bottom: 1rem;" class="settings-integration-item">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
                 <div>
                   <strong style="color: var(--text-primary); font-size: 0.85rem; display: flex; align-items: center; gap: 0.4rem;">
-                    <span style="color: #f43f5e;">🛡️</span> VirusTotal Realtime Intelligence v3 API Key
+                    <span style="color: #f43f5e;">🛡️</span> VirusTotal Realtime Intelligence v3
                   </strong>
-                  <div style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 0.15rem;">Power live IP/domain threat lookups &amp; SHA-256 file scans across the Security Panel</div>
+                  <div style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 0.15rem;">Configure your VirusTotal v3 API key for live threat intelligence lookups &amp; SHA-256 file scanner.</div>
                 </div>
-                <span id="settings-vt-status-pill" style="font-size: 0.68rem; padding: 0.2rem 0.55rem; border-radius: 4px; background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.3); color: var(--cyber-cyan); font-weight: 700;">Realtime Shield Active</span>
+                <span id="settings-vt-status-pill" style="font-size: 0.68rem; padding: 0.2rem 0.55rem; border-radius: 4px; background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.3); color: var(--cyber-cyan); font-weight: 700;">Active Engine</span>
               </div>
               <div style="display: flex; gap: 0.6rem; margin-top: 0.75rem;">
                 <input type="password" id="settings-vt-api-key-input" placeholder="Paste VirusTotal v3 API Key (64-character hex key)..." style="flex: 1; background: rgba(5,8,17,0.85); border: 1px solid var(--border-cyber); border-radius: 6px; padding: 0.55rem 0.85rem; font-size: 0.78rem; color: var(--text-primary); font-family: var(--font-mono); outline: none;">
                 <button id="settings-vt-save-key-btn" class="primary-btn" style="background: #f43f5e; color: #fff; padding: 0.55rem 1.1rem; font-size: 0.75rem; font-weight: 700; border-radius: 6px; border: none; cursor: pointer; white-space: nowrap;">
-                  Save Key
+                  Save API Key
+                </button>
+              </div>
+            </div>
+
+            <!-- YARA RULES CONFIGURATION CARD -->
+            <div style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px; padding: 1rem;" class="settings-integration-item">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                <div>
+                  <strong style="color: var(--text-primary); font-size: 0.85rem; display: flex; align-items: center; gap: 0.4rem;">
+                    <span style="color: #10b981;">🛡️</span> YARA Endpoint Security Engine
+                  </strong>
+                  <div style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 0.15rem;">Configure your centralized YARA rules repository path to sync across Wazuh agents.</div>
+                </div>
+                <span id="settings-yara-status-pill" style="font-size: 0.68rem; padding: 0.2rem 0.55rem; border-radius: 4px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #10b981; font-weight: 700;">Engine Enabled</span>
+              </div>
+              <div style="display: flex; gap: 0.6rem; margin-top: 0.75rem;">
+                <input type="text" id="settings-yara-path-input" placeholder="Enter path to YARA rules repository (e.g. /opt/yara/rules)..." style="flex: 1; background: rgba(5,8,17,0.85); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; padding: 0.55rem 0.85rem; font-size: 0.78rem; color: var(--text-primary); font-family: var(--font-mono); outline: none;">
+                <button id="settings-yara-save-path-btn" class="primary-btn" style="background: #10b981; color: #fff; padding: 0.55rem 1.1rem; font-size: 0.75rem; font-weight: 700; border-radius: 6px; border: none; cursor: pointer; white-space: nowrap;">
+                  Save Path
                 </button>
               </div>
             </div>
@@ -3677,6 +3744,26 @@
       <div class="modal-buttons" style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem;">
         <button class="secondary-btn" id="settings-close-btn" style="padding: 0.5rem 1.2rem;">Close</button>
         <button class="primary-btn" id="settings-save-btn" style="padding: 0.5rem 1.5rem;">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Analyst Cases Modal -->
+  <div class="cyber-modal-overlay" id="analyst-cases-modal">
+    <div class="cyber-modal" style="max-width: 500px; width: 92%;">
+      <div class="modal-header" style="border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+          <h3 id="analyst-cases-title" style="font-size: 1.15rem; font-weight: 800; color: var(--text-primary); margin: 0 0 0.2rem 0; display: flex; align-items: center; gap: 0.5rem;">
+            Analyst Cases
+          </h3>
+          <p style="font-size: 0.78rem; color: var(--text-muted); margin: 0;">Currently assigned active investigations.</p>
+        </div>
+        <button class="modal-close" id="analyst-cases-close-btn">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 1.2rem 0;">
+        <div id="analyst-cases-list" style="display: flex; flex-direction: column; gap: 0.8rem;">
+          <!-- JS Populate -->
+        </div>
       </div>
     </div>
   </div>
