@@ -11992,5 +11992,58 @@ echo "[SUCCESS] Task completed."`
     renderDetectionRulesTable();
   }
 
+  // Expose global button handlers
+  window.triggerPatch = function(btn) {
+    if (btn.textContent === 'Patching...') return;
+    
+    btn.innerHTML = '<svg class="spin-icon" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" style="animation: spin 1s linear infinite; margin-right: 4px;"><circle cx="12" cy="12" r="10"></circle><path d="M12 2v4"></path></svg> Patching...';
+    btn.style.width = '105px';
+    btn.style.opacity = '0.8';
+    
+    if (typeof showToast === 'function') {
+      showToast('Initiating emergency patch deployment...');
+    }
+    
+    setTimeout(() => {
+      btn.innerHTML = 'Patched';
+      btn.classList.remove('btn-restart');
+      btn.style.background = 'rgba(16, 185, 129, 0.15)';
+      btn.style.color = '#10b981';
+      btn.style.borderColor = 'rgba(16, 185, 129, 0.4)';
+      btn.style.width = '90px';
+      
+      if (typeof showToast === 'function') {
+        showToast('Patch successfully deployed and verified.');
+      }
+    }, 2500);
+  };
+
+  window.triggerGlobalScan = function(btn) {
+    const textSpan = btn.querySelector('.scan-text');
+    const svgIcon = btn.querySelector('.scan-icon');
+    
+    if (textSpan.textContent === 'SCANNING...') return;
+    
+    textSpan.textContent = 'SCANNING...';
+    btn.style.borderColor = 'var(--cyber-cyan)';
+    btn.style.background = 'rgba(0, 242, 254, 0.15)';
+    svgIcon.style.animation = 'pulse-core 1.5s infinite';
+    
+    if (typeof showToast === 'function') {
+      showToast('Wazuh Global Vulnerability Scan triggered across all agents.');
+    }
+    
+    setTimeout(() => {
+      textSpan.textContent = 'RUN GLOBAL SCAN';
+      btn.style.borderColor = 'rgba(0, 242, 254, 0.4)';
+      btn.style.background = 'rgba(0, 242, 254, 0.05)';
+      svgIcon.style.animation = 'none';
+      
+      if (typeof showToast === 'function') {
+        showToast('Global Scan completed. 0 new vulnerabilities found.');
+      }
+    }, 3000);
+  };
+
   initSocEnterpriseModules();
 });

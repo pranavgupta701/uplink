@@ -12447,3 +12447,37 @@ body.light-theme .team-card:hover {
   border-color: rgba(14, 165, 233, 0.3) !important;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
+
+/* SOC - SCA & Vulnerability Dashboard Styles */
+.sca-controls-table th {
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.light-theme .sca-controls-table th {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.sca-controls-table td {
+  padding: 1.25rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+body.light-theme .sca-controls-table td {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.view-all-link {
+  color: var(--cyber-cyan);
+  font-size: 0.8rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.view-all-link:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
