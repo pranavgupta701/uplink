@@ -12393,3 +12393,57 @@ body.light-theme .confirm-all-subs-btn.undo-state:hover {
   background: rgba(244, 63, 94, 0.2);
   color: #f43f5e;
 }
+
+/* 
+  ===========================================
+  ROLES & ACCESS PAGE STYLES
+  ===========================================
+*/
+.roles-tab-btn {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0.6rem 0.2rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  margin-bottom: -1px;
+}
+
+.roles-tab-btn:hover {
+  color: var(--text-primary);
+}
+
+.roles-tab-btn.active {
+  color: var(--cyber-cyan);
+  border-bottom-color: var(--cyber-cyan);
+}
+
+.team-card:hover {
+  background: rgba(255,255,255,0.05) !important;
+  border-color: rgba(0, 242, 254, 0.4) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
+}
+
+body.light-theme .roles-tab-btn {
+  color: var(--text-muted);
+}
+body.light-theme .roles-tab-btn:hover {
+  color: var(--text-primary);
+}
+body.light-theme .roles-tab-btn.active {
+  color: var(--cyber-cyan);
+  border-bottom-color: var(--cyber-cyan);
+}
+body.light-theme .team-card:hover {
+  background: #f8fafc !important;
+  border-color: rgba(14, 165, 233, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
