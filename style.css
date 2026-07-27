@@ -12160,3 +12160,217 @@ body.light-theme .confirm-all-subs-btn.undo-state:hover {
 .vt-modal-scrollable::-webkit-scrollbar-thumb:hover {
   background: rgba(244, 63, 94, 0.8);
 }
+
+/* Endpoint Agent Row Styles */
+.endpoint-agent-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.endpoint-agent-row:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.agent-host-col {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 250px;
+}
+.agent-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+}
+.agent-icon-wrapper svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--text-muted);
+}
+.agent-name-ip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.agent-hostname-text {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+.agent-ip-text {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.agent-status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  width: 80px;
+  text-align: center;
+}
+.agent-status-badge.active {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+.agent-status-badge.warning {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+.agent-status-badge.quarantined {
+  background: rgba(244, 63, 94, 0.15);
+  color: #f43f5e;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+.agent-status-badge.restarting {
+  background: rgba(139, 92, 246, 0.15);
+  color: #8b5cf6;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.agent-metric-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 150px;
+}
+.agent-metric-lbl {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  width: 25px;
+}
+.agent-bar-track {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.agent-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+.agent-metric-val {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  width: 35px;
+  text-align: right;
+}
+
+.agent-last-seen-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  width: 100px;
+  text-align: right;
+}
+
+.agent-actions-group {
+  display: flex;
+  gap: 8px;
+}
+.agent-action-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.agent-action-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.agent-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.agent-action-btn.btn-quarantine {
+  color: #f43f5e;
+  border-color: rgba(244, 63, 94, 0.3);
+}
+.agent-action-btn.btn-quarantine:hover:not(:disabled) {
+  background: rgba(244, 63, 94, 0.15);
+}
+.agent-action-btn.btn-unquarantine {
+  color: #10b981;
+  border-color: rgba(16, 185, 129, 0.3);
+}
+.agent-action-btn.btn-unquarantine:hover:not(:disabled) {
+  background: rgba(16, 185, 129, 0.15);
+}
+
+/* MITRE Matrix Styles */
+.mitre-tactic-col {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 160px;
+}
+.mitre-tactic-header {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 4px;
+}
+.mitre-tech-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.mitre-tech-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+.mitre-tech-item.has-alerts {
+  color: var(--text-primary);
+  background: rgba(244, 63, 94, 0.05);
+  border-left: 2px solid #f43f5e;
+}
+.mitre-count-badge {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+.mitre-tech-item.has-alerts .mitre-count-badge {
+  background: rgba(244, 63, 94, 0.2);
+  color: #f43f5e;
+}
