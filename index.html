@@ -3692,25 +3692,65 @@
           </div>
         </div>
         
-        <!-- Section 3: File Integrity Monitoring (FIM) Placeholder -->
-        <div class="act-now-section-card" style="margin-bottom: 0;">
-          <div class="act-now-header">
-            <span>FILE INTEGRITY MONITORING (FIM)</span>
-          </div>
-          <div class="empty-state" style="padding: 4rem; text-align: center;">
-            <svg viewBox="0 0 24 24" width="48" height="48" stroke="var(--cyber-cyan)" fill="none" stroke-width="1.5" style="margin-bottom: 1rem; opacity: 0.7;">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-              <polyline points="10 9 9 9 8 9"></polyline>
-            </svg>
-            <h3 style="color: var(--text-primary); font-size: 1.2rem; margin-bottom: 0.5rem;">FIM Engine Active</h3>
-            <p style="color: var(--text-muted); font-size: 0.9rem; max-width: 400px; margin: 0 auto;">Wazuh syscheck telemetry is being recorded. This space will house FIM analytics.</p>
+                <!-- Section 3: File Integrity Monitoring (FIM) -->
+        <div style="margin-top: 2rem;">
+          <h3 style="font-size: 0.88rem; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem;">File Integrity Monitoring (Syscheck)</h3>
+          
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem;">
+            
+            <!-- Live FIM Event Feed -->
+            <div class="soc-card" style="background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h4 style="font-size: 0.8rem; font-weight: 700; color: var(--text-primary); margin: 0; text-transform: uppercase;">Live Event Feed</h4>
+                <div style="display: flex; gap: 0.5rem;">
+                  <input type="text" placeholder="Search path or hash..." style="background: rgba(5,8,17,0.8); border: 1px solid var(--border-cyber); border-radius: 4px; padding: 0.3rem 0.6rem; font-size: 0.75rem; color: var(--text-primary); font-family: var(--font-mono); width: 180px; outline: none;">
+                </div>
+              </div>
+              
+              <div class="act-now-table-wrapper" style="max-height: 350px; overflow-y: auto;">
+                <table class="act-now-table fim-events-table">
+                  <thead>
+                    <tr>
+                      <th>TIMESTAMP</th>
+                      <th>FILE PATH</th>
+                      <th>EVENT</th>
+                      <th>ATTRIBUTED USER</th>
+                    </tr>
+                  </thead>
+                  <tbody id="fim-live-feed-body">
+                    <!-- Populated via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            
+            <!-- FIM Analytics Column -->
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+              
+              <!-- Syscheck Alerts Chart -->
+              <div class="soc-card" style="background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem; flex: 1;">
+                <h4 style="font-size: 0.8rem; font-weight: 700; color: var(--text-primary); margin: 0 0 1rem 0; text-transform: uppercase;">Syscheck Activity Radar</h4>
+                <div style="height: 120px; display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 0.5rem;" id="fim-activity-chart">
+                  <!-- JS populates bars -->
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.65rem; color: var(--text-muted); font-family: var(--font-mono);">
+                  <span>-24h</span>
+                  <span>Now</span>
+                </div>
+              </div>
+
+              <!-- Top Monitored Directories -->
+              <div class="soc-card" style="background: var(--bg-card); border: 1px solid var(--border-cyber); border-radius: 10px; padding: 1.5rem; flex: 1;">
+                <h4 style="font-size: 0.8rem; font-weight: 700; color: var(--text-primary); margin: 0 0 1rem 0; text-transform: uppercase;">Top Target Directories</h4>
+                <ul id="fim-top-dirs-list" style="list-style: none; padding: 0; margin: 0; font-size: 0.8rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 1rem;">
+                  <!-- JS populates list -->
+                </ul>
+              </div>
+
+            </div>
           </div>
         </div>
-
-      </div> <!-- Closes #soc-panel-sca-inner -->
+</div> <!-- Closes #soc-panel-sca-inner -->
       </div>
 
       <!-- PANEL 3: Analytics & Endpoint Health Dashboard -->
@@ -6097,5 +6137,6 @@ vizo361</textarea>
 <script src="app.js"></script>
 </body>
 </html>
+
 
 

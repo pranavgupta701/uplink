@@ -12047,3 +12047,65 @@ echo "[SUCCESS] Task completed."`
 
   initSocEnterpriseModules();
 });
+
+function renderFimDashboard() {
+  const feedBody = document.getElementById('fim-live-feed-body');
+  const dirsList = document.getElementById('fim-top-dirs-list');
+  const activityChart = document.getElementById('fim-activity-chart');
+
+  if (!feedBody || !dirsList || !activityChart) return;
+
+  const mockEvents = [
+    { time: '10:42:05', path: '/etc/shadow', event: 'Modified', user: 'root' },
+    { time: '10:41:12', path: '/var/www/html/config.php', event: 'Modified', user: 'apache' },
+    { time: '10:38:55', path: 'C:\\Windows\\System32\\drivers\\etc\\hosts', event: 'Modified', user: 'SYSTEM' },
+    { time: '10:35:10', path: '/home/jdoe/.ssh/authorized_keys', event: 'Added', user: 'jdoe' },
+    { time: '10:30:22', path: '/opt/nginx/conf/nginx.conf', event: 'Deleted', user: 'root' }
+  ];
+
+  feedBody.innerHTML = mockEvents.map(ev => {
+    let badgeClass = 'fim-badge-mod';
+    if (ev.event === 'Added') badgeClass = 'fim-badge-add';
+    if (ev.event === 'Deleted') badgeClass = 'fim-badge-del';
+    
+    return `
+      <tr>
+        <td style="color: var(--text-muted); font-family: var(--font-mono);">${ev.time}</td>
+        <td style="color: var(--text-primary); font-family: var(--font-mono); font-size: 0.75rem;">${ev.path}</td>
+        <td><span class="fim-badge ${badgeClass}">${ev.event}</span></td>
+        <td style="color: var(--cyber-cyan); font-weight: 600;">${ev.user}</td>
+      </tr>
+    `;
+  }).join('');
+
+  const topDirs = [
+    { dir: '/var/www/html/', count: 145 },
+    { dir: '/etc/', count: 82 },
+    { dir: 'C:\\Windows\\System32\\', count: 45 },
+    { dir: '/opt/myapp/logs/', count: 22 }
+  ];
+
+  dirsList.innerHTML = topDirs.map(d => `
+    <li style="display: flex; justify-content: space-between; align-items: center;">
+      <span style="color: var(--text-primary); font-family: var(--font-mono); font-size: 0.75rem;">${d.dir}</span>
+      <span style="background: rgba(255,255,255,0.05); padding: 0.15rem 0.4rem; border-radius: 4px; font-weight: 700; color: var(--cyber-cyan);">${d.count}</span>
+    </li>
+  `).join('');
+
+  // Generate 24 random bars for the radar chart
+  let chartHtml = '';
+  for (let i = 0; i < 24; i++) {
+    // Generate a spike near the end to simulate ransomware activity
+    const height = (i > 18 && i < 22) ? Math.floor(Math.random() * 60 + 40) : Math.floor(Math.random() * 20 + 5);
+    const color = (height > 50) ? '#f43f5e' : 'var(--cyber-cyan)';
+    chartHtml += `<div class="fim-bar" style="height: ${height}%; background: ${color};"></div>`;
+  }
+  activityChart.innerHTML = chartHtml;
+}
+
+// Ensure it runs after DOM load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', renderFimDashboard);
+} else {
+  renderFimDashboard();
+}

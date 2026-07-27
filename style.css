@@ -12481,3 +12481,56 @@ body.light-theme .sca-controls-table td {
   color: var(--text-primary);
   text-decoration: underline;
 }
+
+/* SOC - FIM Dashboard Styles */
+.fim-events-table th {
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.fim-events-table td {
+  padding: 1rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  font-size: 0.78rem;
+}
+
+body.light-theme .fim-events-table th { border-bottom: 1px solid rgba(0,0,0,0.05); }
+body.light-theme .fim-events-table td { border-bottom: 1px solid rgba(0,0,0,0.03); }
+
+.fim-badge {
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+.fim-badge-mod {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+}
+
+.fim-badge-add {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.fim-badge-del {
+  background: rgba(244, 63, 94, 0.15);
+  color: #f43f5e;
+}
+
+.fim-bar {
+  flex: 1;
+  background: var(--cyber-cyan);
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.fim-bar:hover {
+  opacity: 1;
+}
