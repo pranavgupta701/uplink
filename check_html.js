@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const html = fs.readFileSync('/Users/nirvaankatyal/uplink/index.html', 'utf8');
+const html = fs.readFileSync('./index.html', 'utf8');
 
 function getLineAndCol(pos) {
   const lines = html.substring(0, pos).split('\n');

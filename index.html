@@ -311,39 +311,59 @@
 
       <!-- Step 2 View: Infrastructure Design -->
       <div id="step-view-2" class="step-view hidden">
-        <div class="infra-desc">
-          The estate's <strong class="notice-highlight">raw building blocks</strong> — every <strong>server</strong>, <strong>app / URL</strong>, <strong>database</strong> and <strong>domain</strong> the ingest found. Confirm what's real; <strong class="notice-highlight">quarantine</strong> noise (archived server-side, reversible). Confirmed apps get grouped into instances next.
+        <!-- Guidance Notice Banner -->
+        <div class="infra-notice-box" style="margin-bottom: 1.5rem;">
+          <div class="notice-box-card glow-cyan">
+            <div class="notice-card-left">
+              <div class="notice-icon-pill cyan">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                  <polyline points="2 17 12 22 22 17"></polyline>
+                  <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+              </div>
+              <div class="notice-text-content">
+                <span class="notice-heading">Discovered Infrastructure Estate</span>
+                <span class="notice-desc">The estate's <strong class="notice-highlight">raw building blocks</strong> — every server, app / URL, database and domain the ingest found. Confirm active assets; <strong class="notice-highlight">quarantine</strong> noise endpoints.</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Infrastructure Dropdown Navigation Tabs -->
-        <div class="infra-tabs">
-          <button class="infra-tab-btn active" data-tab="servers">
-            <svg class="tab-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2">
-              <rect x="2" y="2" width="20" height="8" rx="2" />
-              <rect x="2" y="14" width="20" height="8" rx="2" />
-              <line x1="6" y1="6" x2="6.01" y2="6" stroke-linecap="round" />
-              <line x1="6" y1="18" x2="6.01" y2="18" stroke-linecap="round" />
-            </svg>
-            Servers <span class="badge-count" id="count-servers">85</span>
-          </button>
-          
-          <button class="infra-tab-btn" data-tab="domains">
-            <svg class="tab-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2">
-              <circle cx="12" cy="12" r="10" />
-              <line x1="2" y1="12" x2="22" y2="12" />
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-            </svg>
-            Domains & Apps <span class="badge-count" id="count-domains">9</span>
-          </button>
-          
-          <button class="infra-tab-btn" data-tab="databases">
-            <svg class="tab-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2">
-              <ellipse cx="12" cy="5" rx="9" ry="3" />
-              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-              <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
-            </svg>
-            Databases <span class="badge-count" id="count-databases">3</span>
-          </button>
+        <div class="infra-tabs-container">
+          <div class="infra-tabs-row">
+            <button class="infra-tab-pill active" data-tab="servers">
+              <svg class="tab-icon" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" stroke-width="2">
+                <rect x="2" y="2" width="20" height="8" rx="2" />
+                <rect x="2" y="14" width="20" height="8" rx="2" />
+                <line x1="6" y1="6" x2="6.01" y2="6" stroke-linecap="round" />
+                <line x1="6" y1="18" x2="6.01" y2="18" stroke-linecap="round" />
+              </svg>
+              <span>Servers</span>
+              <span class="tab-count-pill" id="count-servers">85</span>
+            </button>
+            
+            <button class="infra-tab-pill" data-tab="domains">
+              <svg class="tab-icon" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg>
+              <span>Domains & Apps</span>
+              <span class="tab-count-pill" id="count-domains">9</span>
+            </button>
+            
+            <button class="infra-tab-pill" data-tab="databases">
+              <svg class="tab-icon" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" stroke-width="2">
+                <ellipse cx="12" cy="5" rx="9" ry="3" />
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
+              </svg>
+              <span>Databases</span>
+              <span class="tab-count-pill" id="count-databases">3</span>
+            </button>
+          </div>
         </div>
 
         <!-- Infrastructure Panel Contents -->
@@ -504,10 +524,21 @@
                 
                 <!-- Nested Subdomain Apps -->
                 <div class="nested-subdomains">
-                  <!-- Select All Subdomains Option -->
-                  <div class="confirm-all-row" style="padding: 0.5rem 1.5rem; display: flex; justify-content: flex-end; border-bottom: 1px solid rgba(255, 255, 255, 0.03);">
+                  <div class="subdomains-header-bar">
+                    <div class="subdomains-header-title">
+                      <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:-1px; margin-right:5px; color:var(--cyber-cyan);">
+                        <line x1="6" y1="3" x2="6" y2="15"></line>
+                        <circle cx="18" cy="6" r="3"></circle>
+                        <circle cx="6" cy="18" r="3"></circle>
+                        <path d="M18 9a9 9 0 0 1-9 9"></path>
+                      </svg>
+                      MAPPED SUBDOMAINS
+                    </div>
                     <button class="confirm-all-subs-btn">
-                      ✓ Confirm All Subdomains
+                      <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-right:4px;">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                      <span>Confirm All Subdomains</span>
                     </button>
                   </div>
                   <!-- Sub 1 -->
@@ -601,10 +632,21 @@
                 
                 <!-- Nested Subdomain Apps -->
                 <div class="nested-subdomains">
-                  <!-- Select All Subdomains Option -->
-                  <div class="confirm-all-row" style="padding: 0.5rem 1.5rem; display: flex; justify-content: flex-end; border-bottom: 1px solid rgba(255, 255, 255, 0.03);">
+                  <div class="subdomains-header-bar">
+                    <div class="subdomains-header-title">
+                      <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:-1px; margin-right:5px; color:var(--cyber-cyan);">
+                        <line x1="6" y1="3" x2="6" y2="15"></line>
+                        <circle cx="18" cy="6" r="3"></circle>
+                        <circle cx="6" cy="18" r="3"></circle>
+                        <path d="M18 9a9 9 0 0 1-9 9"></path>
+                      </svg>
+                      MAPPED SUBDOMAINS
+                    </div>
                     <button class="confirm-all-subs-btn">
-                      ✓ Confirm All Subdomains
+                      <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-right:4px;">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                      <span>Confirm All Subdomains</span>
                     </button>
                   </div>
                   <div class="infra-row sub-row">
@@ -724,30 +766,63 @@
           </div>
           <div class="instances-search-row">
             <div class="search-input-wrapper">
-              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5">
+              <svg class="search-icon" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5">
                 <circle cx="11" cy="11" r="8" />
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
-              <input type="text" placeholder="Search by name or ID..." class="cyber-search-input">
+              <input type="text" placeholder="Search by name, host, or ID..." class="cyber-search-input">
             </div>
-            <span class="accepted-ratio">0/30 accepted</span>
+            <div class="accepted-ratio-badge">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span class="accepted-ratio">0/30 accepted</span>
+            </div>
           </div>
         </div>
 
         <!-- Guidance Alert Boxes -->
         <div class="instances-notice-box">
-          <div class="notice-box-row">
-            <span><strong>5 high-confidence instances</strong> — preview before accepting (shared-DB / shared-infra are flagged).</span>
-            <button class="notice-action-btn primary-btn-sm">Preview & auto-accept</button>
-          </div>
-          <div class="notice-box-row outlined">
-            <span><strong>139 apps not yet in an instance</strong> — inference over-split or couldn't fold them. Hand-group the real ones into a named instance.</span>
-            <button class="notice-action-btn secondary-btn-sm">
-              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" style="display:inline; vertical-align:middle; margin-right:3px;">
-                <circle cx="12" cy="12" r="3" />
-                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z" stroke-dasharray="3 3"/>
+          <div class="notice-box-card glow-emerald" id="high-conf-notice-card">
+            <div class="notice-card-left">
+              <div class="notice-icon-pill emerald">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+              </div>
+              <div class="notice-text-content">
+                <span class="notice-heading" id="high-conf-heading">8 High-Confidence Instances</span>
+                <span class="notice-desc" id="high-conf-desc">Inferred from shared infrastructure topology. Preview before accepting (shared-DB & shared-infra flagged).</span>
+              </div>
+            </div>
+            <button class="notice-action-btn primary-btn-sm" id="preview-accept-btn">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#ffffff" stroke-width="3" style="display:inline-block; vertical-align:middle; margin-right:4px;">
+                <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
-              Group manually
+              <span>Preview & Auto-Accept</span>
+            </button>
+          </div>
+
+          <div class="notice-box-card glow-amber">
+            <div class="notice-card-left">
+              <div class="notice-icon-pill amber">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+              </div>
+              <div class="notice-text-content">
+                <span class="notice-heading">139 Unmapped Applications</span>
+                <span class="notice-desc">Inference over-split or couldn't fold these workloads. Hand-group components into a named instance.</span>
+              </div>
+            </div>
+            <button class="notice-action-btn secondary-btn-sm" id="group-manually-btn">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3" opacity="0.4"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span>Group Manually</span>
             </button>
           </div>
         </div>
@@ -758,40 +833,66 @@
 
       <!-- Step 4 View: Projects -->
       <div id="step-view-4" class="step-view hidden">
-        <div class="seeded-notice" style="margin-top: 0; margin-bottom: 1.5rem;">
-          Inference groups accepted instances into <strong class="notice-highlight">projects</strong> by shared apex/product. Accept the real ones — each writes the project + links its instances. Clients come next (you assign them).
+        <!-- Guidance Banner -->
+        <div class="projects-notice-box" style="margin-bottom: 1.5rem;">
+          <div class="notice-box-card glow-purple">
+            <div class="notice-card-left">
+              <div class="notice-icon-pill purple">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+              </div>
+              <div class="notice-text-content">
+                <span class="notice-heading">Automatic Project Grouping</span>
+                <span class="notice-desc">Inference groups accepted instances into <strong class="notice-highlight">projects</strong> by shared apex/domain topology. Accept valid projects — each writes the project and links its instances.</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="projects-top-bar" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-cyber); padding-bottom: 0.8rem; margin-bottom: 1.5rem; gap: 1.5rem; flex-wrap: wrap;">
-          <div class="projects-left-controls" style="display: flex; align-items: center; gap: 1.5rem;">
-            <span class="projects-section-title" style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 800; color: var(--cyber-blue); letter-spacing: 2px;">PROJECTS</span>
-            <div class="projects-tabs-row" style="display: flex; gap: 0.5rem;">
+        <!-- Top bar controls: Title, Tabs, Search, Create -->
+        <div class="projects-top-bar">
+          <div class="projects-left-controls">
+            <span class="projects-section-title">PROJECTS</span>
+            <div class="projects-tabs-row">
               <button class="projects-tab-pill active" id="projects-tab-pending">pending <span class="tab-count-pill" id="projects-count-pending">2</span></button>
               <button class="projects-tab-pill" id="projects-tab-accepted">accepted <span class="tab-count-pill" id="projects-count-accepted">0</span></button>
             </div>
           </div>
-          <div class="projects-right-controls" style="display: flex; align-items: center; gap: 1rem;">
+          <div class="projects-right-controls">
             <div class="search-input-wrapper">
-              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5">
+              <svg class="search-icon" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5">
                 <circle cx="11" cy="11" r="8" />
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
-              <input type="text" placeholder="Search projects..." class="cyber-search-input" id="projects-search-input" style="width: 200px;">
+              <input type="text" placeholder="Search projects..." class="cyber-search-input" id="projects-search-input">
             </div>
-            <button class="primary-btn" id="create-project-btn" style="padding: 0.45rem 1rem; border-radius: 20px; font-size: 0.85rem;">
-              <span style="font-weight: 800; margin-right: 2px;">+</span> Create Project
+            <button class="primary-btn create-project-btn-styled" id="create-project-btn">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" style="display:inline-block; vertical-align:middle; margin-right:3px;">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              <span>Create Project</span>
             </button>
           </div>
         </div>
 
-        <div class="infra-list-title" id="projects-subheadline" style="margin-bottom: 0.75rem;">SUGGESTED PROJECTS</div>
+        <div class="infra-list-title" id="projects-subheadline">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:-1px; margin-right:5px; color:var(--cyber-cyan);">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+          </svg>
+          SUGGESTED PROJECTS
+        </div>
 
-        <div class="projects-list" id="projects-list" style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem;">
+        <div class="projects-list" id="projects-list">
           <!-- Dynamic Project cards will go here -->
         </div>
 
-        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;" id="projects-accepted-summary">
-          0 projects accepted
+        <div class="projects-accepted-ratio-badge" id="projects-accepted-summary">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>0 projects accepted</span>
         </div>
       </div>
 
@@ -799,6 +900,31 @@
       <div id="step-view-5" class="step-view hidden">
         <div class="seeded-notice" style="margin-top: 0; margin-bottom: 1.5rem;">
           Clients are <strong class="notice-highlight">never inferred</strong> — assign each accepted project to an <strong class="notice-highlight">existing client</strong> (or leave it unassigned).
+        </div>
+
+        <!-- Modern Client Telemetry Overview Bar -->
+        <div class="client-overview-bar">
+          <div class="client-stat-card">
+            <div class="client-stat-icon cyan">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            </div>
+            <span class="client-stat-label">ASSIGNED PROJECTS</span>
+            <span class="client-stat-number cyan" id="stat-client-assigned-projects">0 / 0</span>
+          </div>
+          <div class="client-stat-card">
+            <div class="client-stat-icon emerald">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            <span class="client-stat-label">ACTIVE CLIENT TENANTS</span>
+            <span class="client-stat-number emerald" id="stat-client-total-tenants">0</span>
+          </div>
+          <div class="client-stat-card">
+            <div class="client-stat-icon amber">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+            <span class="client-stat-label">GOLD SLA COVERAGE</span>
+            <span class="client-stat-number amber" id="stat-client-sla-gold">100%</span>
+          </div>
         </div>
 
         <div class="projects-top-bar" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-cyber); padding-bottom: 0.8rem; margin-bottom: 1.5rem; gap: 1.5rem; flex-wrap: wrap;">
@@ -830,13 +956,13 @@
             <span class="projects-section-title" style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 800; color: var(--cyber-blue); letter-spacing: 2px;">ONBOARDING SUMMARY REPORT</span>
           </div>
           <div class="projects-right-controls" style="display: flex; align-items: center; gap: 1rem;">
-            <button id="download-pdf-btn" class="primary-btn" style="padding: 0.5rem 1.2rem; display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; border-radius: 6px; font-weight: 700; font-family: var(--font-mono); text-transform: uppercase;">
-              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" style="display: inline-block; vertical-align: middle;">
+            <button id="download-pdf-btn" class="primary-btn download-report-btn-cyber">
+              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                 <polyline points="7 10 12 15 17 10" />
                 <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
-              Download Report
+              <span>Download Report</span>
             </button>
           </div>
         </div>
@@ -976,9 +1102,9 @@
 
     <!-- New Commit Session Top Container -->
     <div id="new-commit-session-top-container" class="hidden" style="margin-top: 1.5rem; margin-bottom: 0.5rem; display: flex; justify-content: flex-end; width: 100%;">
-      <button id="start-new-commit-btn-top" style="background: rgba(0, 242, 254, 0.1); border: 1px solid var(--cyber-cyan); color: var(--cyber-cyan); font-size: 0.82rem; font-weight: 700; padding: 0.45rem 1.1rem; border-radius: 30px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 0.45rem; box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);" onmouseover="this.style.background='rgba(0, 242, 254, 0.2)'; this.style.boxShadow='0 0 25px rgba(0, 242, 254, 0.35)';" onmouseout="this.style.background='rgba(0, 242, 254, 0.1)'; this.style.boxShadow='0 0 15px rgba(0, 242, 254, 0.15)';">
-        Start New Commit Session
-        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none">
+      <button id="start-new-commit-btn-top" class="start-commit-btn-cyber">
+        <span>Start New Commit Session</span>
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" class="refresh-icon-spin">
           <polyline points="23 4 23 10 17 10"></polyline>
           <polyline points="1 20 1 14 7 14"></polyline>
           <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
@@ -990,33 +1116,81 @@
   <section class="ingested-section hidden">
       <h2 class="section-subtitle">INGESTED FROM</h2>
       <div class="ingested-grid">
-        <!-- Card 1 -->
-        <div class="ingested-card">
-          <div class="card-count" id="ingested-count-linode">85</div>
+        <!-- Card 1: Linode -->
+        <div class="ingested-card provider-linode">
+          <div class="card-header-row">
+            <span class="card-count" id="ingested-count-linode">85</span>
+            <div class="provider-icon-badge">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="2" width="20" height="8" rx="2"></rect>
+                <rect x="2" y="14" width="20" height="8" rx="2"></rect>
+                <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                <line x1="6" y1="18" x2="6.01" y2="18"></line>
+              </svg>
+            </div>
+          </div>
           <div class="card-label">Linode</div>
           <div class="card-sub">servers (DB/infra hosts + app boxes)</div>
         </div>
-        <!-- Card 2 -->
-        <div class="ingested-card">
-          <div class="card-count" id="ingested-count-endpoints">22</div>
+
+        <!-- Card 2: Endpoints -->
+        <div class="ingested-card provider-endpoints">
+          <div class="card-header-row">
+            <span class="card-count" id="ingested-count-endpoints">18</span>
+            <div class="provider-icon-badge">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+            </div>
+          </div>
           <div class="card-label">Endpoints</div>
           <div class="card-sub">apps / URLs</div>
         </div>
-        <!-- Card 3 -->
-        <div class="ingested-card">
-          <div class="card-count" id="ingested-count-mysql">3</div>
+
+        <!-- Card 3: mysqld -->
+        <div class="ingested-card provider-mysql">
+          <div class="card-header-row">
+            <span class="card-count" id="ingested-count-mysql">3</span>
+            <div class="provider-icon-badge">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+              </svg>
+            </div>
+          </div>
           <div class="card-label">mysqld</div>
           <div class="card-sub">databases</div>
         </div>
-        <!-- Card 4 -->
-        <div class="ingested-card">
-          <div class="card-count" id="ingested-count-blackbox">9</div>
+
+        <!-- Card 4: blackbox -->
+        <div class="ingested-card provider-blackbox">
+          <div class="card-header-row">
+            <span class="card-count" id="ingested-count-blackbox">26</span>
+            <div class="provider-icon-badge">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+              </svg>
+            </div>
+          </div>
           <div class="card-label">blackbox</div>
           <div class="card-sub">domains + certs</div>
         </div>
-        <!-- Card 5 -->
-        <div class="ingested-card">
-          <div class="card-count ansible-dash" id="ingested-count-ansible">—</div>
+
+        <!-- Card 5: Ansible -->
+        <div class="ingested-card provider-ansible">
+          <div class="card-header-row">
+            <span class="card-count ansible-dash" id="ingested-count-ansible">—</span>
+            <div class="provider-icon-badge">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+              </svg>
+            </div>
+          </div>
           <div class="card-label">Ansible</div>
           <div class="card-sub">#Service / #Environment roles (no count source)</div>
         </div>
@@ -1269,6 +1443,44 @@
           <h2 style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); font-weight: 800; font-family: var(--font-mono); margin-bottom: 0.75rem;">GLOBAL TELEMETRY PANELS</h2>
           <div class="global-dashboards-flex" style="display: flex; flex-wrap: wrap; gap: 1.5rem;">
             
+            <!-- Panel 0: System CPU Utilization (Multi-Curve Line Chart) -->
+            <div class="grafana-panel global-panel resizable-panel" id="panel-cpu-utilization" style="width: calc(50% - 0.75rem); min-width: 360px; height: 320px; position: relative;">
+              <div class="panel-header-row">
+                <div>
+                  <div class="panel-title-text">System CPU Utilization & Multi-Core Load</div>
+                  <div class="panel-host-text">node_cpu_seconds_total {mode="user|system|iowait|idle"}</div>
+                </div>
+                <span style="font-size: 0.65rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(0, 242, 254, 0.05); border: 1px solid rgba(0, 242, 254, 0.1); color: var(--cyber-cyan); font-family: var(--font-mono);">
+                  Live
+                </span>
+              </div>
+              
+              <div class="chart-container" style="flex: 1; min-height: 150px; margin-top: 1rem; position: relative;">
+                <svg id="cpu-utilization-svg" viewBox="0 0 400 150" preserveAspectRatio="none" style="width: 100%; height: 100%; overflow: visible;">
+                  <!-- Grid Lines -->
+                  <line x1="0" y1="30" x2="400" y2="30" stroke="rgba(255,255,255,0.03)" stroke-dasharray="3,3" />
+                  <line x1="0" y1="60" x2="400" y2="60" stroke="rgba(255,255,255,0.03)" stroke-dasharray="3,3" />
+                  <line x1="0" y1="90" x2="400" y2="90" stroke="rgba(255,255,255,0.03)" stroke-dasharray="3,3" />
+                  <line x1="0" y1="120" x2="400" y2="120" stroke="rgba(255,255,255,0.03)" stroke-dasharray="3,3" />
+                  <!-- Multi-Curve Paths -->
+                  <path id="path-cpu-user" stroke="#00f2fe" fill="none" stroke-width="1.8" d="" />
+                  <path id="path-cpu-system" stroke="#3b82f6" fill="none" stroke-width="1.8" d="" />
+                  <path id="path-cpu-iowait" stroke="#ef4444" fill="none" stroke-width="1.8" d="" />
+                  <path id="path-cpu-idle" stroke="#10b981" fill="none" stroke-width="1.8" d="" />
+                </svg>
+              </div>
+
+              <!-- Legend -->
+              <div class="chart-legend" style="display: flex; gap: 0.8rem; justify-content: center; font-size: 0.68rem; font-family: var(--font-mono); margin-top: 0.5rem; flex-wrap: wrap;">
+                <span style="display: flex; align-items: center; gap: 0.3rem;"><span style="width: 8px; height: 8px; background: #00f2fe; border-radius: 2px;"></span> User (<span id="val-cpu-user">28%</span>)</span>
+                <span style="display: flex; align-items: center; gap: 0.3rem;"><span style="width: 8px; height: 8px; background: #3b82f6; border-radius: 2px;"></span> System (<span id="val-cpu-sys">14%</span>)</span>
+                <span style="display: flex; align-items: center; gap: 0.3rem;"><span style="width: 8px; height: 8px; background: #ef4444; border-radius: 2px;"></span> IOWait (<span id="val-cpu-io">3%</span>)</span>
+                <span style="display: flex; align-items: center; gap: 0.3rem;"><span style="width: 8px; height: 8px; background: #10b981; border-radius: 2px;"></span> Idle (<span id="val-cpu-idle">55%</span>)</span>
+              </div>
+
+              <div class="resize-handle"></div>
+            </div>
+
             <!-- Panel 1: Linux Memory Distribution (Line Chart) -->
             <div class="grafana-panel global-panel resizable-panel" id="panel-memory-distribution" style="width: calc(50% - 0.75rem); min-width: 360px; height: 320px; position: relative;">
               <div class="panel-header-row">
@@ -3469,6 +3681,80 @@
     </div>
   </div>
 
+  <!-- Request Admin Execution Authorization Modal -->
+  <div class="cyber-modal-overlay" id="request-run-approval-modal">
+    <div class="cyber-modal" style="max-width: 640px; width: 92%; max-height: 90vh; display: flex; flex-direction: column;">
+      <div class="modal-header" style="border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+          <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-primary); margin: 0 0 0.2rem 0; display: flex; align-items: center; gap: 0.5rem;">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--cyber-cyan)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            Request Admin Execution Authorization
+          </h3>
+          <p style="font-size: 0.78rem; color: var(--text-muted); margin: 0;">Submit a privileged shell execution request to the Admin team for compliance review & approval.</p>
+        </div>
+        <button class="modal-close" id="request-run-modal-close-btn">&times;</button>
+      </div>
+
+      <div class="modal-body" style="flex: 1; overflow-y: auto; padding: 1.2rem 0; display: flex; flex-direction: column; gap: 1rem; text-align: left;">
+        
+        <!-- Requested By (Accountability) Badge Field -->
+        <div class="modal-form-group">
+          <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.35rem;">Requested By (Operator Identity & Accountability)</label>
+          <div style="background: rgba(0, 242, 254, 0.05); border: 1px solid rgba(0, 242, 254, 0.2); border-radius: 6px; padding: 0.5rem 0.8rem; display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 0.65rem;">
+              <span style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #00f2fe, #4facfe); color: #000; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">PG</span>
+              <div>
+                <strong style="color: var(--text-primary); font-size: 0.82rem; display: block;">Pranav Gupta</strong>
+                <span style="font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono);">pranav.gupta@proeffico.com</span>
+              </div>
+            </div>
+            <span style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #34d399; font-size: 0.65rem; font-weight: 800; padding: 0.15rem 0.55rem; border-radius: 4px; text-transform: uppercase;">
+              User / Operator
+            </span>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="modal-form-group">
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.35rem;">Target Node</label>
+            <input type="text" id="req-run-target-node" class="cyber-modal-input" readonly style="background: rgba(0,0,0,0.3); opacity: 0.85; color: var(--cyber-cyan); font-family: var(--font-mono); font-weight: 700;">
+          </div>
+          <div class="modal-form-group">
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.35rem;">Urgency Level</label>
+            <select id="req-run-urgency" class="cyber-modal-select" style="width: 100%; font-size: 0.8rem; font-weight: 700;">
+              <option value="Critical Emergency">🚨 Critical Emergency (System Exhaustion / Outage)</option>
+              <option value="High Priority" selected>⚡ High Priority (Remediation / Threat Response)</option>
+              <option value="Standard Operational">⚙️ Standard Operational (Routine Maintenance)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-form-group">
+          <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.35rem;">Execution Script Summary</label>
+          <div id="req-run-script-summary" style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-cyber); border-radius: 6px; padding: 0.6rem 0.8rem; font-family: var(--font-mono); font-size: 0.75rem; color: #a5f3fc; max-height: 80px; overflow-y: auto; white-space: pre-wrap;">bash_remediation.sh</div>
+        </div>
+
+        <div class="modal-form-group">
+          <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.35rem;">Business Justification & Operational Reason <span style="color: #ef4444;">*</span></label>
+          <textarea id="req-run-justification" class="cyber-modal-input" rows="3" placeholder="State why this execution is required (e.g. CPU exhaustion remediation on web_app_new to prevent outage)..." style="width: 100%; font-size: 0.8rem; box-sizing: border-box;"></textarea>
+        </div>
+
+        <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 6px; padding: 0.6rem 0.8rem; font-size: 0.72rem; color: #fbbf24; display: flex; align-items: center; gap: 0.5rem;">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          <span>Admin policy requires mandatory authorization before remote shell command execution on production infrastructure.</span>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.85rem; padding-bottom: 0.25rem; display: flex; justify-content: flex-end; gap: 0.75rem;">
+        <button class="secondary-btn" id="req-run-cancel-btn" style="padding: 0.45rem 1.1rem; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">Cancel</button>
+        <button class="primary-btn" id="req-run-submit-btn" style="padding: 0.5rem 1.25rem; border-radius: 6px; font-size: 0.78rem; font-weight: 800; display: flex; align-items: center; gap: 0.45rem; background: linear-gradient(135deg, var(--cyber-blue), var(--cyber-cyan)); color: #000; border: none; cursor: pointer; box-shadow: 0 0 14px rgba(0, 242, 254, 0.3);">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"></path><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          <span>Submit Request to Admin</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- VirusTotal Real-Time Threat Scanner Modal -->
   <div class="cyber-modal-overlay" id="vt-scanner-modal">
     <div class="cyber-modal" style="max-width: 720px; width: 92%; max-height: 88vh; display: flex; flex-direction: column; border-color: rgba(244, 63, 94, 0.4); background: rgba(9, 15, 30, 0.95); backdrop-filter: blur(16px);">
@@ -3684,85 +3970,178 @@ vizo361</textarea>
 
   <!-- Cyber Success Modal -->
   <div class="cyber-modal-overlay" id="success-modal">
-    <div class="cyber-modal">
-      <div class="success-animation">
-        <svg class="checkmark-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-          <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
-          <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
-        </svg>
+    <div class="cyber-modal success-modal-container" style="max-width: 480px; text-align: center; padding: 2.2rem 2rem;">
+      <div class="success-hero-badge">
+        <div class="success-animation">
+          <svg class="checkmark-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+            <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
+            <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+          </svg>
+        </div>
       </div>
-      <h2>Commit Successful</h2>
-      <p>The entity graph has been successfully produced and synchronized with the Security Operations Center (SOC). All discovery nodes are now online.</p>
-      <div class="modal-buttons" style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem;">
-        <button id="close-modal-btn">Access Dashboard</button>
+      <h2 class="success-modal-title">Commit Successful</h2>
+      <p class="success-modal-desc">The entity graph has been successfully produced and synchronized with the Security Operations Center (SOC). All discovery nodes are now online.</p>
+      <div class="modal-buttons" style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.8rem;">
+        <button id="close-modal-btn" class="primary-btn success-action-btn">
+          <span>Access Dashboard</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-left:6px;">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- Cyber Edit Modal -->
+  <!-- Cyber Edit Instance Modal -->
   <div class="cyber-modal-overlay" id="edit-modal">
-    <div class="cyber-modal edit-modal-container">
+    <div class="cyber-modal edit-modal-container" style="max-width: 540px;">
       <div class="modal-header-row">
-        <h2>Edit instance</h2>
-        <span class="close-modal-x" id="close-edit-modal-x">&times;</span>
-      </div>
-      
-      <div class="modal-form-group">
-        <label for="edit-instance-name">Name</label>
-        <input type="text" id="edit-instance-name" class="cyber-modal-input">
-      </div>
-      
-      <div class="modal-row-split">
-        <div class="modal-form-group">
-          <label for="edit-instance-env">Env</label>
-          <select id="edit-instance-env" class="cyber-modal-select">
-            <option value="PROD">PROD</option>
-            <option value="TEST">TEST</option>
-            <option value="UAT">UAT</option>
-            <option value="DEMO">DEMO</option>
-          </select>
+        <div class="modal-title-wrapper">
+          <div class="modal-header-icon-pill">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--cyber-cyan)" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <div class="modal-title-text-group">
+            <h2>Edit Workload Instance</h2>
+            <span class="modal-subtitle">Re-configure instance metadata, environment tier, workload type, and underlying host server associations</span>
+          </div>
         </div>
-        <div class="modal-form-group">
-          <label for="edit-instance-type">Type</label>
-          <select id="edit-instance-type" class="cyber-modal-select">
-            <option value="shared">shared</option>
-            <option value="dedicated">dedicated</option>
-            <option value="isolated">isolated</option>
-          </select>
-        </div>
+        <button class="modal-close-icon-btn" id="close-edit-modal-x" title="Close">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
       </div>
-      
-      <div class="modal-form-group scroll-group">
-        <label>📁 Servers (M:N) — 52 known</label>
-        <input type="text" id="filter-servers-input" placeholder="filter servers..." class="cyber-modal-input-sm">
+
+      <div class="modal-body" style="padding: 1.2rem 0; display: flex; flex-direction: column; gap: 1.1rem; text-align: left;">
         
-        <div class="servers-checkbox-list">
-          <div class="checkbox-row" data-server-name="bbb">
-            <input type="checkbox" id="chk-bbb" value="bbb">
-            <label for="chk-bbb">bbb</label>
-          </div>
-          <div class="checkbox-row" data-server-name="bpe-server">
-            <input type="checkbox" id="chk-bpe" value="bpe-server">
-            <label for="chk-bpe">bpe-server</label>
-          </div>
-          <div class="checkbox-row" data-server-name="brief_gates_app_server">
-            <input type="checkbox" id="chk-brief-gates" value="brief_gates_app_server">
-            <label for="chk-brief-gates">brief_gates_app_server</label>
-          </div>
-          <div class="checkbox-row" data-server-name="briefgates-zivux">
-            <input type="checkbox" id="chk-bg-zivux" value="briefgates-zivux">
-            <label for="chk-bg-zivux">briefgates-zivux</label>
-          </div>
-          <div class="checkbox-row" data-server-name="cadbird-api">
-            <input type="checkbox" id="chk-cadbird" value="cadbird-api">
-            <label for="chk-cadbird">cadbird-api</label>
+        <div class="modal-form-group">
+          <label for="edit-instance-name" class="modal-input-label">
+            Instance Name <span style="color: #ef4444;">*</span>
+          </label>
+          <div class="modal-input-wrapper">
+            <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            <input type="text" id="edit-instance-name" class="cyber-modal-input" placeholder="e.g. vizo361-prod" style="font-family: var(--font-mono); font-weight: 700; color: var(--cyber-cyan);">
           </div>
         </div>
+
+        <div class="modal-row-split">
+          <div class="modal-form-group">
+            <label for="edit-instance-env" class="modal-input-label">
+              Env Tier
+            </label>
+            <div class="modal-input-wrapper">
+              <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+              </svg>
+              <select id="edit-instance-env" class="cyber-modal-select" style="width: 100%; font-size: 0.8rem; font-weight: 700;">
+                <option value="PROD">PROD</option>
+                <option value="TEST">TEST</option>
+                <option value="UAT">UAT</option>
+                <option value="DEMO">DEMO</option>
+                <option value="STAGING">STAGING</option>
+                <option value="DEV">DEV</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="modal-form-group">
+            <label for="edit-instance-type" class="modal-input-label">
+              Workload Type
+            </label>
+            <div class="modal-input-wrapper">
+              <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                <rect x="9" y="9" width="6" height="6"></rect>
+                <line x1="9" y1="1" x2="9" y2="4"></line>
+                <line x1="15" y1="1" x2="15" y2="4"></line>
+                <line x1="9" y1="20" x2="9" y2="23"></line>
+                <line x1="15" y1="20" x2="15" y2="23"></line>
+                <line x1="20" y1="9" x2="23" y2="9"></line>
+                <line x1="20" y1="15" x2="23" y2="15"></line>
+                <line x1="1" y1="9" x2="4" y2="9"></line>
+                <line x1="1" y1="15" x2="4" y2="15"></line>
+              </svg>
+              <select id="edit-instance-type" class="cyber-modal-select" style="width: 100%; font-size: 0.8rem; font-weight: 700;">
+                <option value="shared">shared</option>
+                <option value="dedicated">dedicated</option>
+                <option value="isolated">isolated</option>
+                <option value="multi-tenant">multi-tenant</option>
+                <option value="serverless">serverless</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-form-group scroll-group" style="margin-top: 0.5rem;">
+          <label class="modal-input-label" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:-2px; margin-right:5px; color:var(--cyber-cyan);">
+                <rect x="2" y="2" width="20" height="8" rx="2"></rect>
+                <rect x="2" y="14" width="20" height="8" rx="2"></rect>
+                <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                <line x1="6" y1="18" x2="6.01" y2="18"></line>
+              </svg>
+              Associated Host Servers (M:N)
+            </span>
+            <span style="font-size: 0.7rem; color: var(--cyber-cyan); font-family: var(--font-mono); font-weight: 700;" id="edit-instance-known-servers-count">52 KNOWN</span>
+          </label>
+          <div class="modal-input-wrapper" style="margin-bottom: 0.6rem;">
+            <svg class="input-field-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="filter-servers-input" class="cyber-modal-input-sm" placeholder="Filter servers by hostname...">
+          </div>
+          
+          <div class="servers-checkbox-list custom-checkbox-scroll" style="max-height: 170px; overflow-y: auto;">
+            <div class="checkbox-row" data-server-name="bbb">
+              <input type="checkbox" id="chk-bbb" value="bbb">
+              <label for="chk-bbb">bbb</label>
+            </div>
+            <div class="checkbox-row" data-server-name="bpe-server">
+              <input type="checkbox" id="chk-bpe" value="bpe-server">
+              <label for="chk-bpe">bpe-server</label>
+            </div>
+            <div class="checkbox-row" data-server-name="brief_gates_app_server">
+              <input type="checkbox" id="chk-brief-gates" value="brief_gates_app_server">
+              <label for="chk-brief-gates">brief_gates_app_server</label>
+            </div>
+            <div class="checkbox-row" data-server-name="briefgates-zivux">
+              <input type="checkbox" id="chk-bg-zivux" value="briefgates-zivux">
+              <label for="chk-bg-zivux">briefgates-zivux</label>
+            </div>
+            <div class="checkbox-row" data-server-name="cadbird-api">
+              <input type="checkbox" id="chk-cadbird" value="cadbird-api">
+              <label for="chk-cadbird">cadbird-api</label>
+            </div>
+          </div>
+        </div>
+
+        <div style="background: rgba(0, 242, 254, 0.05); border: 1px solid rgba(0, 242, 254, 0.2); border-radius: 6px; padding: 0.6rem 0.8rem; font-size: 0.72rem; color: var(--cyber-cyan); display: flex; align-items: center; gap: 0.55rem;">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          <span>Modifying server associations updates real-time topology mapping across all parent projects and client tenants.</span>
+        </div>
+
       </div>
-      
-      <div class="modal-footer-buttons">
-        <button class="secondary-btn" id="cancel-edit-btn">Cancel</button>
-        <button class="primary-btn" id="save-edit-btn">Save</button>
+
+      <div class="modal-footer-buttons" style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 0.8rem;">
+        <button class="secondary-btn modal-cancel-btn" id="cancel-edit-btn">Cancel</button>
+        <button class="primary-btn create-project-btn-styled" id="save-edit-btn" style="display: flex; align-items: center; gap: 0.45rem;">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Save Changes</span>
+        </button>
       </div>
     </div>
   </div>
@@ -4232,87 +4611,313 @@ vizo361</textarea>
   <div class="cyber-modal-overlay" id="project-modal">
     <div class="cyber-modal edit-modal-container" style="max-width: 520px;">
       <div class="modal-header-row">
-        <h2 id="project-modal-title">Create Project</h2>
-        <span class="close-modal-x" id="close-project-modal-x">&times;</span>
+        <div class="modal-title-wrapper">
+          <div class="modal-header-icon-pill">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <div class="modal-title-text-group">
+            <h2 id="project-modal-title">Create Project</h2>
+            <span class="modal-subtitle">Configure domain apex and map server workloads</span>
+          </div>
+        </div>
+        <span class="close-modal-x" id="close-project-modal-x" title="Close">&times;</span>
       </div>
       
       <div class="modal-form-group">
-        <label for="project-name-input">Project Name</label>
-        <input type="text" id="project-name-input" class="cyber-modal-input" placeholder="e.g. vizo361">
+        <label for="project-name-input" class="modal-input-label">Project Name</label>
+        <div class="modal-input-wrapper">
+          <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <input type="text" id="project-name-input" class="cyber-modal-input" placeholder="e.g. vizo361">
+        </div>
       </div>
       
       <div class="modal-row-split">
         <div class="modal-form-group">
-          <label for="project-domain-input">Apex / Domain</label>
-          <input type="text" id="project-domain-input" class="cyber-modal-input" placeholder="e.g. vizo361.ai">
+          <label for="project-domain-input" class="modal-input-label">Apex / Domain</label>
+          <div class="modal-input-wrapper">
+            <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <input type="text" id="project-domain-input" class="cyber-modal-input" placeholder="e.g. vizo361.ai">
+          </div>
         </div>
         <div class="modal-form-group">
-          <label for="project-type-select">Infra Type</label>
-          <select id="project-type-select" class="cyber-modal-select">
-            <option value="dedicated">dedicated</option>
-            <option value="shared">shared</option>
-            <option value="isolated">isolated</option>
-          </select>
+          <label for="project-type-select" class="modal-input-label">Infra Type</label>
+          <div class="modal-input-wrapper">
+            <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="8" rx="2"></rect>
+              <rect x="2" y="14" width="20" height="8" rx="2"></rect>
+            </svg>
+            <select id="project-type-select" class="cyber-modal-select">
+              <option value="dedicated">dedicated</option>
+              <option value="shared">shared</option>
+              <option value="isolated">isolated</option>
+            </select>
+          </div>
         </div>
       </div>
       
 
       <div class="modal-form-group scroll-group" style="margin-top: 1rem;">
-        <label>🔗 Mapped Instances — select instances for this project</label>
-        <input type="text" id="filter-project-instances-input" placeholder="filter instances..." class="cyber-modal-input-sm">
+        <label class="modal-input-label">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:-1px; margin-right:4px; color:var(--cyber-cyan);">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+          </svg>
+          Mapped Instances — Select workloads for this project
+        </label>
+        <div class="modal-input-wrapper" style="margin-bottom: 0.6rem;">
+          <svg class="input-field-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="filter-project-instances-input" placeholder="Search workloads..." class="cyber-modal-input-sm">
+        </div>
         
-        <div class="servers-checkbox-list" id="project-instances-checkbox-list" style="max-height: 150px; overflow-y: auto;">
-          <!-- Will be filled dynamically by Javascript with checkboxes for each instance -->
+        <div class="servers-checkbox-list custom-checkbox-scroll" id="project-instances-checkbox-list" style="max-height: 160px; overflow-y: auto;">
+          <!-- Will be filled dynamically by Javascript with custom checkboxes for each instance -->
         </div>
       </div>
       
-      <div class="modal-footer-buttons" style="margin-top: 1.5rem;">
-        <button class="secondary-btn" id="cancel-project-btn">Cancel</button>
-        <button class="primary-btn" id="save-project-btn">Save Project</button>
+      <div class="modal-footer-buttons" style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.8rem;">
+        <button class="secondary-btn modal-cancel-btn" id="cancel-project-btn">Cancel</button>
+        <button class="primary-btn create-project-btn-styled" id="save-project-btn">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-right:4px;">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Save Project</span>
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- Cyber Client Modal (Create Client) -->
+  <!-- Cyber Client Modal (Create / Edit Client) -->
   <div class="cyber-modal-overlay" id="client-modal">
     <div class="cyber-modal edit-modal-container" style="max-width: 520px;">
       <div class="modal-header-row">
-        <h2>Create Client</h2>
-        <span class="close-modal-x" id="close-client-modal-x">&times;</span>
+        <div class="modal-title-wrapper">
+          <div class="modal-header-icon-pill">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <div class="modal-title-text-group">
+            <h2 id="client-modal-title">Create Client</h2>
+            <span class="modal-subtitle">Configure tenant parameters, SLA commitments & contact information</span>
+          </div>
+        </div>
+        <span class="close-modal-x" id="close-client-modal-x" title="Close">&times;</span>
       </div>
       
       <div class="modal-form-group">
-        <label for="client-name-input">Client Name</label>
-        <input type="text" id="client-name-input" class="cyber-modal-input" placeholder="e.g. Acme Corp">
+        <label for="client-name-input" class="modal-input-label">Client Name</label>
+        <div class="modal-input-wrapper">
+          <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+          </svg>
+          <input type="text" id="client-name-input" class="cyber-modal-input" placeholder="e.g. Acme Corp">
+        </div>
       </div>
       
       <div class="modal-form-group">
-        <label for="client-email-input">Contact Email</label>
-        <input type="email" id="client-email-input" class="cyber-modal-input" placeholder="e.g. billing@acme.com">
+        <label for="client-email-input" class="modal-input-label">Contact Email</label>
+        <div class="modal-input-wrapper">
+          <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          <input type="email" id="client-email-input" class="cyber-modal-input" placeholder="e.g. billing@acme.com">
+        </div>
       </div>
       
       <div class="modal-row-split">
         <div class="modal-form-group">
-          <label for="client-type-select">Client Type</label>
-          <select id="client-type-select" class="cyber-modal-select">
-            <option value="External Tenant">External Tenant</option>
-            <option value="Internal Department">Internal Department</option>
-            <option value="Partner">Partner</option>
-          </select>
+          <label for="client-type-select" class="modal-input-label">Client Type</label>
+          <div class="modal-input-wrapper">
+            <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+            <select id="client-type-select" class="cyber-modal-select">
+              <option value="External Tenant">External Tenant</option>
+              <option value="Internal Department">Internal Department</option>
+              <option value="Partner">Partner</option>
+            </select>
+          </div>
         </div>
+        
         <div class="modal-form-group">
-          <label for="client-sla-select">SLA Tier</label>
-          <select id="client-sla-select" class="cyber-modal-select">
-            <option value="Gold">Gold</option>
-            <option value="Silver">Silver</option>
-            <option value="Bronze">Bronze</option>
-          </select>
+          <label for="client-sla-select" class="modal-input-label">SLA Tier</label>
+          <div class="modal-input-wrapper">
+            <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <select id="client-sla-select" class="cyber-modal-select">
+              <option value="Gold">Gold</option>
+              <option value="Silver">Silver</option>
+              <option value="Bronze">Bronze</option>
+            </select>
+          </div>
         </div>
       </div>
       
-      <div class="modal-footer-buttons" style="margin-top: 1.5rem;">
-        <button class="secondary-btn" id="cancel-client-btn">Cancel</button>
-        <button class="primary-btn" id="save-client-btn">Save Client</button>
+      <div class="modal-footer-buttons" style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.8rem;">
+        <button class="secondary-btn modal-cancel-btn" id="cancel-client-btn">Cancel</button>
+        <button class="primary-btn create-project-btn-styled" id="save-client-btn">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-right:4px;">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Save Client</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cyber Manual Grouping Modal (Group Manually) -->
+  <div class="cyber-modal-overlay" id="group-manually-modal">
+    <div class="cyber-modal edit-modal-container" style="max-width: 580px;">
+      <div class="modal-header-row">
+        <div class="modal-title-wrapper">
+          <div class="modal-header-icon-pill" style="background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.3); color: #f59e0b;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l-.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </div>
+          <div class="modal-title-text-group">
+            <h2>Group Components Manually</h2>
+            <span class="modal-subtitle">Hand-fold unmapped applications into a custom logical instance</span>
+          </div>
+        </div>
+        <span class="close-modal-x" id="close-group-modal-x" title="Close">&times;</span>
+      </div>
+      
+      <div class="modal-form-group">
+        <label for="group-instance-name" class="modal-input-label">Custom Instance Name</label>
+        <div class="modal-input-wrapper">
+          <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="8" rx="2"></rect>
+            <rect x="2" y="14" width="20" height="8" rx="2"></rect>
+            <line x1="6" y1="6" x2="6.01" y2="6"></line>
+            <line x1="6" y1="18" x2="6.01" y2="18"></line>
+          </svg>
+          <input type="text" id="group-instance-name" class="cyber-modal-input" placeholder="e.g. billing-core-prod">
+        </div>
+      </div>
+
+      <div class="modal-row-split">
+        <div class="modal-form-group">
+          <label for="group-instance-domain" class="modal-input-label">Primary Host / Domain</label>
+          <div class="modal-input-wrapper">
+            <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <input type="text" id="group-instance-domain" class="cyber-modal-input" placeholder="e.g. pay.vizo361.ai">
+          </div>
+        </div>
+        <div class="modal-form-group">
+          <label for="group-instance-type" class="modal-input-label">Instance Category</label>
+          <div class="modal-input-wrapper">
+            <svg class="input-field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+            <select id="group-instance-type" class="cyber-modal-select">
+              <option value="API-SERVICES">API Services</option>
+              <option value="WEB-APPS">Web Applications</option>
+              <option value="DATA-WORKLOADS">Data Workloads</option>
+              <option value="HYBRID-STACK">Hybrid Stack</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-form-group" style="margin-top: 0.8rem;">
+        <label class="modal-input-label" style="display:flex; justify-content:space-between; align-items:center;">
+          <span>Select Unmapped Components to Fold</span>
+          <span style="font-size: 0.72rem; color: var(--cyber-cyan); font-family: var(--font-mono);">4 available</span>
+        </label>
+        <div class="custom-checkbox-scroll" style="max-height: 180px; overflow-y: auto; background: rgba(5, 8, 17, 0.4); border: 1px solid var(--border-cyber); border-radius: 10px; padding: 0.6rem;">
+          
+          <label class="custom-checkbox-item">
+            <input type="checkbox" class="custom-checkbox-input group-workload-cb" value="billing_api_v2" data-name="billing_api_v2" data-sub="api.billing.vizo361.ai" data-tag="API" checked>
+            <span class="custom-checkbox-box">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </span>
+            <div class="custom-checkbox-content">
+              <span class="custom-checkbox-title">billing_api_v2 <span class="badge-mini-tag" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); font-size: 0.65rem; padding: 0.05rem 0.4rem; border-radius: 4px; margin-left: 6px;">API</span></span>
+              <span class="custom-checkbox-sub">api.billing.vizo361.ai · 120 req/s</span>
+            </div>
+          </label>
+
+          <label class="custom-checkbox-item">
+            <input type="checkbox" class="custom-checkbox-input group-workload-cb" value="payment_gateway_worker" data-name="payment_gateway_worker" data-sub="worker.pay.vizo361.ai" data-tag="WORKER" checked>
+            <span class="custom-checkbox-box">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </span>
+            <div class="custom-checkbox-content">
+              <span class="custom-checkbox-title">payment_gateway_worker <span class="badge-mini-tag" style="background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); font-size: 0.65rem; padding: 0.05rem 0.4rem; border-radius: 4px; margin-left: 6px;">WORKER</span></span>
+              <span class="custom-checkbox-sub">worker.pay.vizo361.ai · Celery node</span>
+            </div>
+          </label>
+
+          <label class="custom-checkbox-item">
+            <input type="checkbox" class="custom-checkbox-input group-workload-cb" value="billing_redis_cache" data-name="billing_redis_cache" data-sub="redis.internal.vizo361.ai" data-tag="CACHE">
+            <span class="custom-checkbox-box">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </span>
+            <div class="custom-checkbox-content">
+              <span class="custom-checkbox-title">billing_redis_cache <span class="badge-mini-tag" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); font-size: 0.65rem; padding: 0.05rem 0.4rem; border-radius: 4px; margin-left: 6px;">CACHE</span></span>
+              <span class="custom-checkbox-sub">redis.internal.vizo361.ai · 4GB RAM</span>
+            </div>
+          </label>
+
+          <label class="custom-checkbox-item">
+            <input type="checkbox" class="custom-checkbox-input group-workload-cb" value="invoicing_web_ui" data-name="invoicing_web_ui" data-sub="invoice.vizo361.ai" data-tag="WEB">
+            <span class="custom-checkbox-box">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </span>
+            <div class="custom-checkbox-content">
+              <span class="custom-checkbox-title">invoicing_web_ui <span class="badge-mini-tag" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.65rem; padding: 0.05rem 0.4rem; border-radius: 4px; margin-left: 6px;">WEB</span></span>
+              <span class="custom-checkbox-sub">invoice.vizo361.ai · React Portal</span>
+            </div>
+          </label>
+
+        </div>
+      </div>
+      
+      <div class="modal-footer-buttons" style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.8rem;">
+        <button class="secondary-btn modal-cancel-btn" id="cancel-group-modal-btn">Cancel</button>
+        <button class="primary-btn create-project-btn-styled" id="submit-group-modal-btn">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-right:4px;">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span>Create Custom Instance</span>
+        </button>
       </div>
     </div>
   </div>
