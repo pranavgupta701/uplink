@@ -25,6 +25,22 @@
   --transition-speed: 0.3s;
 }
 
+/* Custom Cyber Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 242, 254, 0.4);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cyber-cyan);
+}
+
 /* Reset and Base Styles */
 html {
   font-size: 16px;
@@ -5808,7 +5824,8 @@ body.light-theme .settings-integration-item {
   width: 480px;
   max-width: 100%;
   height: 100%;
-  background: var(--bg-darker);
+  background: rgba(5, 8, 17, 0.85);
+  backdrop-filter: blur(12px);
   border-left: 1px solid var(--border-cyber);
   display: flex;
   flex-direction: column;
@@ -7023,11 +7040,13 @@ body.light-theme .palette-btn.active {
   flex-direction: column;
   gap: 0.5rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-  transition: border-color var(--transition-speed);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .soc-metric-card:hover {
-  border-color: rgba(0, 242, 254, 0.3);
+  border-color: rgba(0, 242, 254, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 242, 254, 0.15);
 }
 
 .metric-lbl {
