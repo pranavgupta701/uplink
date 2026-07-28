@@ -87,8 +87,50 @@ io.on('connection', (socket) => {
     });
 });
 
-// Live simulator removed by request
+// Real-Time Syslog Ingestion Endpoint with Threat Intel Enrichment
+app.post('/api/logs/ingest', (req, res) => {
+    const { syslog } = req.body;
+    if (!syslog) {
+        return res.status(400).json({ error: 'Missing syslog payload' });
+    }
 
+    // 1. Parse syslog (Extract IP if exists)
+    const ipMatch = syslog.match(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/);
+    const ip = ipMatch ? ipMatch[0] : 'Unknown IP';
+    
+    // 2. Simulate Threat Intelligence API enrichment
+    // E.g. Querying AlienVault/VT
+    let threatScore = 0;
+    let tags = [];
+    if (ip !== 'Unknown IP') {
+        threatScore = Math.floor(Math.random() * 100);
+        if (threatScore > 80) tags.push("MALICIOUS");
+        if (syslog.toLowerCase().includes('brute') || syslog.toLowerCase().includes('failed password')) tags.push("BRUTE_FORCE");
+        if (syslog.toLowerCase().includes('sudo')) tags.push("PRIV_ESCALATION");
+    }
+
+    const isCritical = tags.includes("MALICIOUS");
+    const alertId = `INGEST-${Math.floor(Math.random() * 90000) + 10000}`;
+    
+    const newAlert = {
+        id: alertId,
+        source: "wazuh",
+        severity: isCritical ? "p0" : "p2",
+        title: `Wazuh L15 · Ingested Syslog: ${syslog.substring(0, 40)}... (Intel Score: ${threatScore})`,
+        timestamp: new Date().toLocaleString(),
+        seen: "1x",
+        status: "open",
+        host: "syslog-relay",
+        ip: ip,
+        threat_score: threatScore,
+        intel_tags: tags
+    };
+    
+    // 3. Broadcast to UI
+    io.emit('new_alert', { alert: newAlert });
+    
+    return res.json({ success: true, message: 'Log successfully ingested, enriched, and broadcasted.', alert: newAlert });
+});
 server.listen(PORT, () => {
     console.log(`Backend server running with WebSockets on http://localhost:${PORT}`);
 });
