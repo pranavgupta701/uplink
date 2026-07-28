@@ -2,11 +2,17 @@
   "name": "uplink-demo",
   "version": "1.0.0",
   "description": "Uplink Onboarding Discovery Wizard Demo",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "dev": "live-server --port=3000"
+    "dev": "live-server --port=3000",
+    "start:backend": "node server.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "socket.io": "^4.8.3"
+  },
   "devDependencies": {
     "live-server": "^1.2.2"
   }
