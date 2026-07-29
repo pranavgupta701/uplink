@@ -43,9 +43,15 @@ const authenticateToken = (req, res, next) => {
 
 // Protected Route for initial fetch
 let mockBackendAlerts = [
-    { id: "BACKEND-001", source: "wazuh", severity: "p0", title: "Wazuh L12 · Backend API: Unauthorized Access Attempt", timestamp: new Date().toLocaleString(), seen: "5x", status: "open", host: "api-server-prod", ip: "192.168.1.105" },
-    { id: "BACKEND-002", source: "breach", severity: "p1", title: "Breach Intel · Backend API: API Key leaked in public gist", timestamp: new Date().toLocaleString(), seen: "1x", status: "open", host: "dev-workstation", ip: "10.0.0.52" },
-    { id: "BACKEND-003", source: "git", severity: "p2", title: "Git Leakage · Backend API: Hardcoded secrets in new commit", timestamp: new Date().toLocaleString(), seen: "2x", status: "open", host: "gitlab-runner", ip: "172.16.0.8" }
+    { id: "YARA-201-ALT", source: "wazuh", severity: "p0", title: "Wazuh L15 · YARA Match: Cobalt Strike Beacon Memory Signature detected", timestamp: new Date().toLocaleString(), seen: "28x", status: "open", host: "k8s-worker-03", ip: "192.168.1.180" },
+    { id: "YARA-202-ALT", source: "wazuh", severity: "p0", title: "Wazuh L15 · YARA Match: Mimikatz LSA Password Dumper active process", timestamp: new Date().toLocaleString(), seen: "14x", status: "open", host: "dev-workstation-01", ip: "10.0.0.52" },
+    { id: "YARA-203-ALT", source: "wazuh", severity: "p0", title: "Wazuh L15 · YARA Match: Obfuscated Web Shell (c99/b374k) detected", timestamp: new Date().toLocaleString(), seen: "45x", status: "open", host: "api-server-prod", ip: "192.168.1.105" },
+    { id: "YARA-204-ALT", source: "breach", severity: "p0", title: "Wazuh L15 · YARA Match: Ransomware Encryptor Header Pattern (LockBit)", timestamp: new Date().toLocaleString(), seen: "2x", status: "open", host: "storage-prod-02", ip: "10.100.2.10" },
+    { id: "YARA-205-ALT", source: "wazuh", severity: "p1", title: "Wazuh L15 · YARA Match: Reverse Shell Netcat Spawner active", timestamp: new Date().toLocaleString(), seen: "31x", status: "open", host: "api-gateway-prod", ip: "172.16.0.8" },
+    { id: "YARA-206-ALT", source: "wazuh", severity: "p0", title: "Wazuh L15 · YARA Match: Log4j JNDI Remote Code Execution payload in HTTP Header", timestamp: new Date().toLocaleString(), seen: "56x", status: "open", host: "web-frontend-01", ip: "192.168.1.10" },
+    { id: "YARA-207-ALT", source: "wazuh", severity: "p2", title: "Wazuh L15 · YARA Match: XMRig CryptoMiner Binary Signature running", timestamp: new Date().toLocaleString(), seen: "92x", status: "open", host: "db-slave-02", ip: "10.0.0.19" },
+    { id: "YARA-208-ALT", source: "wazuh", severity: "p0", title: "Wazuh L15 · YARA Match: Linux Rootkit System Hooking (/etc/ld.so.preload)", timestamp: new Date().toLocaleString(), seen: "5x", status: "open", host: "prod-auth-service", ip: "172.185.41.34" },
+    { id: "YARA-209-ALT", source: "wazuh", severity: "p0", title: "Wazuh L15 · YARA Match: PHP Ransomware Web Encryptor modifying web root", timestamp: new Date().toLocaleString(), seen: "11x", status: "open", host: "FLUTTERGIS", ip: "172.185.56.163" }
 ];
 
 // Mock Detection Rules Data
