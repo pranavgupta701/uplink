@@ -1,18 +1,13 @@
-# Uplink SOC Detection Rules Master Ledger
+# Uplink SOC YARA Rules Master Ledger
 
-This document serves as the authoritative master ledger of all **14 Detection Rules** (Sigma, Wazuh XML, and YARA signatures) implemented in the **Uplink Security & SOC Platform**.
+This document serves as the master ledger of all **9 YARA Threat Signatures** implemented in the **Uplink Security & SOC Platform**.
 
 ---
 
-## 📊 Master Summary Table
+## 📊 Master YARA Rules Table
 
-| Rule ID | Rule Name | Engine / Category | Severity | 24h Matches | Status |
+| Rule ID | Rule Name | Category | Severity | 24h Matches | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`RULE-101`** | SSH Brute-Force Detection | Sigma / Authentication | `P0 - Critical` | 142 | `Active` |
-| **`RULE-102`** | AWS CloudTrail Root Login | Sigma / Cloud Security | `P0 - Critical` | 3 | `Active` |
-| **`RULE-103`** | Kubernetes Privilege Escalation | Sigma / Container Security | `P1 - High` | 19 | `Active` |
-| **`RULE-104`** | FIM Integrity Violation (`/etc/shadow`) | Wazuh / File Integrity | `P0 - Critical` | 7 | `Active` |
-| **`RULE-105`** | SCA Vulnerability Severity > 9.0 | Dependency / Supply Chain | `P2 - Medium` | 88 | `Disabled` |
 | **`YARA-201`** | Cobalt Strike Beacon Memory Signature | YARA / Malware Memory | `P0 - Critical` | 28 | `Active` |
 | **`YARA-202`** | Mimikatz LSA Password Dumper | YARA / Credential Access | `P0 - Critical` | 14 | `Active` |
 | **`YARA-203`** | Web Shell Detection (PHP/JSP/ASPX) | YARA / Web Security | `P0 - Critical` | 45 | `Active` |
@@ -25,101 +20,9 @@ This document serves as the authoritative master ledger of all **14 Detection Ru
 
 ---
 
-## 🛡️ Complete Rule Signatures & Logic
+## 🛡️ YARA Rule Signatures & Logic
 
-### 1. `RULE-101`: SSH Brute-Force Detection (Sigma Rule)
-```yaml
-title: SSH Brute-Force Detection
-id: RULE-101
-status: active
-description: Triggers on > 5 failed SSH authentication attempts within 60s from single IP.
-logsource:
-    product: linux
-    service: sshd
-detection:
-    selection:
-        message|contains: 'Failed password for'
-    timeframe: 60s
-    condition: selection | count() > 5
-falsepositives:
-    - Admin password typos
-level: critical
-```
-
----
-
-### 2. `RULE-102`: AWS CloudTrail Root Login (Sigma Rule)
-```yaml
-title: AWS CloudTrail Root Account Login
-id: RULE-102
-status: active
-description: Alerts when root account credentials are used for AWS Management Console login.
-logsource:
-    product: aws
-    service: cloudtrail
-detection:
-    selection:
-        eventName: 'ConsoleLogin'
-        userIdentity.type: 'Root'
-        responseElements.ConsoleLogin: 'Success'
-    condition: selection
-level: critical
-```
-
----
-
-### 3. `RULE-103`: Kubernetes Privilege Escalation (Sigma Rule)
-```yaml
-title: Kubernetes Privilege Escalation Container Pod Creation
-id: RULE-103
-status: active
-description: Detects pod creation with hostPath volume or privileged security context.
-logsource:
-    product: kubernetes
-    service: audit
-detection:
-    selection:
-        verb: 'create'
-        objectRef.resource: 'pods'
-        requestObject.spec.containers.securityContext.privileged: true
-    condition: selection
-level: high
-```
-
----
-
-### 4. `RULE-104`: FIM Integrity Violation (`/etc/shadow`) (Wazuh XML Rule)
-```xml
-<group name="syscheck,fim,">
-  <rule id="104000" level="12">
-    <if_sid>550</if_sid>
-    <field name="file">/etc/shadow</field>
-    <description>FIM Integrity Violation: Modification or unauthorized access attempt to /etc/shadow file.</description>
-    <mitre>
-      <id>T1003.008</id>
-    </mitre>
-  </rule>
-</group>
-```
-
----
-
-### 5. `RULE-105`: SCA Vulnerability Severity > 9.0 (Supply Chain Rule)
-```yaml
-title: Software Composition Analysis (SCA) Critical CVSS > 9.0
-id: RULE-105
-status: disabled
-description: Automated alert when npm or pip dependency vulnerability CVSS score exceeds 9.0.
-detection:
-    cvss_score: ">= 9.0"
-    package_managers: ["npm", "pip", "cargo", "maven"]
-condition: cvss_score >= 9.0
-level: medium
-```
-
----
-
-### 6. `YARA-201`: Cobalt Strike Beacon Memory Signature
+### 1. `YARA-201`: Cobalt Strike Beacon Memory Signature
 ```yara
 rule YARA_Cobalt_Strike_Beacon_Memory {
     meta:
@@ -139,7 +42,7 @@ rule YARA_Cobalt_Strike_Beacon_Memory {
 
 ---
 
-### 7. `YARA-202`: Mimikatz LSA Password Dumper
+### 2. `YARA-202`: Mimikatz LSA Password Dumper
 ```yara
 rule YARA_Mimikatz_LSA_Password_Dumper {
     meta:
@@ -159,7 +62,7 @@ rule YARA_Mimikatz_LSA_Password_Dumper {
 
 ---
 
-### 8. `YARA-203`: Web Shell Detection (PHP/JSP/ASPX)
+### 3. `YARA-203`: Web Shell Detection (PHP/JSP/ASPX)
 ```yara
 rule YARA_Obfuscated_Webshell {
     meta:
@@ -181,7 +84,7 @@ rule YARA_Obfuscated_Webshell {
 
 ---
 
-### 9. `YARA-204`: Ransomware Encryptor Header Pattern
+### 4. `YARA-204`: Ransomware Encryptor Header Pattern
 ```yara
 rule YARA_Ransomware_LockBit_BlackCat {
     meta:
@@ -201,7 +104,7 @@ rule YARA_Ransomware_LockBit_BlackCat {
 
 ---
 
-### 10. `YARA-205`: Reverse Shell / Netcat Spawner
+### 5. `YARA-205`: Reverse Shell / Netcat Spawner
 ```yara
 rule YARA_Reverse_Shell_Netcat_Spawner {
     meta:
@@ -221,7 +124,7 @@ rule YARA_Reverse_Shell_Netcat_Spawner {
 
 ---
 
-### 11. `YARA-206`: Log4j / JNDI Remote Code Execution
+### 6. `YARA-206`: Log4j / JNDI Remote Code Execution
 ```yara
 rule YARA_Log4j_JNDI_Exploit {
     meta:
@@ -241,7 +144,7 @@ rule YARA_Log4j_JNDI_Exploit {
 
 ---
 
-### 12. `YARA-207`: XMRig CryptoMiner Binary Signature
+### 7. `YARA-207`: XMRig CryptoMiner Binary Signature
 ```yara
 rule YARA_XMRig_CryptoMiner {
     meta:
@@ -261,7 +164,7 @@ rule YARA_XMRig_CryptoMiner {
 
 ---
 
-### 13. `YARA-208`: Linux Rootkit System Hooking
+### 8. `YARA-208`: Linux Rootkit System Hooking
 ```yara
 rule YARA_Linux_LKM_Rootkit {
     meta:
@@ -281,7 +184,7 @@ rule YARA_Linux_LKM_Rootkit {
 
 ---
 
-### 14. `YARA-209`: PHP Ransomware Web Encryptor
+### 9. `YARA-209`: PHP Ransomware Web Encryptor
 ```yara
 rule YARA_PHP_Ransomware_Encryptor {
     meta:

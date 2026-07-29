@@ -18,6 +18,7 @@ const io = new Server(server, {
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(__dirname));
 
 // Mock Login Endpoint
 app.post('/api/login', (req, res) => {
@@ -54,13 +55,8 @@ let mockBackendAlerts = [
     { id: "YARA-209-ALT", source: "wazuh", severity: "p0", title: "Wazuh L15 · YARA Match: PHP Ransomware Web Encryptor modifying web root", timestamp: new Date().toLocaleString(), seen: "11x", status: "open", host: "FLUTTERGIS", ip: "172.185.56.163" }
 ];
 
-// Mock Detection Rules Data
+// Mock Detection Rules Data (YARA Engine Rules)
 let mockDetectionRules = [
-    { id: "RULE-101", name: "SSH Brute-Force Detection", severity: "P0 - Critical", category: "Authentication", status: "active", matches24h: 142, description: "Triggers on > 5 failed SSH authentication attempts within 60s from single IP." },
-    { id: "RULE-102", name: "AWS CloudTrail Root Login", severity: "P0 - Critical", category: "Cloud Security", status: "active", matches24h: 3, description: "Alerts when root account credentials are used for AWS Management Console login." },
-    { id: "RULE-103", name: "Kubernetes Privilege Escalation", severity: "P1 - High", category: "Container Security", status: "active", matches24h: 19, description: "Detects pod creation with hostPath volume or privileged security context." },
-    { id: "RULE-104", name: "FIM Integrity Violation (etc/shadow)", severity: "P0 - Critical", category: "File Integrity", status: "active", matches24h: 7, description: "Monitors changes or unauthorized write attempts to system shadow authentication files." },
-    { id: "RULE-105", name: "SCA Vulnerability Severity > 9.0", severity: "P2 - Medium", category: "Supply Chain", status: "disabled", matches24h: 88, description: "Automated alert when npm or pip dependency vulnerability CVSS score exceeds 9.0." },
     { id: "YARA-201", name: "YARA · Cobalt Strike Beacon Memory Signature", severity: "P0 - Critical", category: "Malware / Memory", status: "active", matches24h: 28, description: "Scans process memory for Cobalt Strike C2 DLL reflective loader headers ($reflect_loader, $c2_pipe)." },
     { id: "YARA-202", name: "YARA · Mimikatz LSA Password Dumper", severity: "P0 - Critical", category: "Credential Access", status: "active", matches24h: 14, description: "Detects unencrypted Mimikatz sekurlsa::logonpasswords and lsass memory injection artifacts." },
     { id: "YARA-203", name: "YARA · Web Shell Detection (PHP/JSP/ASPX)", severity: "P0 - Critical", category: "Web Security", status: "active", matches24h: 45, description: "Identifies obfuscated webshells executing shell_exec, system, passthru, or eval(base64_decode())." },
