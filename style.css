@@ -2409,30 +2409,35 @@ body.light-theme .subdomains-header-title {
 }
 
 .close-modal-x,
+.modal-close,
 .modal-close-icon-btn {
   width: 32px !important;
   height: 32px !important;
   border-radius: 50% !important;
   background: rgba(255, 255, 255, 0.05) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
   color: var(--text-muted) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer !important;
-  transition: all 0.2s ease !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
   flex-shrink: 0 !important;
   padding: 0 !important;
   line-height: 1 !important;
+  font-size: 1.25rem !important;
+  font-family: inherit !important;
+  outline: none !important;
 }
 
 .close-modal-x:hover,
+.modal-close:hover,
 .modal-close-icon-btn:hover {
   background: rgba(239, 68, 68, 0.2) !important;
   border-color: rgba(239, 68, 68, 0.5) !important;
   color: #f87171 !important;
-  transform: rotate(90deg) !important;
-  box-shadow: 0 0 12px rgba(239, 68, 68, 0.3) !important;
+  transform: rotate(90deg) scale(1.08) !important;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.35) !important;
 }
 
 .modal-form-group {
