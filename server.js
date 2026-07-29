@@ -62,7 +62,8 @@ let mockDetectionRules = [
     { id: "YARA-205", name: "YARA · Reverse Shell / Netcat Spawner", severity: "P1 - High", category: "Execution", status: "active", matches24h: 31, description: "Flags nc -e /bin/bash, bash -i >& /dev/tcp, or python pty socket spawns in user processes." },
     { id: "YARA-206", name: "YARA · Log4j / JNDI Remote Code Execution", severity: "P0 - Critical", category: "Vulnerability / RCE", status: "active", matches24h: 56, description: "Monitors inbound payloads matching ${jndi:ldap://...} or ${jndi:rmi://...} string patterns." },
     { id: "YARA-207", name: "YARA · XMRig CryptoMiner Binary Signature", severity: "P2 - Medium", category: "Resource Abuse", status: "active", matches24h: 92, description: "Scans for Stratum mining protocol headers, CPU-mining loops, and unauthorized xmr-stak binaries." },
-    { id: "YARA-208", name: "YARA · Linux Rootkit System Hooking", severity: "P0 - Critical", category: "Persistence", status: "active", matches24h: 5, description: "Identifies LKM (Loadable Kernel Module) rootkits overriding sys_call_table or hijacking /etc/ld.so.preload." }
+    { id: "YARA-208", name: "YARA · Linux Rootkit System Hooking", severity: "P0 - Critical", category: "Persistence", status: "active", matches24h: 5, description: "Identifies LKM (Loadable Kernel Module) rootkits overriding sys_call_table or hijacking /etc/ld.so.preload." },
+    { id: "YARA-209", name: "YARA · PHP Ransomware Web Encryptor", severity: "P0 - Critical", category: "Ransomware / PHP", status: "active", matches24h: 11, description: "Detects PHP scripts executing directory traversal with openssl_encrypt to encrypt web root files." }
 ];
 
 // Mock Execution Runs / Audit Trails
