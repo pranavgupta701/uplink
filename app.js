@@ -11446,6 +11446,64 @@ echo "[SUCCESS] Task completed."`
     });
   });
 
+  // Settings: Dynamic Session & Access Detection System
+  async function initDynamicSessionAndAccess() {
+    const browserOsEl = document.getElementById('user-current-session-browser');
+    const ipEl = document.getElementById('user-current-session-ip');
+    const timestampEl = document.getElementById('current-session-timestamp');
+
+    // 1. Detect Real Browser & Operating System
+    if (browserOsEl) {
+      const ua = navigator.userAgent;
+      let browser = "Chrome";
+      let os = "Windows";
+
+      if (ua.includes("Edg/")) browser = "Edge";
+      else if (ua.includes("Firefox/")) browser = "Firefox";
+      else if (ua.includes("Safari/") && !ua.includes("Chrome/")) browser = "Safari";
+      else if (ua.includes("OPR/") || ua.includes("Opera/")) browser = "Opera";
+      else if (ua.includes("Chrome/")) browser = "Chrome";
+
+      if (ua.includes("Macintosh") || ua.includes("Mac OS X")) os = "macOS";
+      else if (ua.includes("Linux")) os = "Linux";
+      else if (ua.includes("Android")) os = "Android";
+      else if (ua.includes("iPhone") || ua.includes("iPad")) os = "iOS";
+      else if (ua.includes("Windows")) os = "Windows";
+
+      browserOsEl.textContent = `${browser} · ${os}`;
+    }
+
+    // 2. Set Dynamic Session Login Timestamp
+    if (timestampEl) {
+      let sessionStart = localStorage.getItem('uplink_session_start_time');
+      if (!sessionStart) {
+        sessionStart = new Date().toLocaleString();
+        localStorage.setItem('uplink_session_start_time', sessionStart);
+      }
+      timestampEl.textContent = sessionStart;
+    }
+
+    // 3. Fetch Real Public IP Address dynamically
+    if (ipEl) {
+      try {
+        const res = await fetch('https://api.ipify.org?format=json', { signal: AbortSignal.timeout(2500) });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.ip) {
+            ipEl.textContent = data.ip;
+            localStorage.setItem('uplink_user_ip', data.ip);
+            return;
+          }
+        }
+      } catch (e) {
+        console.warn("Using stored IP fallback");
+      }
+      ipEl.textContent = localStorage.getItem('uplink_user_ip') || '103.117.15.75';
+    }
+  }
+
+  initDynamicSessionAndAccess();
+
   // Settings: Session & Access sign-out handlers
   document.querySelectorAll('.btn-signout-session').forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -11455,7 +11513,14 @@ echo "[SUCCESS] Task completed."`
       if (row) {
         row.style.transition = 'all 0.3s opacity';
         row.style.opacity = '0';
-        setTimeout(() => row.remove(), 300);
+        setTimeout(() => {
+          row.remove();
+          const remainingRows = document.querySelectorAll('[id^="team-session-row-"]').length;
+          const countLabel = document.getElementById('team-sessions-count-label');
+          if (countLabel) {
+            countLabel.textContent = `${remainingRows} active session${remainingRows === 1 ? '' : 's'} across ${remainingRows} user${remainingRows === 1 ? '' : 's'}.`;
+          }
+        }, 300);
       }
       showToast(`Revoked active session for ${user}.`, true);
     });
