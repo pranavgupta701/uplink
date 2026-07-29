@@ -3406,7 +3406,7 @@
       <div id="soc-panel-threatintel" class="soc-panel-content">
         
         <!-- Compliance Framework Scorecards Row -->
-        <div class="compliance-cards-row" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1rem; margin-bottom: 1.5rem;">
+        <div class="compliance-cards-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1rem; margin-bottom: 1.5rem;">
           <div class="compliance-card" style="background: rgba(13, 20, 36, 0.6); border: 1px solid var(--border-cyber); border-radius: 8px; padding: 1rem; position: relative;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
               <span style="font-size: 0.75rem; font-weight: 700; color: var(--cyber-cyan); text-transform: uppercase;">CIS Benchmarks</span>
@@ -3465,21 +3465,23 @@
             <button id="refresh-rules-btn" class="secondary-btn" style="padding: 0.4rem 0.8rem; font-size: 0.75rem; background: rgba(0,242,254,0.08); color: var(--cyber-cyan); border: 1px solid rgba(0,242,254,0.2); border-radius: 4px; cursor: pointer;">Refresh Rules</button>
           </div>
 
-          <table class="report-table" style="width: 100%; border-collapse: collapse; font-size: 0.82rem;">
-            <thead>
-              <tr style="border-bottom: 1px solid var(--border-cyber); color: var(--text-muted); text-transform: uppercase; font-size: 0.7rem;">
-                <th style="padding: 0.6rem 0.8rem; text-align: left;">Rule ID</th>
-                <th style="padding: 0.6rem 0.8rem; text-align: left;">Rule Name &amp; Description</th>
-                <th style="padding: 0.6rem 0.8rem; text-align: left;">Category</th>
-                <th style="padding: 0.6rem 0.8rem; text-align: left;">Severity</th>
-                <th style="padding: 0.6rem 0.8rem; text-align: left;">24h Matches</th>
-                <th style="padding: 0.6rem 0.8rem; text-align: center;">Status</th>
-              </tr>
-            </thead>
-            <tbody id="detection-rules-body">
-              <!-- Loaded dynamically via app.js -->
-            </tbody>
-          </table>
+          <div style="overflow-x: auto; width: 100%;">
+            <table class="report-table" style="width: 100%; border-collapse: collapse; font-size: 0.82rem; min-width: 600px;">
+              <thead>
+                <tr style="border-bottom: 1px solid var(--border-cyber); color: var(--text-muted); text-transform: uppercase; font-size: 0.7rem;">
+                  <th style="padding: 0.6rem 0.8rem; text-align: left;">Rule ID</th>
+                  <th style="padding: 0.6rem 0.8rem; text-align: left;">Rule Name &amp; Description</th>
+                  <th style="padding: 0.6rem 0.8rem; text-align: left;">Category</th>
+                  <th style="padding: 0.6rem 0.8rem; text-align: left;">Severity</th>
+                  <th style="padding: 0.6rem 0.8rem; text-align: left;">24h Matches</th>
+                  <th style="padding: 0.6rem 0.8rem; text-align: center;">Status</th>
+                </tr>
+              </thead>
+              <tbody id="detection-rules-body">
+                <!-- Loaded dynamically via app.js -->
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <!-- Active SOC Incidents & Analyst Workload -->
