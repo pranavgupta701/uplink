@@ -4593,38 +4593,40 @@
             </div>
             
             <!-- VIRUSTOTAL API KEY CONFIGURATION CARD -->
-            <div style="background: rgba(244, 63, 94, 0.05); border: 1px solid rgba(244, 63, 94, 0.3); border-radius: 8px; padding: 1rem; margin-bottom: 1rem;" class="settings-integration-item">
+            <div style="background: rgba(13, 20, 36, 0.6); border: 1px solid var(--border-cyber); border-radius: 8px; padding: 1.1rem; margin-bottom: 1rem; transition: all 0.2s ease;" class="settings-integration-item">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
                 <div>
-                  <strong style="color: var(--text-primary); font-size: 0.85rem; display: flex; align-items: center; gap: 0.4rem;">
-                    <span style="color: #f43f5e;">🛡️</span> VirusTotal Realtime Intelligence v3
+                  <strong style="color: var(--text-primary); font-size: 0.88rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="var(--cyber-cyan)" fill="none" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    VirusTotal Realtime Intelligence v3
                   </strong>
-                  <div style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 0.15rem;">Configure your VirusTotal v3 API key for live threat intelligence lookups &amp; SHA-256 file scanner.</div>
+                  <div style="font-size: 0.73rem; color: var(--text-muted); margin-top: 0.2rem;">Configure your VirusTotal v3 API key for live threat intelligence lookups &amp; SHA-256 file scanner.</div>
                 </div>
-                <span id="settings-vt-status-pill" style="font-size: 0.68rem; padding: 0.2rem 0.55rem; border-radius: 4px; background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.3); color: var(--cyber-cyan); font-weight: 700;">Active Engine</span>
+                <span id="settings-vt-status-pill" style="font-size: 0.7rem; padding: 0.25rem 0.65rem; border-radius: 4px; background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.3); color: var(--cyber-cyan); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Active Engine</span>
               </div>
-              <div style="display: flex; gap: 0.6rem; margin-top: 0.75rem;">
+              <div style="display: flex; gap: 0.6rem; margin-top: 0.85rem;">
                 <input type="password" id="settings-vt-api-key-input" placeholder="Paste VirusTotal v3 API Key (64-character hex key)..." style="flex: 1; background: rgba(5,8,17,0.85); border: 1px solid var(--border-cyber); border-radius: 6px; padding: 0.55rem 0.85rem; font-size: 0.78rem; color: var(--text-primary); font-family: var(--font-mono); outline: none;">
-                <button id="settings-vt-save-key-btn" class="primary-btn" style="background: #f43f5e; color: #fff; padding: 0.55rem 1.1rem; font-size: 0.75rem; font-weight: 700; border-radius: 6px; border: none; cursor: pointer; white-space: nowrap;">
+                <button id="settings-vt-save-key-btn" class="primary-btn" style="background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.3); color: var(--cyber-cyan); padding: 0.55rem 1.25rem; font-size: 0.78rem; font-weight: 700; border-radius: 6px; cursor: pointer; white-space: nowrap; transition: all 0.2s ease;">
                   Save API Key
                 </button>
               </div>
             </div>
 
             <!-- YARA RULES CONFIGURATION CARD -->
-            <div style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px; padding: 1rem;" class="settings-integration-item">
+            <div style="background: rgba(13, 20, 36, 0.6); border: 1px solid var(--border-cyber); border-radius: 8px; padding: 1.1rem;" class="settings-integration-item">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
                 <div>
-                  <strong style="color: var(--text-primary); font-size: 0.85rem; display: flex; align-items: center; gap: 0.4rem;">
-                    <span style="color: #10b981;">🛡️</span> YARA Endpoint Security Engine
+                  <strong style="color: var(--text-primary); font-size: 0.88rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="var(--cyber-green)" fill="none" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    YARA Endpoint Security Engine
                   </strong>
-                  <div style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 0.15rem;">Configure your centralized YARA rules repository path to sync across Wazuh agents.</div>
+                  <div style="font-size: 0.73rem; color: var(--text-muted); margin-top: 0.2rem;">Configure your centralized YARA rules repository path to sync across Wazuh agents.</div>
                 </div>
-                <span id="settings-yara-status-pill" style="font-size: 0.68rem; padding: 0.2rem 0.55rem; border-radius: 4px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #10b981; font-weight: 700;">Engine Enabled</span>
+                <span id="settings-yara-status-pill" style="font-size: 0.7rem; padding: 0.25rem 0.65rem; border-radius: 4px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: var(--cyber-green); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Engine Enabled</span>
               </div>
-              <div style="display: flex; gap: 0.6rem; margin-top: 0.75rem;">
-                <input type="text" id="settings-yara-path-input" placeholder="Enter path to YARA rules repository (e.g. /opt/yara/rules)..." style="flex: 1; background: rgba(5,8,17,0.85); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; padding: 0.55rem 0.85rem; font-size: 0.78rem; color: var(--text-primary); font-family: var(--font-mono); outline: none;">
-                <button id="settings-yara-save-path-btn" class="primary-btn" style="background: #10b981; color: #fff; padding: 0.55rem 1.1rem; font-size: 0.75rem; font-weight: 700; border-radius: 6px; border: none; cursor: pointer; white-space: nowrap;">
+              <div style="display: flex; gap: 0.6rem; margin-top: 0.85rem;">
+                <input type="text" id="settings-yara-path-input" placeholder="Enter path to YARA rules repository (e.g. /opt/yara/rules)..." style="flex: 1; background: rgba(5,8,17,0.85); border: 1px solid var(--border-cyber); border-radius: 6px; padding: 0.55rem 0.85rem; font-size: 0.78rem; color: var(--text-primary); font-family: var(--font-mono); outline: none;">
+                <button id="settings-yara-save-path-btn" class="primary-btn" style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); color: var(--cyber-green); padding: 0.55rem 1.25rem; font-size: 0.78rem; font-weight: 700; border-radius: 6px; cursor: pointer; white-space: nowrap; transition: all 0.2s ease;">
                   Save Path
                 </button>
               </div>
