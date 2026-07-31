@@ -4,8 +4,10 @@
   "description": "Uplink Onboarding Discovery Wizard Demo",
   "main": "server.js",
   "scripts": {
-    "dev": "live-server --port=3000",
-    "start:backend": "node server.js"
+    "start": "node server.js",
+    "dev": "node server.js",
+    "start:backend": "node server.js",
+    "start:frontend-only": "live-server --port=3000"
   },
   "dependencies": {
     "cors": "^2.8.5",

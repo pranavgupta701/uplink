@@ -6,7 +6,10 @@ const { Server } = require('socket.io');
 
 const app = express();
 const server = http.createServer(app);
-const PORT = 3001;
+// Keep the API, WebSocket server, and static frontend on one origin/port.
+// The frontend connects to port 3001, so using a different backend port makes
+// login fail with "Connection failed. Is backend running?".
+const PORT = Number(process.env.PORT) || 3001;
 const SECRET_KEY = 'super_secret_uplink_key';
 
 const io = new Server(server, {
